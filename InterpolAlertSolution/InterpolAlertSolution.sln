@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterpolAlert", "InterpolAlert\InterpolAlert.csproj", "{97D5C00D-61EE-40B4-9BF8-AFB32355DCCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterpolAlert", "InterpolAlert\InterpolAlert.csproj", "{97D5C00D-61EE-40B4-9BF8-AFB32355DCCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterpolAlertApi", "InterpolAlertApi\InterpolAlertApi.csproj", "{F34A2BFE-1B42-4D18-BD37-2E90565D6543}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{97D5C00D-61EE-40B4-9BF8-AFB32355DCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97D5C00D-61EE-40B4-9BF8-AFB32355DCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97D5C00D-61EE-40B4-9BF8-AFB32355DCCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34A2BFE-1B42-4D18-BD37-2E90565D6543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34A2BFE-1B42-4D18-BD37-2E90565D6543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34A2BFE-1B42-4D18-BD37-2E90565D6543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34A2BFE-1B42-4D18-BD37-2E90565D6543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
