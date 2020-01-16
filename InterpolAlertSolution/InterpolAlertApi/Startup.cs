@@ -37,6 +37,16 @@ namespace InterpolAlertApi
 
             var connectionString = Configuration["connectionStrings:InterpolDbConnectionString"];
             services.AddDbContext<DbContextInterpol>(c => c.UseSqlServer(connectionString));
+
+            services.AddScoped<IAutoreRepository, AutoreRepository>();
+            services.AddScoped<IEventoRepository, EventoRepository>();
+            services.AddScoped<IEsitoRepository, EsitoRepository>();
+            services.AddScoped<IMandanteRepository, MandanteRepository>();
+            services.AddScoped<IFazioneRepository, FazioneRepository>();
+            services.AddScoped<ITipoVittimaRepository, TipoVittimaRepository>();
+            services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
+            services.AddScoped<IGravitaRepository, GravitaRepository>();
+            services.AddScoped<ILocalitaRepository, LocalitaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

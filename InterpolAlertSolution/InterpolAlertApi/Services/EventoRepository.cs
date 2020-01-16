@@ -8,47 +8,85 @@ namespace InterpolAlertApi.Services
 {
     public class EventoRepository : IEventoRepository
     {
-        private DbContextInterpol _dbContext;
+        private DbContextInterpol _eventoContext;
 
-        public EventoRepository(DbContextInterpol dbContext)
+        public EventoRepository(DbContextInterpol eventoContext)
         {
-            _dbContext = dbContext;
+            _eventoContext = eventoContext;
         }
 
-        public bool CreateEvento(List<int> autoreId, Evento evento)
+        public bool CreateEvento(List<Autore> listaAutori, Evento evento)
         {
-            throw new NotImplementedException();
+
+            foreach (var autore in listaAutori)
+            {
+                var autorevento = new AutoriEventi()
+                {
+                    Autore = autore,
+                    Evento = evento
+                };
+                _eventoContext.Add(autorevento);
+
+            }
+
+            _eventoContext.Add(evento);
+
+            return Save();
         }
 
         public bool DeleteEvento(Evento evento)
         {
-            throw new NotImplementedException();
+            _eventoContext.Remove(evento);
+            return Save();
         }
 
         public bool EventoExists(int eventoId)
         {
-            return _dbContext.Eventi.Any(e => e.IdEvento == eventoId);
+            return _eventoContext.Eventi.Any(e => e.IdEvento == eventoId);
         }
 
         public ICollection<Evento> GetEventi()
         {
-            return _dbContext.Eventi.ToList();
+            return _eventoContext.Eventi.ToList();
         }
 
         public Evento GetEvento(int eventoId)
         {
-            return _dbContext.Eventi.Where(ev => ev.IdEvento == eventoId).FirstOrDefault();
+            return _eventoContext.Eventi.Where(ev => ev.IdEvento == eventoId).FirstOrDefault();
+        }
+
+        public bool IsDuplicateEvent(int eventoId, string nomeEvento)
+        {
+            var evento = _eventoContext.Eventi.Where(ev => ev.IdEvento == eventoId && ev.NomeEvento.Trim().ToUpper() == nomeEvento.Trim().ToUpper());
+            return evento == null ? false : true;
         }
 
         public bool Save()
         {
-            var saved = _dbContext.SaveChanges();
+            var saved = _eventoContext.SaveChanges();
             return saved >= 0 ? true : false;
         }
 
-        public bool UpdateEvento(List<int> autoreId, Evento evento)
+        public bool UpdateEvento(List<Autore> listaAutori, Evento evento)
         {
-            throw new NotImplementedException();
+            var autorieventiToDelete = _eventoContext.AutoriEventi.Where(ae => ae.Evento.IdEvento == evento.IdEvento);
+
+            _eventoContext.RemoveRange(autorieventiToDelete);
+
+            foreach (var autore in listaAutori)
+            {
+                var autoreEvento = new AutoriEventi()
+                {
+                    Autore = autore,
+                    Evento = evento
+                };
+                _eventoContext.Add(autoreEvento);
+
+            }
+
+            _eventoContext.Update(evento);
+
+            return Save();
         }
     }
 }
