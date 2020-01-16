@@ -23,5 +23,19 @@ namespace InterpolAlertApi.Services
         public DbSet<TipoEvento> TipoEventi { get; set; }
         public DbSet<TipoVittima> TipoVittima { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AutoriEventi>()
+                        .HasKey(ae => new { ae.IdAutore, ae.IdEvento });
+            modelBuilder.Entity<AutoriEventi>()
+                        .HasOne(a => a.Autore)
+                        .WithMany(ae => ae.AutoriEventi)
+                        .HasForeignKey(a => a.IdAutore);
+            modelBuilder.Entity<AutoriEventi>()
+                        .HasOne(e => e.Evento)
+                        .WithMany(ae => ae.AutoriEventi)
+                        .HasForeignKey(e => e.IdEvento);
+
+        }
     }
 }
