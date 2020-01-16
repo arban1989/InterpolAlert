@@ -11,6 +11,8 @@ namespace InterpolAlertApi.Models
         [Key]
         public int IdTipoEvento { get; set; }
         [Required]
-        public string Tipo { get; set; }
+        public string NomeTipoEvento { get; set; }
+        public virtual ICollection<Evento> Eventi { get; set; }
+
     }
 }

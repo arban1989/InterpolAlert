@@ -12,7 +12,7 @@ namespace InterpolAlertApi.Models
         public int IdMandante { get; set; }
         [Required]
         public string NomeMandante { get; set; }
-
+        public virtual ICollection<Evento> Eventi { get; set; }
         public virtual Fazione Fazione { get; set; }
     }
 }

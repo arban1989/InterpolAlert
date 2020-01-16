@@ -12,5 +12,7 @@ namespace InterpolAlertApi.Models
         public int IdEsito { get; set; }
         [Required]
         public string NomeEsito { get; set; }
+        public virtual ICollection<Evento> Eventi { get; set; }
+
     }
 }

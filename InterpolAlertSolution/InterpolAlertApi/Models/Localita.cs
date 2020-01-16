@@ -20,6 +20,8 @@ namespace InterpolAlertApi.Models
         public string Nazione { get; set; }
         [Required]
         public int LivelloRischio { get; set; }
+        public virtual ICollection<Evento> Eventi { get; set; }
+
 
     }
 }

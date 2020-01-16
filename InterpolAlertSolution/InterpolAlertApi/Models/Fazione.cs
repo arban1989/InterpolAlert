@@ -13,5 +13,6 @@ namespace InterpolAlertApi.Models
         [Required]
         public string NomeFazione { get; set; }
         public virtual ICollection<Mandante> Mandanti { get; set; }
+        public virtual ICollection<Autore> Autori { get; set; }
     }
 }
