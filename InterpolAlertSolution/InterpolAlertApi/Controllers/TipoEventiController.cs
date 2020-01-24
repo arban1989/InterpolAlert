@@ -39,5 +39,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(tipoeventsDto);
         }
+        // GET: api/tipoeventi/1
+        [HttpGet("{tipoeventiId}")]
+        public IActionResult GetAutor(int tipoeventiId)
+        {
+            var  tipoeventi = _tipoEventoRepository.GetTipoEvento(tipoeventiId);
+            if (tipoeventi == null)
+            {
+                return NotFound();
+            }
+            return Ok(tipoeventi);
+        }
     }
 }

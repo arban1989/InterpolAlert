@@ -42,5 +42,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(mandantiesDto);
         }
+        // GET: api/mandanti/1
+        [HttpGet("{mandantiId}")]
+        public IActionResult GetMandante(int mandantiId)
+        {
+            var mandanti = _mandanteRepository.GetMandante(mandantiId);
+            if (mandanti == null)
+            {
+                return NotFound();
+            }
+            return Ok(mandanti);
+        }
     }
 }

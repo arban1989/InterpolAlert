@@ -39,5 +39,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(tipovittimesDto);
         }
+        // GET: api/tipovittime/1
+        [HttpGet("{tipovittimeId}")]
+        public IActionResult GetAutor(int tipovittimeId)
+        {
+            var tipovittime = _tipoVittimaRepository.GetTipoVittima(tipovittimeId);
+            if (tipovittime == null)
+            {
+                return NotFound();
+            }
+            return Ok(tipovittime);
+        }
     }
 }

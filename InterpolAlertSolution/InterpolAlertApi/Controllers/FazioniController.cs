@@ -42,5 +42,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(fazioniesDto);
         }
+        // GET: api/fazioni/1
+        [HttpGet("{fazioneId}")]
+        public IActionResult GetFazione(int fazioneId)
+        {
+            var fazioni = _fazioneRepository.GetFazione(fazioneId);
+            if (fazioni == null)
+            {
+                return NotFound();
+            }
+            return Ok(fazioni);
+        }
     }
 }

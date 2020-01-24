@@ -45,5 +45,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(autoresDto);
         }
+        // GET: api/autori/1
+        [HttpGet("{autoreId}")]
+        public IActionResult GetAutor(int autoreId)
+        {
+            var autori = _autoriRepository.GetAutore(autoreId);
+            if (autori == null)
+            {
+                return NotFound();
+            }
+            return Ok(autori);
+        }
     }
 }

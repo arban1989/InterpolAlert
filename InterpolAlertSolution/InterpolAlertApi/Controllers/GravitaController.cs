@@ -41,5 +41,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(gravitiesDto);
         }
+        // GET: api/gravita/1
+        [HttpGet("{gravitaId}")]
+        public IActionResult GetAutor(int gravitaId)
+        {
+            var gravita = _gravitaRepository.GetGravita(gravitaId);
+            if (gravita == null)
+            {
+                return NotFound();
+            }
+            return Ok(gravita);
+        }
     }
 }

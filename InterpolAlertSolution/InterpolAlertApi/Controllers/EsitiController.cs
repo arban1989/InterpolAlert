@@ -44,5 +44,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(esitosDto);
         }
+        // GET: api/esiti/1
+        [HttpGet("{esitiId}")]
+        public IActionResult GetEsiti(int esitiId)
+        {
+            var esiti = _esitoRepository.GetEsito(esitiId);
+            if (esiti == null)
+            {
+                return NotFound();
+            }
+            return Ok(esiti);
+        }
     }
 }
