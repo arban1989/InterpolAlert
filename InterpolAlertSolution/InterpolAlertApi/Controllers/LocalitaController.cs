@@ -20,7 +20,7 @@ namespace InterpolAlertApi.Controllers
             _localitaRepository = localitaRepository;
         }
 
-        //api/countries
+        //api/localita
         [HttpGet]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<LocalitaDto>))]
