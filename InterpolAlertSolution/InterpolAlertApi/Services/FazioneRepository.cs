@@ -29,17 +29,17 @@ namespace InterpolAlertApi.Services
 
         public bool FazioneExists(int fazioneId)
         {
-            return _fazioneContext.Fazioni.Any(fa => fa.IdFazione == fazioneId);
+            return _fazioneContext.Fazioni.Any(fa => fa.FazioneId == fazioneId);
         }
 
         public ICollection<Autore> GetAutoriFromAFazione(int fazioneId)
         {
-            return _fazioneContext.Autori.Where(au=>au.Fazione.IdFazione == fazioneId).ToList();
+            return _fazioneContext.Autori.Where(au=>au.Fazione.FazioneId == fazioneId).ToList();
         }
 
         public Fazione GetFazione(int fazioneId)
         {
-            return _fazioneContext.Fazioni.Where(fa=>fa.IdFazione == fazioneId).FirstOrDefault();
+            return _fazioneContext.Fazioni.Where(fa=>fa.FazioneId == fazioneId).FirstOrDefault();
         }
 
         public Fazione GetFazioneByAuthor(int authorId)
@@ -54,12 +54,12 @@ namespace InterpolAlertApi.Services
 
         public ICollection<Mandante> GetMandantiFromAFazione(int fazioneId)
         {
-            return _fazioneContext.Mandanti.Where(ma=>ma.Fazione.IdFazione == fazioneId).ToList();
+            return _fazioneContext.Mandanti.Where(ma=>ma.Fazione.FazioneId == fazioneId).ToList();
         }
 
         public bool IsDuplicateFazione(int fazioneId, string nomeFazione)
         {
-            var fazione = _fazioneContext.Fazioni.Where(fa=>fa.IdFazione == fazioneId && fa.NomeFazione.Trim().ToUpper() == nomeFazione.Trim().ToUpper());
+            var fazione = _fazioneContext.Fazioni.Where(fa=>fa.FazioneId == fazioneId && fa.NomeFazione.Trim().ToUpper() == nomeFazione.Trim().ToUpper());
             return fazione == null ? false : true;
         }
 

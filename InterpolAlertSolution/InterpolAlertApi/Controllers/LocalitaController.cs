@@ -49,5 +49,16 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(localitasDto);
         }
+        // GET: api/localita/1
+        [HttpGet("{localitaId}")]
+        public IActionResult GetLocalita(int localitaId)
+        {
+            var localita = _localitaRepository.GetLocalita(localitaId);
+            if (localita == null)
+            {
+                return NotFound();
+            }
+            return Ok(localita);
+        }
     }
 }
