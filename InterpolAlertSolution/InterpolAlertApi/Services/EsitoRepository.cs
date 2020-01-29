@@ -21,15 +21,15 @@ namespace InterpolAlertApi.Services
             return Save();
         }
 
-        public bool DeleteEsito(Evento evento)
+        public bool DeleteEsito(Esito esito)
         {
-            _esitoContext.Remove(evento);
+            _esitoContext.Remove(esito);
             return Save();
         }
 
         public bool EsitoExists(int esitoId)
         {
-            return _esitoContext.Esiti.Any(e => e.IdEsito == esitoId);
+            return _esitoContext.Esiti.Any(e => e.EsitoId == esitoId);
         }
 
         public ICollection<Esito> GetEsiti()
@@ -39,22 +39,22 @@ namespace InterpolAlertApi.Services
 
         public Esito GetEsito(int esitoId)
         {
-            return _esitoContext.Esiti.Where(es => es.IdEsito == esitoId).FirstOrDefault();
+            return _esitoContext.Esiti.Where(es => es.EsitoId == esitoId).FirstOrDefault();
         }
 
         public Esito GetEsitoOfAnEvent(int eventoId)
         {
-            return _esitoContext.Eventi.Where(ev => ev.IdEvento == eventoId).Select(es => es.Esito).FirstOrDefault();
+            return _esitoContext.Eventi.Where(ev => ev.EventoId == eventoId).Select(es => es.Esito).FirstOrDefault();
         }
 
         public ICollection<Evento> GetEventiFromAnEsito(int esitoId)
         {
-            return _esitoContext.Eventi.Where(ev => ev.Esito.IdEsito == esitoId).ToList();
+            return _esitoContext.Eventi.Where(ev => ev.Esito.EsitoId == esitoId).ToList();
         }
 
         public bool IsDuplicateEsito(int esitoId, string nomeEsito)
         {
-            var esito = _esitoContext.Esiti.Where(es => es.IdEsito != esitoId && es.NomeEsito.Trim().ToUpper() == nomeEsito.Trim().ToUpper()).FirstOrDefault();
+            var esito = _esitoContext.Esiti.Where(es => es.EsitoId != esitoId && es.NomeEsito.Trim().ToUpper() == nomeEsito.Trim().ToUpper()).FirstOrDefault();
             return esito == null ? false : true;
         }
 
@@ -64,9 +64,9 @@ namespace InterpolAlertApi.Services
             return saved >= 0 ? true : false;
         }
 
-        public bool UpdateEsito(Evento evento)
+        public bool UpdateEsito(Esito esito)
         {
-            _esitoContext.Update(evento);
+            _esitoContext.Update(esito);
             return Save();
         }
     }

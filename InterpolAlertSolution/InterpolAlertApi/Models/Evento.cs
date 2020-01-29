@@ -9,7 +9,7 @@ namespace InterpolAlertApi.Models
     public class Evento
     {
         [Key]
-        public int IdEvento { get; set; }
+        public int EventoId { get; set; }
         [Required]
         public string NomeEvento { get; set; }
         [Required]

@@ -29,22 +29,22 @@ namespace InterpolAlertApi.Services
 
         public ICollection<Evento> GetEventiFromAMandante(int mandanteId)
         {
-            return _mandateContext.Eventi.Where(ev => ev.Mandante.IdMandante == mandanteId).ToList();
+            return _mandateContext.Eventi.Where(ev => ev.Mandante.MandanteId == mandanteId).ToList();
         }
 
         public Fazione GetFazioneByMandante(int mandanteId)
         {
-            return _mandateContext.Mandanti.Where(ma => ma.IdMandante == mandanteId).Select(fa => fa.Fazione).FirstOrDefault();
+            return _mandateContext.Mandanti.Where(ma => ma.MandanteId == mandanteId).Select(fa => fa.Fazione).FirstOrDefault();
         }
 
         public Mandante GetMandante(int mandanteId)
         {
-            return _mandateContext.Mandanti.Where(ma => ma.IdMandante == mandanteId).FirstOrDefault();
+            return _mandateContext.Mandanti.Where(ma => ma.MandanteId == mandanteId).FirstOrDefault();
         }
 
         public Mandante GetMandanteOfAnEvent(int eventoId)
         {
-            return _mandateContext.Eventi.Where(ev => ev.IdEvento == eventoId).Select(ma => ma.Mandante).FirstOrDefault();
+            return _mandateContext.Eventi.Where(ev => ev.EventoId == eventoId).Select(ma => ma.Mandante).FirstOrDefault();
         }
 
         public ICollection<Mandante> GetMandanti()
@@ -54,13 +54,13 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateMandante(int mandanteId, string nomeMandante)
         {
-            var mandante = _mandateContext.Mandanti.Where(ma => ma.IdMandante == mandanteId && ma.NomeMandante.Trim().ToUpper() == nomeMandante.Trim().ToUpper());
+            var mandante = _mandateContext.Mandanti.Where(ma => ma.MandanteId == mandanteId && ma.NomeMandante.Trim().ToUpper() == nomeMandante.Trim().ToUpper());
             return mandante == null ? false : true;
         }
 
         public bool MandanteExists(int mandanteId)
         {
-            return _mandateContext.Mandanti.Any(ma => ma.IdMandante == mandanteId);
+            return _mandateContext.Mandanti.Any(ma => ma.MandanteId == mandanteId);
         }
 
         public bool Save()

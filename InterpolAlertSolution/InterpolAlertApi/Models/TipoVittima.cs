@@ -9,7 +9,7 @@ namespace InterpolAlertApi.Models
     public class TipoVittima
     {
         [Key]
-        public int IdTipoVittima { get; set; }
+        public int TipoVittimaId { get; set; }
         [Required]
         public string NomeTipoVittima { get; set; }
         public virtual ICollection<Evento> Eventi { get; set; }

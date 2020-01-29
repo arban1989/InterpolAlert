@@ -15,8 +15,8 @@ namespace InterpolAlertApi.Services
         bool EsitoExists(int esitoId);
         bool IsDuplicateEsito(int esitoId, string nomeEsito);
         bool CreateEsito(Esito esito);
-        bool UpdateEsito(Evento esito);
-        bool DeleteEsito(Evento esito);
+        bool UpdateEsito(Esito esito);
+        bool DeleteEsito(Esito esito);
         bool Save();
     }
 }

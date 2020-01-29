@@ -32,9 +32,10 @@ namespace InterpolAlertApi.Controllers
             var tipoeventsDto = new List<TipoEventoDto>();
             foreach (var tipoevento in tipoevents)
             {
-                tipoeventsDto.Add(new TipoEventoDto { 
-                IdTipoEvento = tipoevento.IdTipoEvento,
-                NomeTipoEvento = tipoevento.NomeTipoEvento
+                tipoeventsDto.Add(new TipoEventoDto
+                {
+                    TipoEventoId = tipoevento.TipoEventoId,
+                    NomeTipoEvento = tipoevento.NomeTipoEvento
                 });
             }
             return Ok(tipoeventsDto);
@@ -43,7 +44,7 @@ namespace InterpolAlertApi.Controllers
         [HttpGet("{tipoeventiId}")]
         public IActionResult GetAutor(int tipoeventiId)
         {
-            var  tipoeventi = _tipoEventoRepository.GetTipoEvento(tipoeventiId);
+            var tipoeventi = _tipoEventoRepository.GetTipoEvento(tipoeventiId);
             if (tipoeventi == null)
             {
                 return NotFound();

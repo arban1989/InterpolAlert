@@ -7,7 +7,7 @@ namespace InterpolAlertApi.Dtos
 {
     public class EventoDto
     {
-        public int IdEvento { get; set; }
+        public int EventoId { get; set; }
         public string NomeEvento { get; set; }
         public DateTime DataOraInizio { get; set; }
         public DateTime DataOraFine { get; set; }

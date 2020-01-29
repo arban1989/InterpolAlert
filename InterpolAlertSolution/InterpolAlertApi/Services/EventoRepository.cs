@@ -42,7 +42,7 @@ namespace InterpolAlertApi.Services
 
         public bool EventoExists(int eventoId)
         {
-            return _eventoContext.Eventi.Any(e => e.IdEvento == eventoId);
+            return _eventoContext.Eventi.Any(e => e.EventoId == eventoId);
         }
 
         public ICollection<Evento> GetEventi()
@@ -52,12 +52,12 @@ namespace InterpolAlertApi.Services
 
         public Evento GetEvento(int eventoId)
         {
-            return _eventoContext.Eventi.Where(ev => ev.IdEvento == eventoId).FirstOrDefault();
+            return _eventoContext.Eventi.Where(ev => ev.EventoId == eventoId).FirstOrDefault();
         }
 
         public bool IsDuplicateEvent(int eventoId, string nomeEvento)
         {
-            var evento = _eventoContext.Eventi.Where(ev => ev.IdEvento == eventoId && ev.NomeEvento.Trim().ToUpper() == nomeEvento.Trim().ToUpper());
+            var evento = _eventoContext.Eventi.Where(ev => ev.EventoId == eventoId && ev.NomeEvento.Trim().ToUpper() == nomeEvento.Trim().ToUpper());
             return evento == null ? false : true;
         }
 
@@ -69,7 +69,7 @@ namespace InterpolAlertApi.Services
 
         public bool UpdateEvento(List<Autore> listaAutori, Evento evento)
         {
-            var autorieventiToDelete = _eventoContext.AutoriEventi.Where(ae => ae.Evento.IdEvento == evento.IdEvento);
+            var autorieventiToDelete = _eventoContext.AutoriEventi.Where(ae => ae.Evento.EventoId == evento.EventoId);
 
             _eventoContext.RemoveRange(autorieventiToDelete);
 

@@ -32,9 +32,10 @@ namespace InterpolAlertApi.Controllers
             var tipovittimesDto = new List<TipoVittimaDto>();
             foreach (var tipovittama in tipovittimes)
             {
-                tipovittimesDto.Add(new TipoVittimaDto { 
-                IdTipoVittima = tipovittama.IdTipoVittima,
-                NomeTipoVittima = tipovittama.NomeTipoVittima
+                tipovittimesDto.Add(new TipoVittimaDto
+                {
+                    TipoVittimaId = tipovittama.TipoVittimaId,
+                    NomeTipoVittima = tipovittama.NomeTipoVittima
                 });
             }
             return Ok(tipovittimesDto);

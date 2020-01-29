@@ -44,7 +44,7 @@ namespace InterpolAlertApi.Services
 
         public Fazione GetFazioneByAuthor(int authorId)
         {
-            return _fazioneContext.Autori.Where(au=>au.IdAutore == authorId).Select(fa=>fa.Fazione).FirstOrDefault();
+            return _fazioneContext.Autori.Where(au=>au.AutoreId == authorId).Select(fa=>fa.Fazione).FirstOrDefault();
         }
 
         public ICollection<Fazione> GetFazioni()

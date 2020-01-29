@@ -8,7 +8,7 @@ namespace InterpolAlertApi.Dtos
     public class AutoreDto
     {
         
-        public int IdAutore { get; set; }
+        public int AutoreId { get; set; }
         public string NomeAutore { get; set; }
         public string Pericolosita { get; set; }
     }

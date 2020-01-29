@@ -29,12 +29,12 @@ namespace InterpolAlertApi.Services
 
         public ICollection<Evento> GetEventiFromALocalita(int localitaId)
         {
-            return _localitaContext.Eventi.Where(ev => ev.Localita.IdLocalita == localitaId).ToList();
+            return _localitaContext.Eventi.Where(ev => ev.Localita.LocalitaId == localitaId).ToList();
         }
 
         public Localita GetLocalita(int localitaId)
         {
-            return _localitaContext.Localita.Where(l => l.IdLocalita == localitaId).FirstOrDefault();
+            return _localitaContext.Localita.Where(l => l.LocalitaId == localitaId).FirstOrDefault();
         }
 
         public ICollection<Localita> GetLocalitas()
@@ -42,20 +42,20 @@ namespace InterpolAlertApi.Services
             return _localitaContext.Localita.ToList();
         }
 
-        public Localita GetTipoLocalitaOfAnEvent(int eventoId)
+        public Localita GetLocalitaOfAnEvent(int eventoId)
         {
-            return _localitaContext.Eventi.Where(ev => ev.IdEvento == eventoId).Select(l => l.Localita).FirstOrDefault();
+            return _localitaContext.Eventi.Where(ev => ev.EventoId == eventoId).Select(l => l.Localita).FirstOrDefault();
         }
 
         public bool IsDuplicateLocalita(int localitaId, string nomeLocalita)
         {
-            var localita = _localitaContext.Localita.Where(l => l.IdLocalita == localitaId && l.NomeLocalita.Trim().ToUpper() == nomeLocalita.Trim().ToUpper());
+            var localita = _localitaContext.Localita.Where(l => l.LocalitaId == localitaId && l.NomeLocalita.Trim().ToUpper() == nomeLocalita.Trim().ToUpper()).FirstOrDefault();
             return localita == null ? false : true;
         }
 
         public bool LocalitaExists(int localitaId)
         {
-            return _localitaContext.Localita.Any(l => l.IdLocalita == localitaId);
+            return _localitaContext.Localita.Any(l => l.LocalitaId == localitaId);
         }
 
         public bool Save()

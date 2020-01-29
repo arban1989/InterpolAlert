@@ -35,23 +35,38 @@ namespace InterpolAlertApi.Controllers
             {
                 mandantiesDto.Add(new MandanteDto
                 {
-                    IdMandante = mandante.IdMandante,
+                    MandanteId = mandante.MandanteId,
                     NomeMandante = mandante.NomeMandante
                 }
                  ) ;
             }
             return Ok(mandantiesDto);
         }
-        // GET: api/mandanti/1
-        [HttpGet("{mandantiId}")]
-        public IActionResult GetMandante(int mandantiId)
+
+
+        //api/mandanti/mandanteId
+        [HttpGet("{mandanteId}", Name = "GetMandante")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200, Type = typeof(MandanteDto))]
+        public IActionResult GetMandante(int mandanteId)
         {
-            var mandanti = _mandanteRepository.GetMandante(mandantiId);
-            if (mandanti == null)
-            {
+            if (!_mandanteRepository.MandanteExists(mandanteId))
                 return NotFound();
+            var mandante = _mandanteRepository.GetMandante(mandanteId);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
-            return Ok(mandanti);
+
+            var mandanteDto = new MandanteDto()
+            {
+                MandanteId = mandante.MandanteId,
+                NomeMandante = mandante.NomeMandante
+            };
+
+            return Ok(mandanteDto);
         }
     }
 }

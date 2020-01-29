@@ -17,7 +17,7 @@ namespace InterpolAlertApi.Services
 
         public bool AutoreExists(int autoreId)
         {
-            return _autoreContext.Autori.Any(au=>au.IdAutore == autoreId);
+            return _autoreContext.Autori.Any(au=>au.AutoreId == autoreId);
         }
 
         public bool CreateAutore(Autore autore)
@@ -34,17 +34,17 @@ namespace InterpolAlertApi.Services
 
         public ICollection<Autore> GetAllAutoriFromAnEvent(int eventoId)
         {
-            return _autoreContext.AutoriEventi.Where(ae=>ae.IdEvento == eventoId).Select(au=>au.Autore).ToList();
+            return _autoreContext.AutoriEventi.Where(ae=>ae.EventoId == eventoId).Select(au=>au.Autore).ToList();
         }
 
         public ICollection<Evento> GetAllEventiFromAnAutore(int autoreId)
         {
-            return _autoreContext.AutoriEventi.Where(ae=>ae.IdAutore == autoreId).Select(ev=>ev.Evento).ToList();
+            return _autoreContext.AutoriEventi.Where(ae=>ae.AutoreId == autoreId).Select(ev=>ev.Evento).ToList();
         }
 
         public Autore GetAutore(int autoreId)
         {
-            return _autoreContext.Autori.Where(au=>au.IdAutore == autoreId).FirstOrDefault();
+            return _autoreContext.Autori.Where(au=>au.AutoreId == autoreId).FirstOrDefault();
         }
 
         public ICollection<Autore> GetAutori()
@@ -54,12 +54,12 @@ namespace InterpolAlertApi.Services
 
         public Fazione GetFazioneByAutore(int autoreId)
         {
-            return _autoreContext.Autori.Where(au=>au.IdAutore == autoreId).Select(fa=>fa.Fazione).FirstOrDefault();
+            return _autoreContext.Autori.Where(au=>au.AutoreId == autoreId).Select(fa=>fa.Fazione).FirstOrDefault();
         }
 
         public bool IsDuplicateAutoreName(int autoreId, string nomeAutore)
         {
-            var autore = _autoreContext.Autori.Where(au=>au.IdAutore == autoreId && au.NomeAutore.Trim().ToUpper() == nomeAutore.Trim().ToUpper());
+            var autore = _autoreContext.Autori.Where(au=>au.AutoreId == autoreId && au.NomeAutore.Trim().ToUpper() == nomeAutore.Trim().ToUpper());
             return autore == null ? false : true;
         }
 

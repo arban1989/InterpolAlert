@@ -38,7 +38,7 @@ namespace InterpolAlertApi.Controllers
             {
                 autoresDto.Add(new AutoreDto
                 {
-                    IdAutore= autore.IdAutore,
+                    AutoreId = autore.AutoreId,
                     NomeAutore = autore.NomeAutore,
                     Pericolosita = autore.Pericolosita,
                 });

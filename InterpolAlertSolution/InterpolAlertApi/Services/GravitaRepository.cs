@@ -29,17 +29,17 @@ namespace InterpolAlertApi.Services
 
         public ICollection<Evento> GetEventiFromAGravita(int gravitaId)
         {
-            return _gravitaContext.Eventi.Where(ev => ev.Gravita.IdGravita == gravitaId).ToList();
+            return _gravitaContext.Eventi.Where(ev => ev.Gravita.GravitaId == gravitaId).ToList();
         }
 
         public Gravita GetGravita(int gravitaId)
         {
-            return _gravitaContext.Gravita.Where(gr => gr.IdGravita == gravitaId).FirstOrDefault();
+            return _gravitaContext.Gravita.Where(gr => gr.GravitaId == gravitaId).FirstOrDefault();
         }
 
         public Gravita GetGravitaOfAnEvent(int gravitaId)
         {
-            return _gravitaContext.Eventi.Where(ev => ev.IdEvento == gravitaId).Select(gr => gr.Gravita).FirstOrDefault();
+            return _gravitaContext.Eventi.Where(ev => ev.EventoId == gravitaId).Select(gr => gr.Gravita).FirstOrDefault();
         }
 
         public ICollection<Gravita> GetGravitas()
@@ -49,12 +49,12 @@ namespace InterpolAlertApi.Services
 
         public bool GravitaExists(int gravitaId)
         {
-            return _gravitaContext.Gravita.Any(gr => gr.IdGravita == gravitaId);
+            return _gravitaContext.Gravita.Any(gr => gr.GravitaId == gravitaId);
         }
 
         public bool IsDuplicateGravita(int gravitaId, string nomeGravita)
         {
-            var gravita = _gravitaContext.Gravita.Where(gr => gr.IdGravita == gravitaId && gr.NomeGravita.Trim().ToUpper() == nomeGravita.Trim().ToUpper());
+            var gravita = _gravitaContext.Gravita.Where(gr => gr.GravitaId == gravitaId && gr.NomeGravita.Trim().ToUpper() == nomeGravita.Trim().ToUpper()).FirstOrDefault();
             return gravita == null ? false : true;
         }
 

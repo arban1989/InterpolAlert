@@ -26,15 +26,15 @@ namespace InterpolAlertApi.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AutoriEventi>()
-                        .HasKey(ae => new { ae.IdAutore, ae.IdEvento });
+                        .HasKey(ae => new { ae.AutoreId, ae.EventoId });
             modelBuilder.Entity<AutoriEventi>()
                         .HasOne(a => a.Autore)
                         .WithMany(ae => ae.AutoriEventi)
-                        .HasForeignKey(a => a.IdAutore);
+                        .HasForeignKey(a => a.AutoreId);
             modelBuilder.Entity<AutoriEventi>()
                         .HasOne(e => e.Evento)
                         .WithMany(ae => ae.AutoriEventi)
-                        .HasForeignKey(e => e.IdEvento);
+                        .HasForeignKey(e => e.EventoId);
 
         }
     }

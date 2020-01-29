@@ -7,7 +7,7 @@ namespace InterpolAlertApi.Dtos
 {
     public class GravitaDto
     {
-        public int IdGravita { get; set; }
+        public int GravitaId { get; set; }
         public string NomeGravita { get; set; }
     }
 }

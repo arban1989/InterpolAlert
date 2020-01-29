@@ -9,7 +9,7 @@ namespace InterpolAlertApi.Models
     public class Autore
     {
         [Key]
-        public int IdAutore { get; set; }
+        public int AutoreId { get; set; }
         [Required]
         public string NomeAutore { get; set; }
         [Required]

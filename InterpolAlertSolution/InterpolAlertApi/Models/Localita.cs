@@ -9,7 +9,7 @@ namespace InterpolAlertApi.Models
     public class Localita
     {
         [Key]
-        public int IdLocalita { get; set; }
+        public int LocalitaId { get; set; }
         [Required]
         public string NomeLocalita { get; set; }
         [Required]

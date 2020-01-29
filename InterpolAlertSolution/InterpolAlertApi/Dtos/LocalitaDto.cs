@@ -7,7 +7,7 @@ namespace InterpolAlertApi.Dtos
 {
     public class LocalitaDto
     {
-        public int IdLocalita { get; set; }
+        public int LocalitaId { get; set; }
         public string NomeLocalita { get; set; }
         public decimal Latitudine { get; set; }
         public decimal Longitudine { get; set; }

@@ -29,7 +29,7 @@ namespace InterpolAlertApi.Services
 
         public ICollection<Evento> GetEventiFromATipoEvento(int tipoEventoId)
         {
-            return _tipoEventoContext.Eventi.Where(ev => ev.TipoEvento.IdTipoEvento == tipoEventoId).ToList();
+            return _tipoEventoContext.Eventi.Where(ev => ev.TipoEvento.TipoEventoId == tipoEventoId).ToList();
         }
 
         public ICollection<TipoEvento> GetTipoEventi()
@@ -39,17 +39,17 @@ namespace InterpolAlertApi.Services
 
         public TipoEvento GetTipoEvento(int tipoEventoId)
         {
-            return _tipoEventoContext.TipoEventi.Where(te => te.IdTipoEvento == tipoEventoId).FirstOrDefault();
+            return _tipoEventoContext.TipoEventi.Where(te => te.TipoEventoId == tipoEventoId).FirstOrDefault();
         }
 
         public TipoEvento GetTipoEventoOfAnEvent(int eventoId)
         {
-            return _tipoEventoContext.Eventi.Where(ev => ev.IdEvento == eventoId).Select(te => te.TipoEvento).FirstOrDefault();
+            return _tipoEventoContext.Eventi.Where(ev => ev.EventoId == eventoId).Select(te => te.TipoEvento).FirstOrDefault();
         }
 
         public bool IsDuplicateTipoEvento(int tipoEventoId, string nomeTipoEvento)
         {
-            var tipoevento = _tipoEventoContext.TipoEventi.Where(te => te.IdTipoEvento != tipoEventoId && te.NomeTipoEvento.Trim().ToUpper() == nomeTipoEvento.Trim().ToUpper()).FirstOrDefault();
+            var tipoevento = _tipoEventoContext.TipoEventi.Where(te => te.TipoEventoId != tipoEventoId && te.NomeTipoEvento.Trim().ToUpper() == nomeTipoEvento.Trim().ToUpper()).FirstOrDefault();
             return tipoevento == null ? false : true;
         }
 
@@ -61,7 +61,7 @@ namespace InterpolAlertApi.Services
 
         public bool TipoEventoExists(int tipoEventoId)
         {
-            return _tipoEventoContext.TipoEventi.Any(te => te.IdTipoEvento == tipoEventoId);
+            return _tipoEventoContext.TipoEventi.Any(te => te.TipoEventoId == tipoEventoId);
         }
 
         public bool UpdateTipoEvento(TipoEvento tipoEvento)

@@ -7,7 +7,7 @@ namespace InterpolAlertApi.Dtos
 {
     public class TipoVittimaDto
     {
-        public int IdTipoVittima { get; set; }
+        public int TipoVittimaId { get; set; }
         public string NomeTipoVittima { get; set; }
     }
 }

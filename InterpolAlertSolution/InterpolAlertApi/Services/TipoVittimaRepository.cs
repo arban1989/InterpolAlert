@@ -29,7 +29,7 @@ namespace InterpolAlertApi.Services
 
         public ICollection<Evento> GetEventiFromATipoVittima(int tipoVittimaId)
         {
-            return _tipoVittimaContext.Eventi.Where(ev => ev.TipoVittima.IdTipoVittima == tipoVittimaId).ToList();
+            return _tipoVittimaContext.Eventi.Where(ev => ev.TipoVittima.TipoVittimaId == tipoVittimaId).ToList();
         }
 
         public ICollection<TipoVittima> GetTipiVittima()
@@ -39,17 +39,17 @@ namespace InterpolAlertApi.Services
 
         public TipoVittima GetTipoVittima(int tipoVittimaId)
         {
-            return _tipoVittimaContext.TipoVittima.Where(tv => tv.IdTipoVittima == tipoVittimaId).FirstOrDefault();
+            return _tipoVittimaContext.TipoVittima.Where(tv => tv.TipoVittimaId == tipoVittimaId).FirstOrDefault();
         }
 
         public TipoVittima GetTipoVittimaOfAnEvent(int eventoId)
         {
-            return _tipoVittimaContext.Eventi.Where(ev => ev.IdEvento == eventoId).Select(tv => tv.TipoVittima).FirstOrDefault();
+            return _tipoVittimaContext.Eventi.Where(ev => ev.EventoId == eventoId).Select(tv => tv.TipoVittima).FirstOrDefault();
         }
 
         public bool IsDuplicateTipoVittima(int tipoVittimaId, string nomeTipoVittima)
         {
-            var tipovittima = _tipoVittimaContext.TipoVittima.Where(tv => tv.IdTipoVittima != tipoVittimaId && tv.NomeTipoVittima.Trim().ToUpper() == nomeTipoVittima.Trim().ToUpper()).FirstOrDefault();
+            var tipovittima = _tipoVittimaContext.TipoVittima.Where(tv => tv.TipoVittimaId != tipoVittimaId && tv.NomeTipoVittima.Trim().ToUpper() == nomeTipoVittima.Trim().ToUpper()).FirstOrDefault();
             return tipovittima == null ? false : true;
         }
 
@@ -61,7 +61,7 @@ namespace InterpolAlertApi.Services
 
         public bool TipoVittimaExists(int tipoVittimaId)
         {
-            return _tipoVittimaContext.TipoVittima.Any(tv => tv.IdTipoVittima == tipoVittimaId);
+            return _tipoVittimaContext.TipoVittima.Any(tv => tv.TipoVittimaId == tipoVittimaId);
         }
 
         public bool UpdateTipoVittima(TipoVittima tipoVittima)

@@ -7,9 +7,9 @@ namespace InterpolAlertApi.Models
 {
     public class AutoriEventi
     {
-        public int IdAutore { get; set; }
+        public int AutoreId { get; set; }
         public Autore Autore { get; set; }
-        public int IdEvento { get; set; }
+        public int EventoId { get; set; }
         public Evento Evento { get; set; }
     }
 }

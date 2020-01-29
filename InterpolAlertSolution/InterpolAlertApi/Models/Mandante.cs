@@ -9,7 +9,7 @@ namespace InterpolAlertApi.Models
     public class Mandante
     {
         [Key]
-        public int IdMandante { get; set; }
+        public int MandanteId { get; set; }
         [Required]
         public string NomeMandante { get; set; }
         public virtual ICollection<Evento> Eventi { get; set; }

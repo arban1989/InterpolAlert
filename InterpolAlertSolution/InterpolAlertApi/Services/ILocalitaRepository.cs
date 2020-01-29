@@ -10,7 +10,7 @@ namespace InterpolAlertApi.Services
     {
         ICollection<Localita> GetLocalitas();
         Localita GetLocalita(int localitaId);
-        Localita GetTipoLocalitaOfAnEvent(int eventoId);
+        Localita GetLocalitaOfAnEvent(int eventoId);
         ICollection<Evento> GetEventiFromALocalita(int localitaId);
         bool LocalitaExists(int localitaId);
         bool IsDuplicateLocalita(int localitaId, string nomeLocalita);

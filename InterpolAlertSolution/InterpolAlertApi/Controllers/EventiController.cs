@@ -13,18 +13,18 @@ namespace InterpolAlertApi.Controllers
     [ApiController]
     public class EventiController : Controller
     {
-        private IEventoRepository  _eventoRepository;
+        private IEventoRepository _eventoRepository;
 
         public EventiController(IEventoRepository eventoRepository)
         {
             _eventoRepository = eventoRepository;
         }
 
-        //api/countries
+        //api/eventi
         [HttpGet]
         [ProducesResponseType(400)]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<EsitoDto>))]
-        public IActionResult GetCountries()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<EventoDto>))]
+        public IActionResult GetEventi()
         {
             var eventos = _eventoRepository.GetEventi().ToList();
 
@@ -39,18 +39,18 @@ namespace InterpolAlertApi.Controllers
             {
                 eventosDto.Add(new EventoDto
                 {
-                 IdEvento = evento.IdEvento,
-                 NomeEvento = evento.NomeEvento,
-                 DataOraInizio = evento.DataOraInizio,
-                 DataOraFine = evento.DataOraFine,
-                 NrVittime = evento.NrVittime,
-                 NrDecessi = evento.NrDecessi,
-                 NrFeriti = evento.NrFeriti,
-                 NoteVarie = evento.NoteVarie,
-                 Mediatore = evento.Mediatore,
-                 FFSpeciali = evento.FFSpeciali,
-                 Polizia = evento.Polizia,
-                 VigiliDelFuoco = evento.VigiliDelFuoco
+                    EventoId = evento.EventoId,
+                    NomeEvento = evento.NomeEvento,
+                    DataOraInizio = evento.DataOraInizio,
+                    DataOraFine = evento.DataOraFine,
+                    NrVittime = evento.NrVittime,
+                    NrDecessi = evento.NrDecessi,
+                    NrFeriti = evento.NrFeriti,
+                    NoteVarie = evento.NoteVarie,
+                    Mediatore = evento.Mediatore,
+                    FFSpeciali = evento.FFSpeciali,
+                    Polizia = evento.Polizia,
+                    VigiliDelFuoco = evento.VigiliDelFuoco
                 });
             }
             return Ok(eventosDto);
