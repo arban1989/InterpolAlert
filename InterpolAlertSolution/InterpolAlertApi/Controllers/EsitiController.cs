@@ -28,7 +28,7 @@ namespace InterpolAlertApi.Controllers
         [HttpGet]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<EsitoDto>))]
-        public IActionResult GetCountries()
+        public IActionResult GetEsiti()
         {
             var esitos = _esitoRepository.GetEsiti().ToList();
 
@@ -184,7 +184,7 @@ namespace InterpolAlertApi.Controllers
 
         }
 
-        //api/esiti
+        //api/esiti/esitoId
         [HttpPut("{esitoId}")]
         [ProducesResponseType(204)] // No Content
         [ProducesResponseType(400)]

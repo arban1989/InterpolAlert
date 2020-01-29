@@ -28,7 +28,7 @@ namespace InterpolAlertApi.Controllers
         [HttpGet]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<LocalitaDto>))]
-        public IActionResult GetCountries()
+        public IActionResult GetLocalitas()
         {
             var localitas = _localitaRepository.GetLocalitas().ToList();
 
@@ -196,7 +196,7 @@ namespace InterpolAlertApi.Controllers
 
         }
 
-        //api/localita
+        //api/localita/localitaId
         [HttpPut("{localitaId}")]
         [ProducesResponseType(204)] // No Content
         [ProducesResponseType(400)]
