@@ -8,39 +8,50 @@ namespace InterpolAlertApi.Services
 {
     public class EventoSempliceRepository : IEventoSempliceRepository
     {
-        public bool CreateEventoSemplicec(EventoSemplice eventoSemplice)
+        private DbContextInterpol _eventoSempliceContext;
+
+        public EventoSempliceRepository(DbContextInterpol eventoSempliceContext)
         {
-            throw new NotImplementedException();
+            _eventoSempliceContext = eventoSempliceContext;
+        }
+
+        public bool CreateEventoSemplice(EventoSemplice eventoSemplice)
+        {
+            _eventoSempliceContext.Add(eventoSemplice);
+            return Save();
         }
 
         public bool DeleteEventoSemplice(EventoSemplice eventoSemplice)
         {
-            throw new NotImplementedException();
+            _eventoSempliceContext.Remove(eventoSemplice);
+            return Save();
         }
 
         public bool EventoSempliceExists(int eventoSempliceId)
         {
-            throw new NotImplementedException();
+            return _eventoSempliceContext.EventoSemplice.Any(es=>es.EventoSempliceId == eventoSempliceId);
         }
 
         public ICollection<EventoSemplice> GetEventiSemplici()
         {
-            throw new NotImplementedException();
+            return _eventoSempliceContext.EventoSemplice.ToList();
         }
 
         public EventoSemplice GetEventoSemplice(int eventoSempliceId)
         {
-            throw new NotImplementedException();
+          return  _eventoSempliceContext.EventoSemplice.Where(es=>es.EventoSempliceId == eventoSempliceId).FirstOrDefault();
         }
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            var saved = _eventoSempliceContext.SaveChanges();
+            return saved >= 0 ? true : false;
         }
 
         public bool UpdateEventoSemplice(EventoSemplice eventoSemplice)
         {
-            throw new NotImplementedException();
+            _eventoSempliceContext.Update(eventoSemplice);
+            return Save();
         }
     }
 }
