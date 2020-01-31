@@ -149,9 +149,9 @@ namespace InterpolAlertApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tipoVittima = _tipoEventoRepository.GetTipoEventi().Where(t => t.NomeTipoEvento.Trim().ToUpper() == tipoEventoToCreate.NomeTipoEvento.Trim().ToUpper()).FirstOrDefault();
+            var tipoEvento = _tipoEventoRepository.GetTipoEventi().Where(t => t.NomeTipoEvento.Trim().ToUpper() == tipoEventoToCreate.NomeTipoEvento.Trim().ToUpper()).FirstOrDefault();
 
-            if (tipoVittima != null)
+            if (tipoEvento != null)
             {
                 ModelState.AddModelError("", $"TipoEvento {tipoEventoToCreate.NomeTipoEvento} already exists");
                 return StatusCode(422, ModelState);
