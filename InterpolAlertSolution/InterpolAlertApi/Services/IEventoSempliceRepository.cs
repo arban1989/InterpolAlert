@@ -11,7 +11,7 @@ namespace InterpolAlertApi.Services
         ICollection<EventoSemplice> GetEventiSemplici();
         EventoSemplice GetEventoSemplice(int eventoSempliceId);
         bool EventoSempliceExists(int eventoSempliceId);
-        bool CreateEventoSemplicec(EventoSemplice eventoSemplice);
+        bool CreateEventoSemplice(EventoSemplice eventoSemplice);
         bool UpdateEventoSemplice(EventoSemplice eventoSemplice);
         bool DeleteEventoSemplice(EventoSemplice eventoSemplice);
         bool Save();
