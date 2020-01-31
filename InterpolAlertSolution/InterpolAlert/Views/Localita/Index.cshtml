@@ -1,0 +1,68 @@
+﻿@model IEnumerable<InterpolAlertApi.Dtos.LocalitaDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>@ViewBag.Message</h2>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LocalitaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeLocalita)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitudine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitudine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nazione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LivelloRischio)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                   @item.LocalitaId
+                </td>
+                <td>
+                    @item.NomeLocalita
+                </td>
+                <td>
+                    @item.Latitudine
+                </td>
+                <td>
+                    @item.Longitudine
+                </td>
+                <td>
+                    @item.Nazione
+                </td>
+                <td>
+                    @item.LivelloRischio
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
