@@ -1,0 +1,50 @@
+﻿@model IEnumerable<InterpolAlertApi.Dtos.EventoSempliceDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+
+<h1>Eventi Segnalati dai utenti</h1>
+
+@if (Model.Any())
+{
+    <a class="btn btn-primary mb-3" asp-controller="EventoSemplice" asp-action="Create">
+        Segnala un nuovo Evento
+    </a>
+
+    foreach (var evento in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                @evento.EventoSempliceNome
+            </div>
+            <div class="card-body">
+                <p>
+                    @evento.EventoSempliceNote
+                </p>
+            </div>
+            <div class="card-footer text-muted">
+                Data Segnalazione: @evento.EventoSempliceData
+            </div>
+
+        </div>
+    }
+
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            Nessun evento segnalato
+        </div>
+        <div class="card-body">
+            <h5>
+                Clicca sotto per segnalare un nuovo evento
+            </h5>
+            <a class="btn btn-primary" asp-controller="EventoSemplice" asp-action="Create">
+                Segnala un nuovo Evento
+            </a>
+        </div>
+    </div>
+}

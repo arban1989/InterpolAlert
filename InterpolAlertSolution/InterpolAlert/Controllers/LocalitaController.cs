@@ -28,7 +28,7 @@ namespace InterpolAlert.Controllers
                     "the database or no localita exists";
             }
 
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            //ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(localitas);
         }
 

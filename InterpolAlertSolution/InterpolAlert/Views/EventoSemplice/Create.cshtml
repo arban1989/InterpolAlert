@@ -1,0 +1,46 @@
+﻿@model InterpolAlertApi.Dtos.EventoSempliceDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Inserimneto nuova segnalazione</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="EventoSemplice" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="EventoSempliceId" class="control-label"></label>
+                <input asp-for="EventoSempliceId" class="form-control" />
+                <span asp-validation-for="EventoSempliceId" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label class="control-label">Titolo Evento</label>
+                <input asp-for="EventoSempliceNome" class="form-control" />
+                <span asp-validation-for="EventoSempliceNome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Descrizione evento</label>
+                <textarea asp-for="EventoSempliceNote" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="EventoSempliceNote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Data:</label>
+                <input asp-for="EventoSempliceData" class="form-control" />
+                <span asp-validation-for="EventoSempliceData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
