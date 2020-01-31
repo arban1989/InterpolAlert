@@ -12,8 +12,8 @@ namespace InterpolAlertApi.Services
         Evento GetEvento(int eventoId);
         bool EventoExists(int eventoId);
         bool IsDuplicateEvent(int eventoId, string nomeEvento);
-        bool CreateEvento(List<Autore> listaAutori, Evento evento);
-        bool UpdateEvento(List<Autore> listaAutori, Evento evento);
+        bool CreateEvento(List<int> listaAutoriId, int tipoVittimaId, int localitaId, int gravitaId, int esitoId, int tipoEventoId, int mandanteId,  Evento evento);
+        bool UpdateEvento(List<int> listaAutoriId, int tipoVittimaId, int localitaId, int gravitaId, int esitoId, int tipoEventoId, int mandanteId, Evento evento);
         bool DeleteEvento(Evento evento);
         bool Save();
     }

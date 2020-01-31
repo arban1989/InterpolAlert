@@ -11,5 +11,6 @@ namespace InterpolAlertApi.Dtos
         public int AutoreId { get; set; }
         public string NomeAutore { get; set; }
         public string Pericolosita { get; set; }
+        public string NoteVarie { get; set; }
     }
 }

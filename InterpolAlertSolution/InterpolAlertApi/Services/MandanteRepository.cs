@@ -32,7 +32,7 @@ namespace InterpolAlertApi.Services
             return _mandateContext.Eventi.Where(ev => ev.Mandante.MandanteId == mandanteId).ToList();
         }
 
-        public Fazione GetFazioneByMandante(int mandanteId)
+        public Fazione GetFazioneOfAMandante(int mandanteId)
         {
             return _mandateContext.Mandanti.Where(ma => ma.MandanteId == mandanteId).Select(fa => fa.Fazione).FirstOrDefault();
         }
@@ -54,7 +54,7 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateMandante(int mandanteId, string nomeMandante)
         {
-            var mandante = _mandateContext.Mandanti.Where(ma => ma.MandanteId == mandanteId && ma.NomeMandante.Trim().ToUpper() == nomeMandante.Trim().ToUpper());
+            var mandante = _mandateContext.Mandanti.Where(ma => ma.MandanteId == mandanteId && ma.NomeMandante.Trim().ToUpper() == nomeMandante.Trim().ToUpper()).FirstOrDefault();
             return mandante == null ? false : true;
         }
 

@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-
+using Newtonsoft.Json;
 
 namespace InterpolAlertApi
 {
@@ -29,11 +29,13 @@ namespace InterpolAlertApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMvc().AddJsonOptions(o =>
-            {
-                o.JsonSerializerOptions.PropertyNamingPolicy = null;
-                o.JsonSerializerOptions.DictionaryKeyPolicy = null;
-            });
+            //services.AddMvc().AddJsonOptions(o =>
+            //{
+            //    o.JsonSerializerOptions.PropertyNamingPolicy = null;
+            //    o.JsonSerializerOptions.DictionaryKeyPolicy = null;
+            //});
+
+            services.AddMvc().AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
 
             var connectionString = Configuration["connectionStrings:InterpolDbConnectionString"];
             services.AddDbContext<DbContextInterpol>(c => c.UseSqlServer(connectionString));

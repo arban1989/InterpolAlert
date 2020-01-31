@@ -22,6 +22,7 @@ namespace InterpolAlertApi.Services
         public DbSet<Mandante> Mandanti { get; set; }
         public DbSet<TipoEvento> TipoEventi { get; set; }
         public DbSet<TipoVittima> TipoVittima { get; set; }
+        public DbSet<EventoSemplice> EventoSemplice { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

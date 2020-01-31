@@ -80,7 +80,7 @@ namespace InterpolAlertApi.Controllers
         [HttpGet("eventi/{eventoId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = typeof(LocalitaDto))]
+        [ProducesResponseType(200, Type = typeof(EsitoDto))]
         public IActionResult GetEsitoOfAnEvent(int eventoId)
         {
             if (!_eventoRepository.EventoExists(eventoId))

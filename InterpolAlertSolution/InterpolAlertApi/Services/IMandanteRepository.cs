@@ -11,7 +11,7 @@ namespace InterpolAlertApi.Services
         ICollection<Mandante> GetMandanti();
         Mandante GetMandante(int mandanteId);
         Mandante GetMandanteOfAnEvent(int eventoId);
-        Fazione GetFazioneByMandante(int mandanteId);
+        Fazione GetFazioneOfAMandante(int mandanteId);
         ICollection<Evento> GetEventiFromAMandante(int mandanteId);
         bool MandanteExists(int mandanteId);
         bool IsDuplicateMandante(int mandanteId, string nomeMandante);

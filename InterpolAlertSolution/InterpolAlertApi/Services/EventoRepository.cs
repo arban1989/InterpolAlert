@@ -15,19 +15,27 @@ namespace InterpolAlertApi.Services
             _eventoContext = eventoContext;
         }
 
-        public bool CreateEvento(List<Autore> listaAutori, Evento evento)
+        public bool CreateEvento(List<int> listaAutoriId, int tipoVittimaId, int localitaId, int gravitaId, int esitoId, int tipoEventoId, int mandanteId, Evento evento)
         {
+            var autori = _eventoContext.Autori.Where(a => listaAutoriId.Contains(a.AutoreId)).ToList();
 
-            foreach (var autore in listaAutori)
+            foreach (var autore in autori)
             {
-                var autorevento = new AutoriEventi()
+                var autoriEventi = new AutoriEventi()
                 {
                     Autore = autore,
                     Evento = evento
                 };
-                _eventoContext.Add(autorevento);
-
+                _eventoContext.Add(autoriEventi);
             }
+
+            evento.Localita = _eventoContext.Localita.Where(l => l.LocalitaId == localitaId).FirstOrDefault();
+            evento.TipoVittima = _eventoContext.TipoVittima.Where(tv => tv.TipoVittimaId == tipoVittimaId).FirstOrDefault();
+            evento.Gravita = _eventoContext.Gravita.Where(g => g.GravitaId == gravitaId).FirstOrDefault();
+            evento.Esito = _eventoContext.Esiti.Where(e => e.EsitoId == esitoId).FirstOrDefault();
+            evento.TipoEvento = _eventoContext.TipoEventi.Where(te => te.TipoEventoId == tipoEventoId).FirstOrDefault();
+            evento.Mandante = _eventoContext.Mandanti.Where(m => m.MandanteId == mandanteId).FirstOrDefault();
+
 
             _eventoContext.Add(evento);
 
@@ -36,6 +44,8 @@ namespace InterpolAlertApi.Services
 
         public bool DeleteEvento(Evento evento)
         {
+            var autoriEventiToDelete = _eventoContext.AutoriEventi.Where(au => au.EventoId == evento.EventoId);
+            _eventoContext.RemoveRange(autoriEventiToDelete);
             _eventoContext.Remove(evento);
             return Save();
         }
@@ -67,22 +77,30 @@ namespace InterpolAlertApi.Services
             return saved >= 0 ? true : false;
         }
 
-        public bool UpdateEvento(List<Autore> listaAutori, Evento evento)
+        public bool UpdateEvento(List<int> listaAutoriId, int tipoVittimaId, int localitaId, int gravitaId, int esitoId, int tipoEventoId, int mandanteId, Evento evento)
         {
-            var autorieventiToDelete = _eventoContext.AutoriEventi.Where(ae => ae.Evento.EventoId == evento.EventoId);
+            var autori = _eventoContext.Autori.Where(a => listaAutoriId.Contains(a.AutoreId)).ToList();
 
-            _eventoContext.RemoveRange(autorieventiToDelete);
+            var autoriEventiToDelete = _eventoContext.AutoriEventi.Where(au => au.EventoId == evento.EventoId);
 
-            foreach (var autore in listaAutori)
+            _eventoContext.RemoveRange(autoriEventiToDelete);
+
+            foreach (var autore in autori)
             {
-                var autoreEvento = new AutoriEventi()
+                var autoriEventi = new AutoriEventi()
                 {
                     Autore = autore,
                     Evento = evento
                 };
-                _eventoContext.Add(autoreEvento);
-
+                _eventoContext.Add(autoriEventi);
             }
+
+            evento.Localita = _eventoContext.Localita.Where(l => l.LocalitaId == localitaId).FirstOrDefault();
+            evento.TipoVittima = _eventoContext.TipoVittima.Where(tv => tv.TipoVittimaId == tipoVittimaId).FirstOrDefault();
+            evento.Gravita = _eventoContext.Gravita.Where(g => g.GravitaId == gravitaId).FirstOrDefault();
+            evento.Esito = _eventoContext.Esiti.Where(e => e.EsitoId == esitoId).FirstOrDefault();
+            evento.TipoEvento = _eventoContext.TipoEventi.Where(te => te.TipoEventoId == tipoEventoId).FirstOrDefault();
+            evento.Mandante = _eventoContext.Mandanti.Where(m => m.MandanteId == mandanteId).FirstOrDefault();
 
             _eventoContext.Update(evento);
 
