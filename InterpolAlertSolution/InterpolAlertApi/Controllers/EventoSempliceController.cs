@@ -20,6 +20,7 @@ namespace InterpolAlertApi.Controllers
         {
             _eventoSempliceRepository = eventoSempliceRepository;
         }
+
         //api/eventosemplice
         [HttpGet]
         [ProducesResponseType(400)]
@@ -27,7 +28,7 @@ namespace InterpolAlertApi.Controllers
         public IActionResult GetEventiSemplici()
         {
             var simples = _eventoSempliceRepository.GetEventiSemplici().ToList();
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
