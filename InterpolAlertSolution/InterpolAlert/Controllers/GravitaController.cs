@@ -1,50 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using InterpolAlert.Services;
-using InterpolAlertApi.Dtos;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InterpolAlert.Controllers
 {
-    public class TipoVittimaController : Controller
+    public class GravitaController : Controller
     {
-        ITipoVittimaFeRepository _tipoVittimaFeRepository;
+        IGravitaFeRepository _gravitaFeRepository;
 
-        public TipoVittimaController(ITipoVittimaFeRepository tipoVittimaFeRepository)
+        public GravitaController(IGravitaFeRepository gravitaFeRepository)
         {
-            _tipoVittimaFeRepository = tipoVittimaFeRepository;
+            _gravitaFeRepository = gravitaFeRepository;
         }
 
-        // GET: TipoVittima
+        // GET: Gravita
         public ActionResult Index()
         {
-            var tipovictims = _tipoVittimaFeRepository.GetTipiVittima();
-            if (tipovictims.Count()<= 0)
+            var gravita = _gravitaFeRepository.GetGravita();
+            if (gravita.Count()<=0)
             {
-                ViewBag.Message = "There was a problem retrieving type of victims from" + "the database or no type victims exists";
+                ViewBag.Message = "There was a problem retrieving  the gravity from" + "the database or no gravity exists";
             }
-            return View(tipovictims);
+            return View(gravita);
         }
 
-        // GET: TipoVittima/Details/5
+        // GET: Gravita/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: TipoVittima/Create
+        // GET: Gravita/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TipoVittima/Create
+        // POST: Gravita/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TipoVittimaDto tipoVittima)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -58,13 +57,13 @@ namespace InterpolAlert.Controllers
             }
         }
 
-        // GET: TipoVittima/Edit/5
+        // GET: Gravita/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: TipoVittima/Edit/5
+        // POST: Gravita/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -81,13 +80,13 @@ namespace InterpolAlert.Controllers
             }
         }
 
-        // GET: TipoVittima/Delete/5
+        // GET: Gravita/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: TipoVittima/Delete/5
+        // POST: Gravita/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

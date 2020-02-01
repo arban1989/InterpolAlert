@@ -6,45 +6,46 @@ using InterpolAlert.Services;
 using InterpolAlertApi.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 namespace InterpolAlert.Controllers
 {
-    public class TipoVittimaController : Controller
+    public class TipoEventoController : Controller
     {
-        ITipoVittimaFeRepository _tipoVittimaFeRepository;
+        ITipoEventoFeRepository _tipoEventoFeRepository;
 
-        public TipoVittimaController(ITipoVittimaFeRepository tipoVittimaFeRepository)
+        public TipoEventoController(ITipoEventoFeRepository tipoEventoFeRepository)
         {
-            _tipoVittimaFeRepository = tipoVittimaFeRepository;
+            _tipoEventoFeRepository = tipoEventoFeRepository;
         }
 
-        // GET: TipoVittima
+        // GET: TipoEvento
         public ActionResult Index()
         {
-            var tipovictims = _tipoVittimaFeRepository.GetTipiVittima();
-            if (tipovictims.Count()<= 0)
+            var tipo = _tipoEventoFeRepository.GetTipoEvento(2);
+
+            var tipoeventi = _tipoEventoFeRepository.GetTipiEventi();
+            if (tipoeventi.Count()<=0)
             {
-                ViewBag.Message = "There was a problem retrieving type of victims from" + "the database or no type victims exists";
+                ViewBag.Message = "There was a problem retrieving type of event from" + "the database or no type event exists";
             }
-            return View(tipovictims);
+            return View(tipoeventi);
         }
 
-        // GET: TipoVittima/Details/5
+        // GET: TipoEvento/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: TipoVittima/Create
+        // GET: TipoEvento/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TipoVittima/Create
+        // POST: TipoEvento/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TipoVittimaDto tipoVittima)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -58,13 +59,13 @@ namespace InterpolAlert.Controllers
             }
         }
 
-        // GET: TipoVittima/Edit/5
+        // GET: TipoEvento/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: TipoVittima/Edit/5
+        // POST: TipoEvento/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -81,13 +82,13 @@ namespace InterpolAlert.Controllers
             }
         }
 
-        // GET: TipoVittima/Delete/5
+        // GET: TipoEvento/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: TipoVittima/Delete/5
+        // POST: TipoEvento/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

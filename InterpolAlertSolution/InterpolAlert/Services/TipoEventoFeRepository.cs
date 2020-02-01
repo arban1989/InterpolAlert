@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace InterpolAlert.Services
 {
-    public class TipoVittimaFeRepository : ITipoVittimaFeRepository
+    public class TipoEventoFeRepository : ITipoEventoFeRepository
     {
-        public IEnumerable<EventoDto> GetEventiFromATipoVittima(int tipoVittimaId)
+        public IEnumerable<EventoDto> GetEventiFromATipoEvento(int tipoEventoId)
         {
             IEnumerable<EventoDto> eventi = new List<EventoDto>();
 
@@ -17,7 +17,7 @@ namespace InterpolAlert.Services
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoVittime/{tipoVittimaId}/eventi");
+                var response = client.GetAsync($"tipoevento/{tipoEventoId}/eventi");
                 response.Wait();
 
                 var result = response.Result;
@@ -34,22 +34,22 @@ namespace InterpolAlert.Services
             return eventi;
         }
 
-        public IEnumerable<TipoVittimaDto> GetTipiVittima()
+        public IEnumerable<TipoEventoDto> GetTipiEventi()
         {
-            IEnumerable<TipoVittimaDto> tipoVittime = new List<TipoVittimaDto>();
+            IEnumerable<TipoEventoDto> tipoVittime = new List<TipoEventoDto>();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync("tipovittime");
+                var response = client.GetAsync("tipoeventi");
                 response.Wait();
 
                 var result = response.Result;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<IList<TipoVittimaDto>>();
+                    var readTask = result.Content.ReadAsAsync<IList<TipoEventoDto>>();
                     readTask.Wait();
 
                     tipoVittime = readTask.Result;
@@ -59,54 +59,54 @@ namespace InterpolAlert.Services
             return tipoVittime;
         }
 
-        public TipoVittimaDto GetTipoVittima(int tipoVittimaId)
+        public TipoEventoDto GetTipoEvento(int tipoEventoId)
         {
-            TipoVittimaDto tipoVittima = new TipoVittimaDto();
+            TipoEventoDto tipoEvento = new TipoEventoDto();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoVittime/{tipoVittimaId}");
+                var response = client.GetAsync($"tipoEvento/{tipoEventoId}");
                 response.Wait();
 
                 var result = response.Result;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<TipoVittimaDto>();
+                    var readTask = result.Content.ReadAsAsync<TipoEventoDto>();
                     readTask.Wait();
 
-                    tipoVittima = readTask.Result;
+                    tipoEvento = readTask.Result;
                 }
             }
 
-            return tipoVittima;
+            return tipoEvento;
         }
 
-        public TipoVittimaDto GetTipoVittimaOfAnEvent(int eventoId)
+        public TipoEventoDto GetTipoTipoEventoOfAnEvent(int tipoEventoId)
         {
-            TipoVittimaDto tipoVittima = new TipoVittimaDto();
+            TipoEventoDto tipoEvento = new TipoEventoDto();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoVittime/eventi/{eventoId}");
+                var response = client.GetAsync($"tipoEvento/eventi/{tipoEventoId}");
                 response.Wait();
 
                 var result = response.Result;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<TipoVittimaDto>();
+                    var readTask = result.Content.ReadAsAsync<TipoEventoDto>();
                     readTask.Wait();
 
-                    tipoVittima = readTask.Result;
+                    tipoEvento = readTask.Result;
                 }
             }
 
-            return tipoVittima;
+            return tipoEvento;
         }
     }
 }

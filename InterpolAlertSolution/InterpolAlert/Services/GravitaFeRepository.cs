@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace InterpolAlert.Services
 {
-    public class TipoVittimaFeRepository : ITipoVittimaFeRepository
+    public class GravitaFeRepository : IGravitaFeRepository
     {
-        public IEnumerable<EventoDto> GetEventiFromATipoVittima(int tipoVittimaId)
+        public IEnumerable<EventoDto> GetEventiFromAGravita(int GravitaId)
         {
             IEnumerable<EventoDto> eventi = new List<EventoDto>();
 
@@ -17,7 +17,7 @@ namespace InterpolAlert.Services
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoVittime/{tipoVittimaId}/eventi");
+                var response = client.GetAsync($"Gravita/{GravitaId}/eventi");
                 response.Wait();
 
                 var result = response.Result;
@@ -34,79 +34,79 @@ namespace InterpolAlert.Services
             return eventi;
         }
 
-        public IEnumerable<TipoVittimaDto> GetTipiVittima()
+        public IEnumerable<GravitaDto> GetGravita()
         {
-            IEnumerable<TipoVittimaDto> tipoVittime = new List<TipoVittimaDto>();
+            IEnumerable<GravitaDto> gravita = new List<GravitaDto>();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync("tipovittime");
+                var response = client.GetAsync("gravita");
                 response.Wait();
 
                 var result = response.Result;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<IList<TipoVittimaDto>>();
+                    var readTask = result.Content.ReadAsAsync<IList<GravitaDto>>();
                     readTask.Wait();
 
-                    tipoVittime = readTask.Result;
+                    gravita = readTask.Result;
                 }
             }
 
-            return tipoVittime;
+            return gravita;
         }
 
-        public TipoVittimaDto GetTipoVittima(int tipoVittimaId)
+        public GravitaDto GetGravita(int GravitaId)
         {
-            TipoVittimaDto tipoVittima = new TipoVittimaDto();
+            GravitaDto gravita = new GravitaDto();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoVittime/{tipoVittimaId}");
+                var response = client.GetAsync($"tipoVittime/{GravitaId}");
                 response.Wait();
 
                 var result = response.Result;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<TipoVittimaDto>();
+                    var readTask = result.Content.ReadAsAsync<GravitaDto>();
                     readTask.Wait();
 
-                    tipoVittima = readTask.Result;
+                    gravita = readTask.Result;
                 }
             }
 
-            return tipoVittima;
+            return gravita;
         }
 
-        public TipoVittimaDto GetTipoVittimaOfAnEvent(int eventoId)
+        public GravitaDto GetGravitaOfAnEvent(int GravitaId)
         {
-            TipoVittimaDto tipoVittima = new TipoVittimaDto();
+            GravitaDto gravita = new GravitaDto();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoVittime/eventi/{eventoId}");
+                var response = client.GetAsync($"gravita/eventi/{GravitaId}");
                 response.Wait();
 
                 var result = response.Result;
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<TipoVittimaDto>();
+                    var readTask = result.Content.ReadAsAsync<GravitaDto>();
                     readTask.Wait();
 
-                    tipoVittima = readTask.Result;
+                    gravita = readTask.Result;
                 }
             }
 
-            return tipoVittima;
+            return gravita;
         }
     }
 }

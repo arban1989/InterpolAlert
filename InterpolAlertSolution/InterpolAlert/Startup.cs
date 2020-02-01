@@ -27,7 +27,9 @@ namespace InterpolAlert
             services.AddControllersWithViews();
             services.AddScoped<ILocalitaFeRepository, LocalitaFeRepository>();
             services.AddScoped<ITipoVittimaFeRepository, TipoVittimaFeRepository>();
+            services.AddScoped<ITipoEventoFeRepository, TipoEventoFeRepository>();
             services.AddScoped<IEventoSempliceFeRepository, EventoSempliceFeRepository>();
+            services.AddScoped<IGravitaFeRepository, GravitaFeRepository > (); 
 
         }
 
