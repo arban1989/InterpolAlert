@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using InterpolAlert.Services;
+using InterpolAlertApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,18 +49,30 @@ namespace InterpolAlert.Controllers
         // POST: Localita/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Localita localita)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add insert logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PostAsJsonAsync("localita", localita);
+                responseTask.Wait();
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var newLocalitaTask = result.Content.ReadAsAsync<Localita>();
+                    newLocalitaTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                    var newLocalita = newLocalitaTask.Result;
+                    TempData["SuccessMessage"] = $"La localita {newLocalita.NomeLocalita}was successfully created. ";
+
+                    return RedirectToAction("Index", "Localita");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Localita not created!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Localita/Edit/5

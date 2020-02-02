@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using InterpolAlert.Services;
 using InterpolAlertApi.Dtos;
+using InterpolAlertApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,18 +46,32 @@ namespace InterpolAlert.Controllers
         // POST: TipoVittima/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TipoVittimaDto tipoVittima)
+        public ActionResult Create(TipoVittima tipoVittima)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add insert logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PostAsJsonAsync("tipovittima", tipoVittima);
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var newTipoVittimaTask = result.Content.ReadAsAsync<TipoVittima>();
+                    newTipoVittimaTask.Wait();
+
+                    var newTipoVittime = newTipoVittimaTask.Result;
+                    TempData["SuccessMessage"] = $"Il tipo Vittima{newTipoVittime.NomeTipoVittima}was successfully created. ";
+
+                    return RedirectToAction("Index", "TipoVittima");
+                }
+
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. TipoVittima not created!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: TipoVittima/Edit/5

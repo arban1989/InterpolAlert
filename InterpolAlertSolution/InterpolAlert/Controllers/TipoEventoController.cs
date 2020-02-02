@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using InterpolAlert.Services;
 using InterpolAlertApi.Dtos;
+using InterpolAlertApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace InterpolAlert.Controllers
@@ -45,18 +47,32 @@ namespace InterpolAlert.Controllers
         // POST: TipoEvento/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(TipoEvento tipoEvento)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add insert logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PostAsJsonAsync("tipoevento", tipoEvento);
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var newTipoEventoTask = result.Content.ReadAsAsync<TipoEvento>();
+                    newTipoEventoTask.Wait();
+
+                    var newTipoEvento = newTipoEventoTask.Result;
+                    TempData["SuccessMessage"] = $"Il tipo Evento{newTipoEvento.NomeTipoEvento}was successfully created. ";
+
+                    return RedirectToAction("Index", "Tipoevento");
+                }
+
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. TipoEvento not created!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: TipoEvento/Edit/5

@@ -5,6 +5,8 @@ using InterpolAlert.Services;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using InterpolAlertApi.Models;
+using System.Net.Http;
 
 namespace InterpolAlert.Controllers
 {
@@ -43,18 +45,32 @@ namespace InterpolAlert.Controllers
         // POST: Gravita/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Gravita gravita)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add insert logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PostAsJsonAsync("gravita", gravita);
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var newGravitaTask = result.Content.ReadAsAsync<Gravita>();
+                    newGravitaTask.Wait();
+
+                    var newGravita = newGravitaTask.Result;
+                    TempData["SuccessMessage"] = $"La gravita{newGravita.NomeGravita}was successfully created. ";
+
+                    return RedirectToAction("Index", "Gravita");
+                }
+
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Gravita not created!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+                return View();   
         }
 
         // GET: Gravita/Edit/5
