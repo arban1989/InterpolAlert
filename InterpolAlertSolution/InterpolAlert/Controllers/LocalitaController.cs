@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using InterpolAlert.ModelsForView;
 using InterpolAlert.Services;
+using InterpolAlertApi.Dtos;
+using InterpolAlertApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +33,7 @@ namespace InterpolAlert.Controllers
                     "the database or no localita exists";
             }
 
-            //ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(localitas);
         }
 
@@ -46,65 +51,150 @@ namespace InterpolAlert.Controllers
 
         // POST: Localita/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(LocalitaForCreate localitaModel)
         {
-            try
+            Localita localita = new Localita()
             {
-                // TODO: Add insert logic here
+                Nazione = localitaModel.Nazione,
+                NomeLocalita = localitaModel.NomeLocalita,
+                Latitudine = Convert.ToDecimal(localitaModel.Latitudine),
+                Longitudine = Convert.ToDecimal(localitaModel.Longitudine),
+                LivelloRischio = localitaModel.LivelloRischio
+            };
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+
+            //var d = Convert.ToDecimal(localitaModel.Latitudine.ToString(), new CultureInfo("en-US"));
+
+            using (var client = new HttpClient())
             {
-                return View();
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PostAsJsonAsync("localita", localita);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var newLocalitaTask = result.Content.ReadAsAsync<Localita>();
+                    newLocalitaTask.Wait();
+
+                    var newLocalita = newLocalitaTask.Result;
+                    TempData["SuccessMessage"] = $"Localita {newLocalita.NomeLocalita} was successfully created.";
+
+                    return RedirectToAction("Index", "Localita");
+                }
+
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", $"Localita {localitaModel.NomeLocalita} Already Exists!");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Country not created!");
+                }
             }
+
+            return View(localitaModel);
         }
 
         // GET: Localita/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int localitaId)
         {
-            return View();
+            var localitaToUpdate = _localitaFeRepository.GetLocalita(localitaId);
+            LocalitaForCreate localita = new LocalitaForCreate()
+            {
+                LocalitaId = localitaToUpdate.LocalitaId,
+                Nazione = localitaToUpdate.Nazione,
+                NomeLocalita = localitaToUpdate.NomeLocalita,
+                Latitudine = localitaToUpdate.Latitudine.ToString(),
+                Longitudine = localitaToUpdate.Longitudine.ToString(),
+                LivelloRischio = localitaToUpdate.LivelloRischio
+            };
+
+            if (localita == null)
+            {
+                ModelState.AddModelError("", "Error getting localita");
+                localita = new LocalitaForCreate();
+            }
+
+            return View(localita);
         }
 
         // POST: Localita/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(LocalitaForCreate localitaModel)
         {
-            try
+            Localita localita = new Localita()
             {
-                // TODO: Add update logic here
+                LocalitaId = localitaModel.LocalitaId,
+                Nazione = localitaModel.Nazione,
+                NomeLocalita = localitaModel.NomeLocalita,
+                Latitudine = Convert.ToDecimal(localitaModel.Latitudine),
+                Longitudine = Convert.ToDecimal(localitaModel.Longitudine),
+                LivelloRischio = localitaModel.LivelloRischio
+            };
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PutAsJsonAsync($"localita/{localita.LocalitaId}", localita);
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"Localita was successfully updated.";
+
+                    return RedirectToAction("Index", "Localita");
+                }
+
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", "Localita Already Exists!");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(localitaModel);
         }
 
-        // GET: Localita/Delete/5
-        public ActionResult Delete(int id)
+        //GET: Localita/Delete/5
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: Localita/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int localitaId)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add delete logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.DeleteAsync($"localita/{localitaId}");
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"Localita was successfully deleted.";
+
+                    return RedirectToAction("Index", "Localita");
+                }
+
+                if ((int)result.StatusCode == 409)
+                {
+                    ModelState.AddModelError("", $"La Localita cannot be deleted because " +
+                                                $"it is used by at least one Evento");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Localita not deleted!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View("Index", "Localita");
         }
     }
 }

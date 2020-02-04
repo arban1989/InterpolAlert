@@ -1,0 +1,47 @@
+﻿@model InterpolAlert.ModelsForView.AutoreViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Inserisci dati nuovo autore</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                    <label asp-for="AutoreId" class="control-label"></label>
+                    <input asp-for="AutoreId" class="form-control" />
+                    <span asp-validation-for="AutoreId" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="NomeAutore" class="control-label"></label>
+                <input asp-for="NomeAutore" class="form-control" />
+                <span asp-validation-for="NomeAutore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pericolosita" class="control-label"></label>
+                <input asp-for="Pericolosita" class="form-control" />
+                <span asp-validation-for="Pericolosita" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoteVarie" class="control-label"></label>
+                <input asp-for="NoteVarie" class="form-control" />
+                <span asp-validation-for="NoteVarie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @await Component.InvokeAsync("FazioniList")
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

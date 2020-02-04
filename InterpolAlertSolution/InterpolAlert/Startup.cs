@@ -28,6 +28,8 @@ namespace InterpolAlert
             services.AddScoped<ILocalitaFeRepository, LocalitaFeRepository>();
             services.AddScoped<ITipoVittimaFeRepository, TipoVittimaFeRepository>();
             services.AddScoped<IEventoSempliceFeRepository, EventoSempliceFeRepository>();
+            services.AddScoped<IAutoreFeRepository, AutoreFeRepository>();
+            services.AddScoped<IFazioneFeRepository, FazioneFeRepository>();
 
         }
 

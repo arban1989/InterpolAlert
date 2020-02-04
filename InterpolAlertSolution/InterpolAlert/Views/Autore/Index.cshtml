@@ -1,0 +1,61 @@
+﻿@model IEnumerable<InterpolAlert.ModelsForView.AutoreViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+
+<h1>Lista Autori schedati</h1>
+
+<p>
+    <a asp-action="Create">Inserisci nuovo Autore</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoreId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeAutore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pericolosita)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoteVarie)
+            </th>
+            <th>
+                Fazione
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AutoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeAutore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pericolosita)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoteVarie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fazione.NomeFazione)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

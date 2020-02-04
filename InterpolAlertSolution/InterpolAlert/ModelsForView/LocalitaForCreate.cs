@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InterpolAlertApi.Dtos
+namespace InterpolAlert.ModelsForView
 {
-    public class LocalitaDto
+    public class LocalitaForCreate
     {
         public int LocalitaId { get; set; }
         [Required]
         public string NomeLocalita { get; set; }
         [Required]
-        [Column(TypeName = "decimal(18, 6)")]
-        public decimal Latitudine { get; set; }
+        public string Latitudine { get; set; }
         [Required]
-        [Column(TypeName = "decimal(18, 6)")]
-        public decimal Longitudine { get; set; }
+        public string Longitudine { get; set; }
         [Required]
         public string Nazione { get; set; }
         [Required]

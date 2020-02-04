@@ -39,6 +39,7 @@ namespace InterpolAlertApi.Controllers
                 {
                     EventoSempliceId = eventoSimp.EventoSempliceId,
                     EventoSempliceNome = eventoSimp.EventoSempliceNome,
+                    EventoSempliceGravita = eventoSimp.EventoSempliceGravita,
                     EventoSempliceNote = eventoSimp.EventoSempliceNote,
                     EventoSempliceData = eventoSimp.EventoSempliceData
                 }) ;
@@ -65,6 +66,7 @@ namespace InterpolAlertApi.Controllers
             {
             EventoSempliceId = eventoSemplice.EventoSempliceId,
             EventoSempliceNome = eventoSemplice.EventoSempliceNome,
+            EventoSempliceGravita = eventoSemplice.EventoSempliceGravita,
             EventoSempliceNote = eventoSemplice.EventoSempliceNote,
             EventoSempliceData = eventoSemplice.EventoSempliceData
             };

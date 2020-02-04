@@ -14,9 +14,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.LocalitaId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.NomeLocalita)
             </th>
@@ -39,9 +39,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                    @item.LocalitaId
-                </td>
+                </td>*@
                 <td>
                     @item.NomeLocalita
                 </td>
@@ -58,9 +58,13 @@
                     @item.LivelloRischio
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a class="btn btn-sm btn-primary" asp-controller="Localita" asp-action="Edit" asp-route-localitaId="@item.LocalitaId">Edit |</a>
+                    <form asp-action="Delete" asp-route-localitaId="@item.LocalitaId" method="post">
+                        <button class="btn btn-sm btn-danger" type="submit"
+                           new { onclick="return confirm('Are you sure you wish to delete this?');">Delete |</button>
+                    </form>
+                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
         }

@@ -1,0 +1,60 @@
+﻿@model InterpolAlert.ModelsForView.LocalitaForCreate
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Inserisci dati nuova Localita</h1>
+
+<h5 class="text-warning">
+    Latitudine e Longitudine deveno essere inseriti in qusto formato: 45,46427  9,18951
+</h5>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="LocalitaId" class="control-label"></label>
+                <input asp-for="LocalitaId" class="form-control" />
+                <span asp-validation-for="LocalitaId" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label class="control-label">Nazione</label>
+                <input asp-for="Nazione" class="form-control" />
+                <span asp-validation-for="Nazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Nome</label>
+                <input asp-for="NomeLocalita" class="form-control" />
+                <span asp-validation-for="NomeLocalita" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Latitudine</label>
+                <input asp-for="Latitudine" class="form-control" />
+                @*<span asp-validation-for="Latitudine" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label class="control-label">Longitudine</label>
+                <input asp-for="Longitudine" class="form-control" />
+                @*<span asp-validation-for="Longitudine" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label class="control-label">LivelloRischio</label>
+                <input asp-for="LivelloRischio" class="form-control" />
+                <span asp-validation-for="LivelloRischio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

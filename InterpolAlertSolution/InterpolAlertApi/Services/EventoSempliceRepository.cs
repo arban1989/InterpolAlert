@@ -34,7 +34,7 @@ namespace InterpolAlertApi.Services
 
         public ICollection<EventoSemplice> GetEventiSemplici()
         {
-            return _eventoSempliceContext.EventoSemplice.ToList();
+            return _eventoSempliceContext.EventoSemplice.OrderByDescending(ev => ev.EventoSempliceData).ToList();
         }
 
         public EventoSemplice GetEventoSemplice(int eventoSempliceId)

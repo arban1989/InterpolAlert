@@ -22,6 +22,7 @@ namespace InterpolAlertApi.Models
         [Required]
         public string Nazione { get; set; }
         [Required]
+        [Range(1, 5, ErrorMessage = "Livello Rischio must be between 1 ad 5")]
         public int LivelloRischio { get; set; }
         public virtual ICollection<Evento> Eventi { get; set; }
 

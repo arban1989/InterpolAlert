@@ -11,14 +11,19 @@
         <form asp-controller="EventoSemplice" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-                <label asp-for="EventoSempliceId" class="control-label"></label>
-                <input asp-for="EventoSempliceId" class="form-control" />
-                <span asp-validation-for="EventoSempliceId" class="text-danger"></span>
-            </div>*@
+            <label asp-for="EventoSempliceId" class="control-label"></label>
+            <input asp-for="EventoSempliceId" class="form-control" />
+            <span asp-validation-for="EventoSempliceId" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label class="control-label">Titolo Evento</label>
                 <input asp-for="EventoSempliceNome" class="form-control" />
                 <span asp-validation-for="EventoSempliceNome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Gravita</label>
+                <input asp-for="EventoSempliceGravita" class="form-control" />
+                <span asp-validation-for="EventoSempliceGravita" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Descrizione evento</label>

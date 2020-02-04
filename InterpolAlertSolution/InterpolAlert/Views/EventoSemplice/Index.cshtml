@@ -12,11 +12,12 @@
     <a class="btn btn-primary mb-3" asp-controller="EventoSemplice" asp-action="Create">
         Segnala un nuovo Evento
     </a>
-
+    
     foreach (var evento in Model)
     {
+        var cardheadbg = (evento.EventoSempliceGravita >=4) ? "bg-danger" : "bg-warning";
         <div class="card mb-3">
-            <div class="card-header">
+            <div class="card-header text-white @cardheadbg">
                 @evento.EventoSempliceNome
             </div>
             <div class="card-body">
@@ -25,7 +26,7 @@
                 </p>
             </div>
             <div class="card-footer text-muted">
-                Data Segnalazione: @evento.EventoSempliceData
+                Data Segnalazione: @evento.EventoSempliceData.ToShortDateString()
             </div>
 
         </div>
