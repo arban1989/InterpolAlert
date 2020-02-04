@@ -6,7 +6,7 @@
 <h2>@ViewBag.Message</h2>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <h2 class="text-success">@ViewBag.SuccessMessage</h2>
-<h1>Index</h1>
+<h1>Lista delle Localita inserite!</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -58,13 +58,13 @@
                     @item.LivelloRischio
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-controller="Localita" asp-action="Edit" asp-route-localitaId="@item.LocalitaId">Edit |</a>
                     <form asp-action="Delete" asp-route-localitaId="@item.LocalitaId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-controller="Localita" asp-action="Edit" asp-route-localitaId="@item.LocalitaId">Edit</a>
                         <button class="btn btn-sm btn-danger" type="submit"
-                           new { onclick="return confirm('Are you sure you wish to delete this?');">Delete |</button>
+                                new { onclick="return confirm('Are you sure you wish to delete this?');">
+                            Delete
+                        </button>
                     </form>
-                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
         }

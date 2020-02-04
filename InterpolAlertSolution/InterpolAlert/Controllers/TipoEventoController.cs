@@ -22,8 +22,7 @@ namespace InterpolAlert.Controllers
         // GET: TipoEvento
         public ActionResult Index()
         {
-            var tipo = _tipoEventoFeRepository.GetTipoEvento(2);
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             var tipoeventi = _tipoEventoFeRepository.GetTipiEventi();
             if (tipoeventi.Count()<=0)
             {
@@ -46,13 +45,12 @@ namespace InterpolAlert.Controllers
 
         // POST: TipoEvento/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(TipoEvento tipoEvento)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
-                var responseTask = client.PostAsJsonAsync("tipoevento", tipoEvento);
+                var responseTask = client.PostAsJsonAsync("tipoeventi", tipoEvento);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -62,9 +60,13 @@ namespace InterpolAlert.Controllers
                     newTipoEventoTask.Wait();
 
                     var newTipoEvento = newTipoEventoTask.Result;
-                    TempData["SuccessMessage"] = $"Il tipo Evento{newTipoEvento.NomeTipoEvento}was successfully created. ";
+                    TempData["SuccessMessage"] = $"Il tipo Evento {newTipoEvento.NomeTipoEvento} was successfully created. ";
 
-                    return RedirectToAction("Index", "Tipoevento");
+                    return RedirectToAction("Index", "TipoEvento");
+                }
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", $"TipoEvento {tipoEvento.NomeTipoEvento} Already Exists!");
                 }
 
                 else
@@ -76,30 +78,52 @@ namespace InterpolAlert.Controllers
         }
 
         // GET: TipoEvento/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int tipoEventoId)
         {
-            return View();
+            var tipoEventoToUpdate = _tipoEventoFeRepository.GetTipoEvento(tipoEventoId);
+
+            if (tipoEventoToUpdate == null)
+            {
+                ModelState.AddModelError("", "Error getting tipoEvento");
+                tipoEventoToUpdate = new TipoEventoDto();
+            }
+
+            return View(tipoEventoToUpdate);
         }
 
         // POST: TipoEvento/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(TipoEventoDto tipoEvento)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add update logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PutAsJsonAsync($"tipoeventi/{tipoEvento.TipoEventoId}", tipoEvento);
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"TipoEvento was successfully updated.";
+
+                    return RedirectToAction("Index", "TipoEvento");
+                }
+
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", "TipoEvento Already Exists!");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(tipoEvento);
         }
 
         // GET: TipoEvento/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
@@ -107,18 +131,34 @@ namespace InterpolAlert.Controllers
         // POST: TipoEvento/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int tipoEventoId)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add delete logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.DeleteAsync($"tipoeventi/{tipoEventoId}");
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"TipoEvento was successfully deleted.";
+
+                    return RedirectToAction("Index", "TipoEvento");
+                }
+
+                if ((int)result.StatusCode == 409)
+                {
+                    ModelState.AddModelError("", $"TipoEvento cannot be deleted because " +
+                                                $"it is used by at least one Evento");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. TipoEvento not deleted!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View("Index", "TipoEvento");
         }
     }
 }

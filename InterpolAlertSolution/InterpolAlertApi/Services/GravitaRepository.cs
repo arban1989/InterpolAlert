@@ -54,7 +54,7 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateGravita(int gravitaId, string nomeGravita)
         {
-            var gravita = _gravitaContext.Gravita.Where(gr => gr.GravitaId == gravitaId && gr.NomeGravita.Trim().ToUpper() == nomeGravita.Trim().ToUpper()).FirstOrDefault();
+            var gravita = _gravitaContext.Gravita.Where(gr => gr.GravitaId != gravitaId && gr.NomeGravita.Trim().ToUpper() == nomeGravita.Trim().ToUpper()).FirstOrDefault();
             return gravita == null ? false : true;
         }
 

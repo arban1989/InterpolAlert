@@ -4,7 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+
+<h1>Lista delle Gravita</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,8 +15,8 @@
     <thead>
         <tr>
             @*<th>
-                @Html.DisplayNameFor(model => model.GravitaId)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.GravitaId)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.NomeGravita)
             </th>
@@ -22,20 +24,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.GravitaId)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeGravita)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.GravitaId)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeGravita)
+                </td>
+                <td>
+                    <form asp-action="Delete" asp-route-gravitaId="@item.GravitaId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-controller="Gravita" asp-action="Edit" asp-route-gravitaId="@item.GravitaId">Edit</a>
+                        <button class="btn btn-sm btn-danger" type="submit"
+                                new { onclick="return confirm('Are you sure you wish to delete this?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

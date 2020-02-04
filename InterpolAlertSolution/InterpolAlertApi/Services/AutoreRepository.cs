@@ -59,7 +59,7 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateAutoreName(int autoreId, string nomeAutore)
         {
-            var autore = _autoreContext.Autori.Where(au=>au.AutoreId == autoreId && au.NomeAutore.Trim().ToUpper() == nomeAutore.Trim().ToUpper());
+            var autore = _autoreContext.Autori.Where(au=>au.AutoreId != autoreId && au.NomeAutore.Trim().ToUpper() == nomeAutore.Trim().ToUpper());
             return autore == null ? false : true;
         }
 

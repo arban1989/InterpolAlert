@@ -49,7 +49,7 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateLocalita(int localitaId, string nomeLocalita)
         {
-            var localita = _localitaContext.Localita.Where(l => l.LocalitaId == localitaId && l.NomeLocalita.Trim().ToUpper() == nomeLocalita.Trim().ToUpper()).FirstOrDefault();
+            var localita = _localitaContext.Localita.Where(l => l.LocalitaId != localitaId && l.NomeLocalita.Trim().ToUpper() == nomeLocalita.Trim().ToUpper()).FirstOrDefault();
             return localita == null ? false : true;
         }
 

@@ -17,7 +17,7 @@ namespace InterpolAlert.Services
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoevento/{tipoEventoId}/eventi");
+                var response = client.GetAsync($"tipoeventi/{tipoEventoId}/eventi");
                 response.Wait();
 
                 var result = response.Result;
@@ -36,7 +36,7 @@ namespace InterpolAlert.Services
 
         public IEnumerable<TipoEventoDto> GetTipiEventi()
         {
-            IEnumerable<TipoEventoDto> tipoVittime = new List<TipoEventoDto>();
+            IEnumerable<TipoEventoDto> tipievento = new List<TipoEventoDto>();
 
             using (var client = new HttpClient())
             {
@@ -52,11 +52,11 @@ namespace InterpolAlert.Services
                     var readTask = result.Content.ReadAsAsync<IList<TipoEventoDto>>();
                     readTask.Wait();
 
-                    tipoVittime = readTask.Result;
+                    tipievento = readTask.Result;
                 }
             }
 
-            return tipoVittime;
+            return tipievento;
         }
 
         public TipoEventoDto GetTipoEvento(int tipoEventoId)
@@ -67,7 +67,7 @@ namespace InterpolAlert.Services
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoEvento/{tipoEventoId}");
+                var response = client.GetAsync($"tipoEventi/{tipoEventoId}");
                 response.Wait();
 
                 var result = response.Result;
@@ -84,7 +84,7 @@ namespace InterpolAlert.Services
             return tipoEvento;
         }
 
-        public TipoEventoDto GetTipoTipoEventoOfAnEvent(int tipoEventoId)
+        public TipoEventoDto GetTipoEventoOfAnEvent(int tipoEventoId)
         {
             TipoEventoDto tipoEvento = new TipoEventoDto();
 
@@ -92,7 +92,7 @@ namespace InterpolAlert.Services
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"tipoEvento/eventi/{tipoEventoId}");
+                var response = client.GetAsync($"tipoEventi/eventi/{tipoEventoId}");
                 response.Wait();
 
                 var result = response.Result;

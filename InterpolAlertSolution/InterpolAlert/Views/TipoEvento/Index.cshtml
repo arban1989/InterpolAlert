@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+<h1>Lista Tipi Evento</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,8 +13,8 @@
     <thead>
         <tr>
             @*<th>
-                @Html.DisplayNameFor(model => model.TipoEventoId)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.TipoEventoId)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.NomeTipoEvento)
             </th>
@@ -22,20 +22,26 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.TipoEventoId)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeTipoEvento)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.TipoEventoId)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeTipoEvento)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    <form asp-action="Delete" asp-route-tipoEventoId="@item.TipoEventoId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-controller="TipoEvento" asp-action="Edit" asp-route-tipoEventoId="@item.TipoEventoId">Edit</a>
+                        <button class="btn btn-sm btn-danger" type="submit"
+                                new { onclick="return confirm('Are you sure you wish to delete this?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

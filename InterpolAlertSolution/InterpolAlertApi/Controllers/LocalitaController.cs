@@ -216,11 +216,11 @@ namespace InterpolAlertApi.Controllers
             if (!_localitaRepository.LocalitaExists(localitaId))
                 return NotFound();
 
-            //if (_localitaRepository.IsDuplicateLocalita(localitaId, localitaToUpdate.NomeLocalita))
-            //{
-            //    ModelState.AddModelError("", $"Localita {localitaToUpdate.NomeLocalita} already exists");
-            //    return StatusCode(422, ModelState);
-            //}
+            if (_localitaRepository.IsDuplicateLocalita(localitaId, localitaToUpdate.NomeLocalita))
+            {
+                ModelState.AddModelError("", $"Localita {localitaToUpdate.NomeLocalita} already exists");
+                return StatusCode(422, ModelState);
+            }
 
             if (!ModelState.IsValid)
             {

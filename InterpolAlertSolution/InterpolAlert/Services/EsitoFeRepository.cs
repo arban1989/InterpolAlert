@@ -7,9 +7,84 @@ using System.Threading.Tasks;
 
 namespace InterpolAlert.Services
 {
-    public class GravitaFeRepository : IGravitaFeRepository
+    public class EsitoFeRepository : IEsitoFeRepository
     {
-        public IEnumerable<EventoDto> GetEventiFromAGravita(int GravitaId)
+        public IEnumerable<EsitoDto> GetEsiti()
+        {
+            IEnumerable<EsitoDto> esiti = new List<EsitoDto>();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+
+                var response = client.GetAsync("esiti");
+                response.Wait();
+
+                var result = response.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<IList<EsitoDto>>();
+                    readTask.Wait();
+
+                    esiti = readTask.Result;
+                }
+            }
+
+            return esiti;
+        }
+
+        public EsitoDto GetEsito(int esitoId)
+        {
+            EsitoDto esito = new EsitoDto();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+
+                var response = client.GetAsync($"esiti/{esitoId}");
+                response.Wait();
+
+                var result = response.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<EsitoDto>();
+                    readTask.Wait();
+
+                    esito = readTask.Result;
+                }
+            }
+
+            return esito;
+        }
+
+        public EsitoDto GetEsitoOfAnEvent(int esitoId)
+        {
+            EsitoDto esito = new EsitoDto();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+
+                var response = client.GetAsync($"esiti/eventi/{esitoId}");
+                response.Wait();
+
+                var result = response.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<EsitoDto>();
+                    readTask.Wait();
+
+                    esito = readTask.Result;
+                }
+            }
+
+            return esito;
+        }
+
+        public IEnumerable<EventoDto> GetEventiFromAnEsito(int esitoId)
         {
             IEnumerable<EventoDto> eventi = new List<EventoDto>();
 
@@ -17,7 +92,7 @@ namespace InterpolAlert.Services
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
 
-                var response = client.GetAsync($"Gravita/{GravitaId}/eventi");
+                var response = client.GetAsync($"esiti/{esitoId}/eventi");
                 response.Wait();
 
                 var result = response.Result;
@@ -32,81 +107,6 @@ namespace InterpolAlert.Services
             }
 
             return eventi;
-        }
-
-        public IEnumerable<GravitaDto> GetGravita()
-        {
-            IEnumerable<GravitaDto> gravita = new List<GravitaDto>();
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44357/api/");
-
-                var response = client.GetAsync("gravita");
-                response.Wait();
-
-                var result = response.Result;
-
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<IList<GravitaDto>>();
-                    readTask.Wait();
-
-                    gravita = readTask.Result;
-                }
-            }
-
-            return gravita;
-        }
-
-        public GravitaDto GetGravita(int GravitaId)
-        {
-            GravitaDto gravita = new GravitaDto();
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44357/api/");
-
-                var response = client.GetAsync($"gravita/{GravitaId}");
-                response.Wait();
-
-                var result = response.Result;
-
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<GravitaDto>();
-                    readTask.Wait();
-
-                    gravita = readTask.Result;
-                }
-            }
-
-            return gravita;
-        }
-
-        public GravitaDto GetGravitaOfAnEvent(int GravitaId)
-        {
-            GravitaDto gravita = new GravitaDto();
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44357/api/");
-
-                var response = client.GetAsync($"gravita/eventi/{GravitaId}");
-                response.Wait();
-
-                var result = response.Result;
-
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<GravitaDto>();
-                    readTask.Wait();
-
-                    gravita = readTask.Result;
-                }
-            }
-
-            return gravita;
         }
     }
 }

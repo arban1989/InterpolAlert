@@ -54,7 +54,7 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateMandante(int mandanteId, string nomeMandante)
         {
-            var mandante = _mandateContext.Mandanti.Where(ma => ma.MandanteId == mandanteId && ma.NomeMandante.Trim().ToUpper() == nomeMandante.Trim().ToUpper()).FirstOrDefault();
+            var mandante = _mandateContext.Mandanti.Where(ma => ma.MandanteId != mandanteId && ma.NomeMandante.Trim().ToUpper() == nomeMandante.Trim().ToUpper()).FirstOrDefault();
             return mandante == null ? false : true;
         }
 

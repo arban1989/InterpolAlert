@@ -44,18 +44,18 @@ namespace InterpolAlertApi.Controllers
             }
             return Ok(tipoeventsDto);
         }
-        // GET: api/tipoeventi/tipoEventiId
-        [HttpGet("{tipoeventiId}", Name = "GetTipoEvento")]
+        // GET: api/tipoeventi/tipoEventoId
+        [HttpGet("{tipoEventoId}", Name = "GetTipoEvento")]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(TipoEventoDto))]
-        public IActionResult GetTipoEvento(int tipoeventiId)
+        public IActionResult GetTipoEvento(int tipoEventoId)
         {
-            if (!_tipoEventoRepository.TipoEventoExists(tipoeventiId))
+            if (!_tipoEventoRepository.TipoEventoExists(tipoEventoId))
 
                 return NotFound();
 
-            var tipoeventi = _tipoEventoRepository.GetTipoEvento(tipoeventiId);
+            var tipoeventi = _tipoEventoRepository.GetTipoEvento(tipoEventoId);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -95,18 +95,18 @@ namespace InterpolAlertApi.Controllers
             return Ok(tipoEventoDto);
         }
         //api/tipoeventi/tipoEventiId/eventi
-        [HttpGet("{tipoEventiId}/eventi")]
+        [HttpGet("{tipoEventoId}/eventi")]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<EventoDto>))]
-        public IActionResult GetEventiFromATipoVittima(int tipoEventiId)
+        public IActionResult GetEventiFromATipoVittima(int tipoEventoId)
         {
-            if (!_tipoEventoRepository.TipoEventoExists(tipoEventiId))
+            if (!_tipoEventoRepository.TipoEventoExists(tipoEventoId))
             {
                 return NotFound();
             }
 
-            var tipoeventi = _tipoEventoRepository.GetEventiFromATipoEvento(tipoEventiId);
+            var tipoeventi = _tipoEventoRepository.GetEventiFromATipoEvento(tipoEventoId);
 
             if (!ModelState.IsValid)
             {
@@ -168,30 +168,30 @@ namespace InterpolAlertApi.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetTipoVittima", new { tipoeventoId = tipoEventoToCreate.TipoEventoId }, tipoEventoToCreate);
+            return CreatedAtRoute("GetTipoEvento", new { tipoeventoId = tipoEventoToCreate.TipoEventoId }, tipoEventoToCreate);
 
         }
         //api/tipoeventi/tipoEventiId
-        [HttpPut("{tipoEventiId}")]
+        [HttpPut("{tipoEventoId}")]
         [ProducesResponseType(204)] // No Content
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         [ProducesResponseType(422)]
-        public IActionResult UpdateTipoEventi(int tipoEventiId, [FromBody]TipoEvento tipoEventiToUpdate)
+        public IActionResult UpdateTipoEventi(int tipoEventoId, [FromBody]TipoEvento tipoEventiToUpdate)
         {
             if (tipoEventiToUpdate == null)
             {
                 return BadRequest(ModelState);
             }
 
-            if (tipoEventiId != tipoEventiToUpdate.TipoEventoId)
+            if (tipoEventoId != tipoEventiToUpdate.TipoEventoId)
                 return BadRequest(ModelState);
 
-            if (!_tipoEventoRepository.TipoEventoExists(tipoEventiId))
+            if (!_tipoEventoRepository.TipoEventoExists(tipoEventoId))
                 return NotFound();
 
-            if (_tipoEventoRepository.IsDuplicateTipoEvento(tipoEventiId, tipoEventiToUpdate.NomeTipoEvento))
+            if (_tipoEventoRepository.IsDuplicateTipoEvento(tipoEventoId, tipoEventiToUpdate.NomeTipoEvento))
             {
                 ModelState.AddModelError("", $"TipoEvento {tipoEventiToUpdate.NomeTipoEvento} already exists");
                 return StatusCode(422, ModelState);
@@ -212,20 +212,20 @@ namespace InterpolAlertApi.Controllers
 
         }
         //api/tipoeventi/tipoEventiId
-        [HttpDelete("{tipoEventiId}")]
+        [HttpDelete("{tipoEventoId}")]
         [ProducesResponseType(204)] // no content
         [ProducesResponseType(400)]
         [ProducesResponseType(409)]
         [ProducesResponseType(422)]
         [ProducesResponseType(500)]
-        public IActionResult DeleteTipoEventi(int tipoEventiId)
+        public IActionResult DeleteTipoEventi(int tipoEventoId)
         {
-            if (!_tipoEventoRepository.TipoEventoExists(tipoEventiId))
+            if (!_tipoEventoRepository.TipoEventoExists(tipoEventoId))
                 return NotFound();
 
-            var tipoEventiToDelete = _tipoEventoRepository.GetTipoEvento(tipoEventiId);
+            var tipoEventiToDelete = _tipoEventoRepository.GetTipoEvento(tipoEventoId);
 
-            if (_tipoEventoRepository.GetEventiFromATipoEvento(tipoEventiId).Count() > 0)
+            if (_tipoEventoRepository.GetEventiFromATipoEvento(tipoEventoId).Count() > 0)
             {
                 ModelState.AddModelError("", $"TipoEvento {tipoEventiToDelete.NomeTipoEvento}" + " cannot be deletet becouse it is used at least at one event");
                 return StatusCode(409, ModelState);

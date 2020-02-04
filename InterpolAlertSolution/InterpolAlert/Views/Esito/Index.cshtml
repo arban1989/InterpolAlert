@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InterpolAlertApi.Dtos.TipoVittimaDto>
+﻿@model IEnumerable<InterpolAlertApi.Dtos.EsitoDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,7 +6,7 @@
 
 <h2 class="text-success">@ViewBag.SuccessMessage</h2>
 
-<h1>Lista Tipo Vittime</h1>
+<h1>Lista Esiti</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,11 +14,8 @@
 <table class="table">
     <thead>
         <tr>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.TipoVittimaId)
-                </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.NomeTipoVittima)
+                @Html.DisplayNameFor(model => model.NomeEsito)
             </th>
             <th></th>
         </tr>
@@ -27,15 +24,12 @@
         @foreach (var item in Model)
         {
             <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.TipoVittimaId)
-                    </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.NomeTipoVittima)
+                    @Html.DisplayFor(modelItem => item.NomeEsito)
                 </td>
                 <td>
-                    <form asp-action="Delete" asp-route-tipoVittimaId="@item.TipoVittimaId" method="post">
-                        <a class="btn btn-sm btn-primary" asp-controller="TipoVittima" asp-action="Edit" asp-route-tipoVittimaId="@item.TipoVittimaId">Edit</a>
+                    <form asp-action="Delete" asp-route-esitoId="@item.EsitoId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-controller="Esito" asp-action="Edit" asp-route-esitoId="@item.EsitoId">Edit</a>
                         <button class="btn btn-sm btn-danger" type="submit"
                                 new { onclick="return confirm('Are you sure you wish to delete this?');">
                             Delete

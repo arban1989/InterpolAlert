@@ -59,7 +59,7 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateFazione(int fazioneId, string nomeFazione)
         {
-            var fazione = _fazioneContext.Fazioni.Where(fa=>fa.FazioneId == fazioneId && fa.NomeFazione.Trim().ToUpper() == nomeFazione.Trim().ToUpper()).FirstOrDefault();
+            var fazione = _fazioneContext.Fazioni.Where(fa=>fa.FazioneId != fazioneId && fa.NomeFazione.Trim().ToUpper() == nomeFazione.Trim().ToUpper()).FirstOrDefault();
             return fazione == null ? false : true;
         }
 

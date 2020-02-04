@@ -23,12 +23,13 @@ namespace InterpolAlert.Controllers
         // GET: TipoVittima
         public ActionResult Index()
         {
-            var tipovictims = _tipoVittimaFeRepository.GetTipiVittima();
-            if (tipovictims.Count()<= 0)
+            var tipoVittime = _tipoVittimaFeRepository.GetTipiVittima();
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            if (tipoVittime.Count()<= 0)
             {
-                ViewBag.Message = "There was a problem retrieving type of victims from" + "the database or no type victims exists";
+                ViewBag.Message = "There was a problem retrieving type of victims from the database or no type victims exists";
             }
-            return View(tipovictims);
+            return View(tipoVittime);
         }
 
         // GET: TipoVittima/Details/5
@@ -45,13 +46,12 @@ namespace InterpolAlert.Controllers
 
         // POST: TipoVittima/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(TipoVittima tipoVittima)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44357/api/");
-                var responseTask = client.PostAsJsonAsync("tipovittima", tipoVittima);
+                var responseTask = client.PostAsJsonAsync("tipovittime", tipoVittima);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -61,9 +61,14 @@ namespace InterpolAlert.Controllers
                     newTipoVittimaTask.Wait();
 
                     var newTipoVittime = newTipoVittimaTask.Result;
-                    TempData["SuccessMessage"] = $"Il tipo Vittima{newTipoVittime.NomeTipoVittima}was successfully created. ";
+                    TempData["SuccessMessage"] = $"Il tipo Vittima {newTipoVittime.NomeTipoVittima} was successfully created. ";
 
                     return RedirectToAction("Index", "TipoVittima");
+                }
+
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", $"TipoVittima {tipoVittima.NomeTipoVittima} Already Exists!");
                 }
 
                 else
@@ -75,49 +80,86 @@ namespace InterpolAlert.Controllers
         }
 
         // GET: TipoVittima/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int tipoVittimaId)
         {
-            return View();
+            var tipoVittimaToUpdate = _tipoVittimaFeRepository.GetTipoVittima(tipoVittimaId);
+
+            if (tipoVittimaToUpdate == null)
+            {
+                ModelState.AddModelError("", "Error getting Tipo Vittima");
+                tipoVittimaToUpdate = new TipoVittimaDto();
+            }
+
+            return View(tipoVittimaToUpdate);
         }
 
         // POST: TipoVittima/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(TipoVittimaDto tipoVittima)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add update logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PutAsJsonAsync($"tipovittime/{tipoVittima.TipoVittimaId}", tipoVittima);
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"TipoVittima was successfully updated.";
+
+                    return RedirectToAction("Index", "TipoVittima");
+                }
+
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", "TipoVittima Already Exists!");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(tipoVittima);
         }
 
         // GET: TipoVittima/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: TipoVittima/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int tipoVittimaId)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add delete logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.DeleteAsync($"tipovittime/{tipoVittimaId}");
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"TipoVittima was successfully deleted.";
+
+                    return RedirectToAction("Index", "TipoVittima");
+                }
+
+                if ((int)result.StatusCode == 409)
+                {
+                    ModelState.AddModelError("", $"TipoVittima cannot be deleted because " +
+                                                $"it is used by at least one Evento");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. TipoEvento not deleted!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View("Index", "TipoVittima");
         }
     }
 }

@@ -8,6 +8,6 @@ namespace InterpolAlert.Services
         IEnumerable<EventoDto> GetEventiFromATipoEvento(int tipoEventoId);
         IEnumerable<TipoEventoDto> GetTipiEventi();
         TipoEventoDto GetTipoEvento(int tipoEventoId);
-        TipoEventoDto GetTipoTipoEventoOfAnEvent(int tipoEventoId);
+        TipoEventoDto GetTipoEventoOfAnEvent(int tipoEventoId);
     }
 }

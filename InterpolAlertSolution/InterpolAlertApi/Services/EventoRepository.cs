@@ -67,7 +67,7 @@ namespace InterpolAlertApi.Services
 
         public bool IsDuplicateEvent(int eventoId, string nomeEvento)
         {
-            var evento = _eventoContext.Eventi.Where(ev => ev.EventoId == eventoId && ev.NomeEvento.Trim().ToUpper() == nomeEvento.Trim().ToUpper());
+            var evento = _eventoContext.Eventi.Where(ev => ev.EventoId != eventoId && ev.NomeEvento.Trim().ToUpper() == nomeEvento.Trim().ToUpper());
             return evento == null ? false : true;
         }
 

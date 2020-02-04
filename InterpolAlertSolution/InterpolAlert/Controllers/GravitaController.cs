@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using InterpolAlertApi.Models;
 using System.Net.Http;
+using InterpolAlertApi.Dtos;
 
 namespace InterpolAlert.Controllers
 {
@@ -22,8 +23,9 @@ namespace InterpolAlert.Controllers
         // GET: Gravita
         public ActionResult Index()
         {
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             var gravita = _gravitaFeRepository.GetGravita();
-            if (gravita.Count()<=0)
+            if (gravita.Count() <= 0)
             {
                 ViewBag.Message = "There was a problem retrieving  the gravity from" + "the database or no gravity exists";
             }
@@ -60,9 +62,14 @@ namespace InterpolAlert.Controllers
                     newGravitaTask.Wait();
 
                     var newGravita = newGravitaTask.Result;
-                    TempData["SuccessMessage"] = $"La gravita{newGravita.NomeGravita}was successfully created. ";
+                    TempData["SuccessMessage"] = $"La gravita {newGravita.NomeGravita} was successfully created. ";
 
                     return RedirectToAction("Index", "Gravita");
+                }
+
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", $"Gravita {gravita.NomeGravita} Already Exists!");
                 }
 
                 else
@@ -70,34 +77,56 @@ namespace InterpolAlert.Controllers
                     ModelState.AddModelError("", "Some kind of error. Gravita not created!");
                 }
             }
-                return View();   
+            return View();
         }
 
         // GET: Gravita/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int gravitaId)
         {
-            return View();
+            var gravitaToUpdate = _gravitaFeRepository.GetGravita(gravitaId);
+
+            if (gravitaToUpdate == null)
+            {
+                ModelState.AddModelError("", "Error getting Gravita");
+                gravitaToUpdate = new GravitaDto();
+            }
+
+            return View(gravitaToUpdate);
         }
 
         // POST: Gravita/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(GravitaDto gravita)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add update logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.PutAsJsonAsync($"gravita/{gravita.GravitaId}", gravita);
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"Gravita was successfully updated.";
+
+                    return RedirectToAction("Index", "Gravita");
+                }
+
+                if ((int)result.StatusCode == 422)
+                {
+                    ModelState.AddModelError("", "Gravita Already Exists!");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(gravita);
         }
 
         // GET: Gravita/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
@@ -105,18 +134,34 @@ namespace InterpolAlert.Controllers
         // POST: Gravita/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int gravitaId)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add delete logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.DeleteAsync($"gravita/{gravitaId}");
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"Gravita was successfully deleted.";
+
+                    return RedirectToAction("Index", "Gravita");
+                }
+
+                if ((int)result.StatusCode == 409)
+                {
+                    ModelState.AddModelError("", $"Gravita cannot be deleted because " +
+                                                $"it is used by at least one Evento");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. TipoEvento not deleted!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View("Index", "Gravita");
         }
     }
 }
