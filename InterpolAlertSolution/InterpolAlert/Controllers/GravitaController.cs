@@ -157,7 +157,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. TipoEvento not deleted!");
+                    ModelState.AddModelError("", "Some kind of error. Gravita not deleted!");
                 }
             }
 

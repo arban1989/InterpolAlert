@@ -126,49 +126,110 @@ namespace InterpolAlert.Controllers
         }
 
         // GET: Autore/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int autoreId)
         {
-            return View();
+            var autoreDto = _autoreFeRepository.GetAutore(autoreId);
+            var fazioneDto = _autoreFeRepository.GetFazioneOfAnAutore(autoreId);
+
+            Autore autore = null;
+            if (fazioneDto == null || autoreDto == null)
+            {
+                ModelState.AddModelError("", "Invalid Fazione or Autore. Cannot update Autore!");
+                autore = new Autore();
+            }
+            else
+            {
+                autore = new Autore
+                {
+                    AutoreId = autoreDto.AutoreId,
+                    NomeAutore = autoreDto.NomeAutore,
+                    Pericolosita = autoreDto.Pericolosita,
+                    NoteVarie = autoreDto.NoteVarie,
+                    Fazione = new Fazione
+                    {
+                        FazioneId = fazioneDto.FazioneId,
+                        NomeFazione = fazioneDto.NomeFazione
+                    }
+                };
+            }
+
+            return View(autore);
         }
 
         // POST: Autore/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int fazioneId, Autore autoreToEdit)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var fazioneDto = _fazioneFeRepository.GetFazione(fazioneId);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (fazioneDto == null || autoreToEdit == null)
             {
-                return View();
+                ModelState.AddModelError("", "Invalid Fazione, or Autore. Cannot update Autore!");
             }
+            else
+            {
+                autoreToEdit.Fazione = new Fazione
+                {
+                    FazioneId = fazioneDto.FazioneId,
+                    NomeFazione = fazioneDto.NomeFazione
+                };
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44357/api/");
+                    var responseTask = client.PutAsJsonAsync($"autori/{autoreToEdit.AutoreId}", autoreToEdit);
+                    responseTask.Wait();
+
+                    var result = responseTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        TempData["SuccessMessage"] = "Autore aggiornato con successo";
+                        return RedirectToAction("Index", "Autore");
+                    }
+
+                    ModelState.AddModelError("", "Unexpected Error. Autore Not Updated");
+                }
+            }
+
+            return View(autoreToEdit);
         }
 
         // GET: Autore/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: Autore/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int autoreId)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add delete logic here
+                client.BaseAddress = new Uri("https://localhost:44357/api/");
+                var responseTask = client.DeleteAsync($"autori/{autoreId}");
+                responseTask.Wait();
 
-                return RedirectToAction(nameof(Index));
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"Autore was successfully deleted.";
+
+                    return RedirectToAction("Index");
+                }
+
+                if ((int)result.StatusCode == 409)
+                {
+                    ModelState.AddModelError("", $"Autore cannot be deleted because " +
+                                                $"it is used by at least one event");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Some kind of error. Autore not deleted!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View("Index", "Autore");
         }
     }
 }

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<InterpolAlert.ModelsForView.MandanteViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+
+<h1>Lista Mandanti</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeMandante)
+            </th>
+            <th>
+                Fazione
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeMandante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fazione.NomeFazione)
+                </td>
+                <td>
+                    <form asp-action="Delete" asp-route-mandanteId="@item.MandanteId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-controller="Mandante" asp-action="Edit" asp-route-mandanteId="@item.MandanteId">Edit</a>
+                        <button class="btn btn-sm btn-danger" type="submit"
+                                new { onclick="return confirm('Are you sure you wish to delete this?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

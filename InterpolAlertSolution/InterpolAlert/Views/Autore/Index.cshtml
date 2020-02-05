@@ -14,9 +14,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AutoreId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NomeAutore)
             </th>
             <th>
@@ -36,9 +33,6 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AutoreId)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.NomeAutore)
                 </td>
                 <td>
@@ -51,9 +45,13 @@
                     @Html.DisplayFor(modelItem => item.Fazione.NomeFazione)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <form asp-action="Delete" asp-route-autoreId="@item.AutoreId" method="post">
+                        <a class="btn btn-sm btn-primary" asp-controller="Autore" asp-action="Edit" asp-route-autoreId="@item.AutoreId">Edit</a>
+                        <button class="btn btn-sm btn-danger" type="submit"
+                                new { onclick="return confirm('Are you sure you wish to delete this?');">
+                            Delete
+                        </button>
+                    </form>
                 </td>
             </tr>
         }

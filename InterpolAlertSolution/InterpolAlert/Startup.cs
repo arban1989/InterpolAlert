@@ -33,6 +33,7 @@ namespace InterpolAlert
             services.AddScoped<IFazioneFeRepository, FazioneFeRepository>();
             services.AddScoped<IGravitaFeRepository, GravitaFeRepository>();
             services.AddScoped<IEsitoFeRepository, EsitoFeRepository>();
+            services.AddScoped<IMandanteFeRepository, MandanteFeRepository>();
 
         }
 
