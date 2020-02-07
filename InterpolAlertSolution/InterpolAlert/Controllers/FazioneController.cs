@@ -153,7 +153,7 @@ namespace InterpolAlert.Controllers
                 if ((int)result.StatusCode == 409)
                 {
                     ModelState.AddModelError("", $"Fazione cannot be deleted because " +
-                                                $"it is used by at least one Evento");
+                                                $"it is used by at least one Autore oppure one Mandante");
                 }
                 else
                 {
@@ -161,7 +161,9 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "Fazione");
+            var fazioniListDto = _fazioneFeRepository.GetFazioni();
+
+            return View("Index", fazioniListDto);
         }
     }
 }

@@ -194,7 +194,9 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "Localita");
+            var localitaListDto = _localitaFeRepository.GetLocalitas();
+
+            return View("Index", localitaListDto);
         }
     }
 }

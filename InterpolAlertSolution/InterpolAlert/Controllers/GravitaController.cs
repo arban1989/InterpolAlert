@@ -161,7 +161,9 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "Gravita");
+            var gravitaListDto = _gravitaFeRepository.GetGravita();
+
+            return View("Index", gravitaListDto);
         }
     }
 }

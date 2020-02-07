@@ -159,7 +159,9 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "TipoVittima");
+            var tipoVittimaListDto = _tipoVittimaFeRepository.GetTipiVittima();
+
+            return View("Index", tipoVittimaListDto);
         }
     }
 }

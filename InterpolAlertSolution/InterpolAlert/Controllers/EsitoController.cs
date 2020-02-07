@@ -160,7 +160,9 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "Esito");
+            var esitiListDto = _esitoFeRepository.GetEsiti();
+
+            return View("Index", esitiListDto);
         }
     }
 }
