@@ -32,10 +32,10 @@
                 </td>
                 <td>
                     <form asp-action="Delete" asp-route-mandanteId="@item.MandanteId" asp-route-nomeMandante="@item.NomeMandante" method="post">
-                        <a class="btn btn-sm btn-primary" asp-controller="Mandante" asp-action="Edit" asp-route-FazioneId="@item.Fazione.FazioneId" asp-route-mandanteId="@item.MandanteId">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="Mandante" asp-action="Edit" asp-route-FazioneId="@item.Fazione.FazioneId" asp-route-mandanteId="@item.MandanteId">Modifica Mandante</a>
                         <button class="btn btn-sm btn-danger" type="submit"
                                 new { onclick="return confirm('Sei sicuro di voler eliminare @item.NomeMandante?');">
-                            Delete
+                            Elimina
                         </button>
                     </form>
                 </td>
