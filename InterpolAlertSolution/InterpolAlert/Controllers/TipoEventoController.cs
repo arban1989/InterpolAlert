@@ -26,7 +26,7 @@ namespace InterpolAlert.Controllers
             var tipoeventi = _tipoEventoFeRepository.GetTipiEventi();
             if (tipoeventi.Count()<=0)
             {
-                ViewBag.Message = "There was a problem retrieving type of event from" + "the database or no type event exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero del tipo di evento" + "il database o nessun tipo evento esiste";
             }
             return View(tipoeventi);
         }
@@ -66,7 +66,7 @@ namespace InterpolAlert.Controllers
                 }
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", $"TipoEvento {tipoEvento.NomeTipoEvento} Already Exists!");
+                    ModelState.AddModelError("", $"TipoEvento {tipoEvento.NomeTipoEvento} Esiste già!");
                 }
 
                 else
@@ -84,7 +84,7 @@ namespace InterpolAlert.Controllers
 
             if (tipoEventoToUpdate == null)
             {
-                ModelState.AddModelError("", "Error getting tipoEvento");
+                ModelState.AddModelError("", "Errore durante l'ottenimento  tipoEvento");
                 tipoEventoToUpdate = new TipoEventoDto();
             }
 
@@ -111,11 +111,11 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", "TipoEvento Already Exists!");
+                    ModelState.AddModelError("", "TipoEvento Esiste già!");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita non aggiornato!");
                 }
             }
 
@@ -149,8 +149,8 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"TipoEvento cannot be deleted because " +
-                                                $"it is used by at least one Evento");
+                    ModelState.AddModelError("", $"TipoEvento non può essere cancellato perché " +
+                                                $"è utilizzato da almeno un eventoo");
                 }
                 else
                 {

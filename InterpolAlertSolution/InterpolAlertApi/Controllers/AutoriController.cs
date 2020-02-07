@@ -282,7 +282,7 @@ namespace InterpolAlertApi.Controllers
             if (_autoriRepository.GetAllEventiFromAnAutore(autoreId).Count() > 0)
             {
                 ModelState.AddModelError("", $"L'Autore {autoreToDelete.NomeAutore} " +
-                                              "non può essere eliminato perché è associato ad almeno un evento");
+                                              "non può essere eliminato perché  è associato ad almeno un evento");
                 return StatusCode(409, ModelState);
             }
 

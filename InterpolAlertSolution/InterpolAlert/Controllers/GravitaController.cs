@@ -27,7 +27,7 @@ namespace InterpolAlert.Controllers
             var gravita = _gravitaFeRepository.GetGravita();
             if (gravita.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving  the gravity from" + "the database or no gravity exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero della gravità" + "il database o la gravità non esiste";
             }
             return View(gravita);
         }
@@ -87,7 +87,7 @@ namespace InterpolAlert.Controllers
 
             if (gravitaToUpdate == null)
             {
-                ModelState.AddModelError("", "Error getting Gravita");
+                ModelState.AddModelError("", "Errore durante l'ottenimento  Gravita");
                 gravitaToUpdate = new GravitaDto();
             }
 
@@ -114,11 +114,11 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", "Gravita Already Exists!");
+                    ModelState.AddModelError("", "Gravita Esiste già!");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita non aggiornato!");
                 }
             }
 
@@ -152,8 +152,8 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"Gravita cannot be deleted because " +
-                                                $"it is used by at least one Evento");
+                    ModelState.AddModelError("", $"Gravita non può essere cancellato perché " +
+                                                $"è utilizzato da almeno un eventoo");
                 }
                 else
                 {

@@ -29,8 +29,8 @@ namespace InterpolAlert.Controllers
             var localitas = _localitaFeRepository.GetLocalitas();
             if (localitas.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving Localitas from " +
-                    "the database or no localita exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero di Localita " +
+                    "the database or no localita esiste";
             }
 
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
@@ -85,7 +85,7 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", $"Localita {localitaModel.NomeLocalita} Already Exists!");
+                    ModelState.AddModelError("", $"Localita {localitaModel.NomeLocalita} Esiste già!");
                 }
                 else
                 {
@@ -112,7 +112,7 @@ namespace InterpolAlert.Controllers
 
             if (localita == null)
             {
-                ModelState.AddModelError("", "Error getting localita");
+                ModelState.AddModelError("", "Errore durante l'ottenimento  localita");
                 localita = new LocalitaForCreate();
             }
 
@@ -148,11 +148,11 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", "Localita Already Exists!");
+                    ModelState.AddModelError("", "Localita Esiste già!");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita non aggiornato!");
                 }
             }
 
@@ -185,8 +185,8 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"La Localita cannot be deleted because " +
-                                                $"it is used by at least one Evento");
+                    ModelState.AddModelError("", $"La Localita non può essere cancellato perché " +
+                                                $"è utilizzato da almeno un eventoo");
                 }
                 else
                 {

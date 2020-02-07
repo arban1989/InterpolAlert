@@ -30,7 +30,7 @@ namespace InterpolAlert.Controllers
 
             if (mandanti.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving autori from the database or no autore exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero degli autori dal database o non esiste alcun autore";
             }
 
             var mandantefazione = new List<MandanteViewModel>();
@@ -40,8 +40,8 @@ namespace InterpolAlert.Controllers
                 if (fazione == null)
                 {
                     ModelState.AddModelError("", "Qualche tipo di errore nell'ottenerefazione of an Mandante");
-                    ViewBag.Message += $"There was a problem retrieving fazione from the " +
-                                    $"database or no fazione for mandate with id {mandante.MandanteId} exists";
+                    ViewBag.Message += $"Si è verificato un problema durante il recupero della fazione da " +
+                                    $"database o nessuna fazione per mandato con id {mandante.MandanteId} esiste";
                     //fazione = new FazioneDto();
                 }
 
@@ -79,7 +79,7 @@ namespace InterpolAlert.Controllers
 
                 if (fazioneDto == null || mandanteModel == null)
                 {
-                    ModelState.AddModelError("", "Invalid Fazione or Mandante. Cannot create Mandante!");
+                    ModelState.AddModelError("", "Fazione o Mandante non validi. Impossibile creare Mandante!");
                     return View(mandanteModel);
                 }
 
@@ -113,7 +113,7 @@ namespace InterpolAlert.Controllers
                     return RedirectToAction("Index", "Mandante");
                 }
 
-                ModelState.AddModelError("", "Mandante not created");
+                ModelState.AddModelError("", "Mandante non creato");
             }
 
             return View(mandanteModel);
@@ -128,7 +128,7 @@ namespace InterpolAlert.Controllers
             Mandante mandante = null;
             if (fazioneDto == null || mandanteDto == null)
             {
-                ModelState.AddModelError("", "Invalid Fazione or Mandante. Cannot update Mandante!");
+                ModelState.AddModelError("", "Fazione o Mandante non validi. Impossibile aggiornare Mandante!");
                 mandante = new Mandante();
             }
             else
@@ -157,7 +157,7 @@ namespace InterpolAlert.Controllers
 
             if (fazioneDto == null || mandanteToEdit == null)
             {
-                ModelState.AddModelError("", "Invalid Fazione, or Mandante. Cannot update Mandante!");
+                ModelState.AddModelError("", "Fazione o Mandante non validi. Impossibile aggiornare Mandante!");
             }
             else
             {
@@ -180,7 +180,7 @@ namespace InterpolAlert.Controllers
                         return RedirectToAction("Index", "Mandante");
                     }
 
-                    ModelState.AddModelError("", "Unexpected Error. Mandante Not Updated");
+                    ModelState.AddModelError("", "Errore inaspettato. Mandante non aggiornato");
                 }
             }
 
@@ -213,8 +213,8 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"Mandante {nomeMandante} cannot be deleted because " +
-                                                $"it is used by at least one event");
+                    ModelState.AddModelError("", $"Mandante {nomeMandante} non può essere cancellato perché " +
+                                                $"è utilizzato da almeno un evento");
                 }
                 else
                 {
@@ -230,9 +230,9 @@ namespace InterpolAlert.Controllers
                 var fazione = _mandanteFeRepository.GetFazioneOfAMandante(mandante.MandanteId);
                 if (fazione == null)
                 {
-                    ModelState.AddModelError("", "Some kind of error getting fazione of an Mandante");
-                    ViewBag.Message += $"There was a problem retrieving fazione from the " +
-                                    $"database or no fazione for mandate with id {mandante.MandanteId} exists";
+                    ModelState.AddModelError("", "Una sorta di errore durante l'ottenimento fazione di un mandante");
+                    ViewBag.Message += $"Si è verificato un problema durante il recupero della fazione da " +
+                                    $"database o nessuna fazione per mandato con id {mandante.MandanteId} esiste";
                     //fazione = new FazioneDto();
                 }
 

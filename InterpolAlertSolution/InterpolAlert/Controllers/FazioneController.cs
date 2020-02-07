@@ -69,7 +69,7 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", $"Fazione {fazione.NomeFazione} Already Exists!");
+                    ModelState.AddModelError("", $"Fazione {fazione.NomeFazione} Esiste già!");
                 }
 
                 else
@@ -87,7 +87,7 @@ namespace InterpolAlert.Controllers
 
             if (fazioneToUpdate == null)
             {
-                ModelState.AddModelError("", "Error getting Fazione");
+                ModelState.AddModelError("", "Errore durante l'ottenimento della Fazione");
                 fazioneToUpdate = new FazioneDto();
             }
 
@@ -114,11 +114,11 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", "Fazione Already Exists!");
+                    ModelState.AddModelError("", "Fazione Esiste già!");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Qualche tipo di errore. Fazione not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Fazione non aggiornato!");
                 }
             }
 
@@ -152,8 +152,8 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"Fazione cannot be deleted because " +
-                                                $"it is used by at least one Autore oppure one Mandante");
+                    ModelState.AddModelError("", $"Fazione non può essere cancellato perché " +
+                                                $"è utilizzato da almeno un Autore oppure un Mandante");
                 }
                 else
                 {

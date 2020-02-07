@@ -233,7 +233,7 @@ namespace InterpolAlert.Controllers
 
             if (autori.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving autori from the database or no autore exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero degli autori dal database o non esiste alcun autore";
             }
 
             var autorefazione = new List<AutoreViewModel>();
@@ -244,9 +244,9 @@ namespace InterpolAlert.Controllers
                 var fazione = _autoreFeRepository.GetFazioneOfAnAutore(autore.AutoreId);
                 if (fazione == null)
                 {
-                    ModelState.AddModelError("", "Some kind of error getting fazione of an Autore");
-                    ViewBag.Message += $"There was a problem retrieving fazione from the " +
-                                    $"database or no fazione for aurore with id {autore.AutoreId} exists";
+                    ModelState.AddModelError("", "Some kind of Errore durante l'ottenimento  fazione of an Autore");
+                    ViewBag.Message += $"Si è verificato un problema durante il recupero della fazione da " +
+                                    $"database or no fazione for aurore with id {autore.AutoreId} esiste";
                     //fazione = new FazioneDto();
                 }
 

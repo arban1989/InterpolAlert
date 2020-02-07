@@ -27,7 +27,8 @@ namespace InterpolAlert.Controllers
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             if (tipoVittime.Count()<= 0)
             {
-                ViewBag.Message = "There was a problem retrieving type of victims from the database or no type victims exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero del tipo di vittime dal database o non esiste alcun tipo di vittima";
+                ViewBag.Message = "Si è verificato un problema durante il recupero del tipo di vittime dal database o non esiste alcun tipo di vittima";
             }
             return View(tipoVittime);
         }
@@ -68,7 +69,7 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", $"TipoVittima {tipoVittima.NomeTipoVittima} Already Exists!");
+                    ModelState.AddModelError("", $"TipoVittima {tipoVittima.NomeTipoVittima} Esiste già!");
                 }
 
                 else
@@ -86,7 +87,7 @@ namespace InterpolAlert.Controllers
 
             if (tipoVittimaToUpdate == null)
             {
-                ModelState.AddModelError("", "Error getting Tipo Vittima");
+                ModelState.AddModelError("", "Errore durante l'ottenimento  Tipo Vittima");
                 tipoVittimaToUpdate = new TipoVittimaDto();
             }
 
@@ -113,11 +114,11 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", "TipoVittima Already Exists!");
+                    ModelState.AddModelError("", "TipoVittima Esiste già!");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita non aggiornato!");
                 }
             }
 
@@ -150,8 +151,8 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"TipoVittima cannot be deleted because " +
-                                                $"it is used by at least one Evento");
+                    ModelState.AddModelError("", $"TipoVittima non può essere cancellato perché " +
+                                                $"è utilizzato da almeno un eventoo");
                 }
                 else
                 {
