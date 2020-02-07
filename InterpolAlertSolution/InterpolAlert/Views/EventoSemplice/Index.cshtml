@@ -3,34 +3,73 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2 class="text-success">@ViewBag.SuccessMessage</h2>
 
-<h1>Eventi Segnalati dai utenti</h1>
+<div class="container">
+    <h2 class="text-success">@ViewBag.SuccessMessage</h2>
+
+    <h1>Eventi Segnalati dai utenti</h1>
+</div>
+
 
 @if (Model.Any())
 {
-    <a class="btn btn-primary mb-3" asp-controller="EventoSemplice" asp-action="Create">
-        Segnala un nuovo Evento
-    </a>
-    
-    foreach (var evento in Model)
-    {
-        var cardheadbg = (evento.EventoSempliceGravita >=4) ? "bg-danger" : "bg-warning";
-        <div class="card mb-3">
-            <div class="card-header text-white @cardheadbg">
-                @evento.EventoSempliceNome
+    <div class="container mb-3">
+        <a class="btn btn-outline-primary mb-3" asp-controller="EventoSemplice" asp-action="Create">
+            Segnala un nuovo Evento
+        </a>
+        <form asp-action="Index" method="get">
+            <div class="form-row">
+                <div class="form-group col-sm-12 col-md-6">
+                    <label>Cerca per Nome/Descrizione</label>
+                    <input type="text" class="form-control" name="SearchString" value="@ViewData["StringFilter"]">
+                </div>
+                <div class="form-group col-sm-12 col-md-2">
+                    <label>Gravita</label>
+                    <input type="number" min="0" max="5" class="form-control" name="SearchGravita" value="@ViewData["IntFilter"]" />
+                </div>
+                <div class="form-group col-sm-12 col-md-2">
+                    <label>&nbsp</label>
+                    <input type="submit" value="Search" class="form-control btn btn-outline-primary" />
+                </div>
+                <div class="form-group col-sm-12 col-md-2">
+                    <label>&nbsp</label>
+                    <a class="form-control btn btn-outline-primary" asp-action="Index">Reset</a>
+                </div>
             </div>
-            <div class="card-body">
-                <p>
-                    @evento.EventoSempliceNote
-                </p>
-            </div>
-            <div class="card-footer text-muted">
-                Data Segnalazione: @evento.EventoSempliceData.ToShortDateString()
-            </div>
+            
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            @foreach (var evento in Model)
+            {
+                var cardText = (evento.EventoSempliceGravita >= 4) ? "text-danger" : "text-warning";
+                //var icon = (evento.EventoSempliceGravita >= 4) ? "fas fa-radiation-alt text-danger" : "fas fa-exclamation-triangle text-warning";
+
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-2 d-flex">
+                    <!--Card-->
+                    <div class="card shadow flex-fill">
+                        <!--Card image-->
+                        <img class="img-fluid" src="https://png.pngtree.com/png-clipart/20190925/original/pngtree-press-conference-media-interview-illustration-png-image_4993813.jpg" alt="Card image cap" style="width: 100%;height: 200px;">
+
+                        <!--Card content-->
+                        <div class="card-body @cardText">
+                            <!--Title-->
+                            <h4 class="card-title">@evento.EventoSempliceNome</h4>
+                            <!--Text-->
+                            <p class="card-text">@evento.EventoSempliceNote</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">@evento.EventoSempliceData</small>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                </div>
+            }
 
         </div>
-    }
+    </div>
 
 }
 else
@@ -43,9 +82,32 @@ else
             <h5>
                 Clicca sotto per segnalare un nuovo evento
             </h5>
-            <a class="btn btn-primary" asp-controller="EventoSemplice" asp-action="Create">
+            <a class="btn btn-outline-primary" asp-controller="EventoSemplice" asp-action="Create">
                 Segnala un nuovo Evento
             </a>
         </div>
     </div>
+    <a asp-action="Index">Back to List</a>
 }
+
+@*<section class="py-5 @sectionbg mb-2">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xs-1 col-sm-2 col-md-1 mr-3">
+                                    <i class="@icon fa-4x"></i>
+                                </div>
+                                <div class="col-xs-8 col-sm-7 col-md-8">
+                                    <h5>@evento.EventoSempliceNome.ToUpper()</h5>
+                                    <p>@evento.EventoSempliceNote</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@

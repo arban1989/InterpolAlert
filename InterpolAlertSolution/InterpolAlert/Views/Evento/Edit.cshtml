@@ -1,0 +1,193 @@
+﻿@model InterpolAlert.ModelsForView.CreateUpdateEventoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Modifica Evento</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Evento" asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Evento.EventoId" hidden />
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Evento.NomeEvento">Nome Evento:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <input asp-for="Evento.NomeEvento" class="form-control" />
+                        <span asp-validation-for="Evento.NomeEvento" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Evento.NoteVarie">Descrizione:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <input asp-for="Evento.NoteVarie" class="form-control" />
+                        <span asp-validation-for="Evento.NoteVarie" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Evento.DataOraInizio">Data Inizio:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <input asp-for="Evento.DataOraInizio" class="form-control" />
+                        <span asp-validation-for="Evento.DataOraInizio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Evento.DataOraFine">Data Fine:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <input asp-for="Evento.DataOraFine" class="form-control" />
+                        <span asp-validation-for="Evento.DataOraFine" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Evento.NrVittime">Nr Vittime:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <input asp-for="Evento.NrVittime" class="form-control" />
+                        <span asp-validation-for="Evento.NrVittime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Evento.NrDecessi">Nr Decessi:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <input asp-for="Evento.NrDecessi" class="form-control" />
+                        <span asp-validation-for="Evento.NrDecessi" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Evento.NrFeriti">Nr Feriti:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <input asp-for="Evento.NrFeriti" class="form-control" />
+                        <span asp-validation-for="Evento.NrFeriti" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="tipoVittimaId">TipoVittima:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            @await Component.InvokeAsync("TipoVittimeList")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="tipoEventoId">TipoEvento:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            @await Component.InvokeAsync("TipoEventiList")
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="localitaId">Localita:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            @await Component.InvokeAsync("LocalitaList")
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="esitoId">Esito:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            @await Component.InvokeAsync("EsitiList")
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="gravitaId">Gravita:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            @await Component.InvokeAsync("GravitaList")
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="mandanteId">Mandante:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            @await Component.InvokeAsync("MandantiList")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="AutoriSelectListItems">Autori:</label>
+                    </div>
+                    <div class="col-sm-8 form-group">
+                        <select asp-for="listaAutoriId" class="form-control" multiple asp-items="@Model.AutoriSelectListItems"
+                                style="min-height:200px;"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group form-check">
+                            <input asp-for="Evento.Mediatore" type="checkbox" class="form-check-input">
+                            <label asp-for="Evento.Mediatore" class="form-check-label" for="exampleCheck1"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group form-check">
+                            <input asp-for="Evento.FFSpeciali" type="checkbox" class="form-check-input">
+                            <label asp-for="Evento.FFSpeciali" class="form-check-label" for="exampleCheck1"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group form-check">
+                            <input asp-for="Evento.Polizia" type="checkbox" class="form-check-input">
+                            <label asp-for="Evento.Polizia" class="form-check-label" for="exampleCheck1"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group form-check">
+                            <input asp-for="Evento.VigiliDelFuoco" type="checkbox" class="form-check-input">
+                            <label asp-for="Evento.VigiliDelFuoco" class="form-check-label" for="exampleCheck1"></label>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

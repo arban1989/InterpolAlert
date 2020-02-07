@@ -3,100 +3,176 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Lista operazioni Interpol</h1>
+    <div class="container">
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Localita</h2>
-                    <a asp-controller="localita" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="localita" asp-action="Create" class="btn btn-outline-primary">Add</a>
+        <!-- Feature Cards -->
+        <section class="d-flex bg-light" id="feature-cards">
+            <div class="container d-flex justify-content-center">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-12 align-self-center">
+                        <div class="row">
+                            <div class="col-12 col-lg-7 mx-auto text-center">
+                                <h1 class="display-4">Lista operazioni Interpol</h1>
+                                <p class="text-muted lead mb-5">Ogni card contiene i collegamenti per poter visualizzare la lista o aggiungere un nuovo oggetto</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="far fa-newspaper fa-4x text-warning"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-warning">Eventi</h3>
+                                                <p class="text-secondary">Inserisci un nuovo evento completo oppure visualizza la lista</p>
+                                                <a asp-controller="Evento" asp-action="Index" class="btn btn-warning mt-3 px-4">Lista</a>
+                                                <a asp-controller="Evento" asp-action="Create" class="btn btn-warning mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="fas fa-map-marker-alt fa-4x text-info"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-info">Localita</h3>
+                                                <p class="text-secondary">Inserisci un nuovo evento completo oppure visualizza la lista</p>
+                                                <a asp-controller="Localita" asp-action="Index" class="btn btn-info mt-3 px-4">Lista</a>
+                                                <a asp-controller="Localita" asp-action="Create" class="btn btn-info mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="fas fa-user-secret fa-4x text-danger"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-danger">Autori</h3>
+                                                <p class="text-secondary">Inserisci un nuovo autore oppure visualizza la lista</p>
+                                                <a asp-controller="Autore" asp-action="Index" class="btn btn-danger mt-3 px-4">Lista</a>
+                                                <a asp-controller="Autore" asp-action="Create" class="btn btn-danger mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="fab fa-elementor fa-4x text-primary"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-primary">Tipo Evento</h3>
+                                                <p class="text-secondary">Inserisci un nuovo tipo evento oppure visualizza la lista</p>
+                                                <a asp-controller="TipoEvento" asp-action="Index" class="btn btn-primary mt-3 px-4">Lista</a>
+                                                <a asp-controller="TipoEvento" asp-action="Create" class="btn btn-primary mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="fas fa-skull-crossbones fa-4x text-warning"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-warning">Tipo Vittima</h3>
+                                                <p class="text-secondary">Inserisci un nuovo tipo vittima oppure visualizza la lista</p>
+                                                <a asp-controller="TipoVittima" asp-action="Index" class="btn btn-warning mt-3 px-4">Lista</a>
+                                                <a asp-controller="TipoVittima" asp-action="Create" class="btn btn-warning mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="fas fa-tachometer-alt fa-4x text-secondary"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-secondary">Gravita</h3>
+                                                <p class="text-secondary">Inserisci nuova gravita oppure visualizza la lista</p>
+                                                <a asp-controller="Gravita" asp-action="Index" class="btn btn-secondary mt-3 px-4">Lista</a>
+                                                <a asp-controller="Gravita" asp-action="Create" class="btn btn-secondary mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="fas fa-user-tie fa-4x text-danger"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-danger">Mandante</h3>
+                                                <p class="text-secondary">Inserisci un nuovo mandante oppure visualizza la lista</p>
+                                                <a asp-controller="Mandante" asp-action="Index" class="btn btn-danger mt-3 px-4">Lista</a>
+                                                <a asp-controller="Mandante" asp-action="Create" class="btn btn-danger mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mx-auto text-center">
+                                                <i class="fas fa-clipboard-check fa-4x text-success"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-success">Esito</h3>
+                                                <p class="text-secondary">Inserisci un nuovo esito oppure visualizza la lista</p>
+                                                <a asp-controller="Esito" asp-action="Index" class="btn btn-success mt-3 px-4">Lista</a>
+                                                <a asp-controller="Esito" asp-action="Create" class="btn btn-success mt-3 px-4">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Autori</h2>
-                    <a asp-controller="autore" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="autore" asp-action="Create" class="btn btn-outline-primary">Add</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">TipoEvento</h2>
-                    <a asp-controller="TipoEvento" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="TipoEvento" asp-action="Create" class="btn btn-outline-primary">Add</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">TipoVittima</h2>
-                    <a asp-controller="TipoVittima" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="TipoVittima" asp-action="Create" class="btn btn-outline-primary">Add</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Gravita</h2>
-                    <a asp-controller="Gravita" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="Gravita" asp-action="Create" class="btn btn-outline-primary">Add</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Esito</h2>
-                    <a asp-controller="Esito" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="Esito" asp-action="Create" class="btn btn-outline-primary">Add</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Mandanti</h2>
-                    <a asp-controller="Mandante" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="Mandante" asp-action="Create" class="btn btn-outline-primary">Add</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card border-primary mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Fazioni</h2>
-                    <a asp-controller="Fazione" asp-action="Index" class="btn btn-outline-primary">Lista</a>
-                    <a asp-controller="Fazione" asp-action="Create" class="btn btn-outline-primary">Add</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        </section>
 
-@*<div class="col-sm-6">
-            <div class="card bg-dark text-white">
-                <img class="card-img" style="height: 200px;
-    width: 100%;
-    display: block;" src="https://widget-uploads.stackla.com/10/the-nature-conservancy/5c6dacf59d982/2019-09/488ae8ad11fa420a28c6b26a75fafc91_original.jpg" alt="Card image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text">Last updated 3 mins ago</p>
-                </div>
-            </div>
-        </div>*@
+    </div>

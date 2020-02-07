@@ -119,7 +119,7 @@ namespace InterpolAlert.Controllers
         }
 
         // GET: Mandante/Edit/5
-        public ActionResult Edit(int mandanteId)
+        public ActionResult Edit(int FazioneId, int mandanteId)
         {
             var mandanteDto = _mandanteFeRepository.GetMandante(mandanteId);
             var fazioneDto = _mandanteFeRepository.GetFazioneOfAMandante(mandanteId);
@@ -194,7 +194,7 @@ namespace InterpolAlert.Controllers
 
         // POST: Mandante/Delete/5
         [HttpPost]
-        public ActionResult Delete(int mandanteId)
+        public ActionResult Delete(string nomeMandante, int mandanteId)
         {
             using (var client = new HttpClient())
             {
@@ -212,7 +212,7 @@ namespace InterpolAlert.Controllers
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"Mandante cannot be deleted because " +
+                    ModelState.AddModelError("", $"Mandante {nomeMandante} cannot be deleted because " +
                                                 $"it is used by at least one event");
                 }
                 else
