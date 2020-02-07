@@ -21,7 +21,7 @@ namespace InterpolAlertApi.Dtos
         [Required]
         public string Nazione { get; set; }
         [Required]
-        [Range(1, 5, ErrorMessage = "Livello Rischio must be between 1 ad 5")]
+        [Range(1, 5, ErrorMessage = "Livello Rischio deve essere compreso tra 1 e 5")]
         public int LivelloRischio { get; set; }
     }
 }

@@ -165,7 +165,7 @@ namespace InterpolAlertApi.Controllers
 
             if (esito != null)
             {
-                ModelState.AddModelError("", $"Esito {esitoToCreate.NomeEsito} already exists");
+                ModelState.AddModelError("", $"Esito {esitoToCreate.NomeEsito} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -176,7 +176,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_esitoRepository.CreateEsito(esitoToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving {esitoToCreate.NomeEsito}");
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio {esitoToCreate.NomeEsito}");
                 return StatusCode(500, ModelState);
             }
 
@@ -206,7 +206,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_esitoRepository.IsDuplicateEsito(esitoId, esitoToUpdate.NomeEsito))
             {
-                ModelState.AddModelError("", $"Esito {esitoToUpdate.NomeEsito} already exists");
+                ModelState.AddModelError("", $"Esito {esitoToUpdate.NomeEsito} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -217,7 +217,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_esitoRepository.UpdateEsito(esitoToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating {esitoToUpdate.NomeEsito}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento {esitoToUpdate.NomeEsito}");
                 return StatusCode(500, ModelState);
             }
 
@@ -241,7 +241,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_esitoRepository.GetEventiFromAnEsito(esitoId).Count() > 0)
             {
-                ModelState.AddModelError("", $"Esito {esitoToDelete.NomeEsito}" + " cannot be deletet becouse it is used at least at one event");
+                ModelState.AddModelError("", $"Esito {esitoToDelete.NomeEsito}" + " non può essere eliminato perché viene utilizzato almeno in un evento");
                 return StatusCode(409, ModelState);
             }
 
@@ -252,7 +252,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_esitoRepository.DeleteEsito(esitoToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting {esitoToDelete.NomeEsito}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione {esitoToDelete.NomeEsito}");
                 return StatusCode(500, ModelState);
             }
 

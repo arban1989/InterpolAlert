@@ -15,7 +15,7 @@ namespace InterpolAlertApi.Dtos
         [Required]
         public string Pericolosita { get; set; }
         [Required]
-        [StringLength(200, MinimumLength = 20, ErrorMessage = "Note must be between 20 and 200 characters")]
+        [StringLength(200, MinimumLength = 20, ErrorMessage = "La nota deve contenere tra 20 e 200 caratteri")]
         public string NoteVarie { get; set; }
     }
 }

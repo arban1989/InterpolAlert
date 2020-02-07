@@ -13,7 +13,7 @@ namespace InterpolAlertApi.Models
         [Required]
         public string NomeAutore { get; set; }
         [Required]
-        [MaxLength(250, ErrorMessage = "Last Name cannot be more than 250 characters")]
+        [MaxLength(250, ErrorMessage = "Il cognome non può contenere più di 250 caratteri")]
         public string Pericolosita { get; set; }
         public string NoteVarie { get; set; }
 

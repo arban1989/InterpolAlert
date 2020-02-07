@@ -176,7 +176,7 @@ namespace InterpolAlertApi.Controllers
 
             if (localita != null)
             {
-                ModelState.AddModelError("", $"Localita {localitaToCreate.NomeLocalita} already exists");
+                ModelState.AddModelError("", $"Localita {localitaToCreate.NomeLocalita} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -187,7 +187,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_localitaRepository.CreateLocalita(localitaToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving {localitaToCreate.NomeLocalita}");
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio {localitaToCreate.NomeLocalita}");
                 return StatusCode(500, ModelState);
             }
 
@@ -218,7 +218,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_localitaRepository.IsDuplicateLocalita(localitaId, localitaToUpdate.NomeLocalita))
             {
-                ModelState.AddModelError("", $"Localita {localitaToUpdate.NomeLocalita} already exists");
+                ModelState.AddModelError("", $"Localita {localitaToUpdate.NomeLocalita} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -229,7 +229,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_localitaRepository.UpdateLocalita(localitaToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating {localitaToUpdate.NomeLocalita}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento {localitaToUpdate.NomeLocalita}");
                 return StatusCode(500, ModelState);
             }
 
@@ -252,7 +252,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_localitaRepository.GetEventiFromALocalita(localitaId).Count() > 0)
             {
-                ModelState.AddModelError("", $"Localita {localitaToDelete.NomeLocalita}" + " cannot be deletet becouse it is used at least at one event");
+                ModelState.AddModelError("", $"Localita {localitaToDelete.NomeLocalita}" + " non può essere eliminato perché viene utilizzato almeno in un evento");
                 return StatusCode(409, ModelState);
             }
 
@@ -263,7 +263,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_localitaRepository.DeleteLocalita(localitaToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting {localitaToDelete.NomeLocalita}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione {localitaToDelete.NomeLocalita}");
                 return StatusCode(500, ModelState);
             }
 

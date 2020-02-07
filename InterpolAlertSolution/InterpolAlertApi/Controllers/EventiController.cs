@@ -129,7 +129,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_eventoRepository.CreateEvento(listaAutoriId, tipoVittimaId,localitaId,gravitaId, esitoId, tipoEventoId,mandanteId, eventoToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving L'Evento " +
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio L'Evento " +
                                             $"{eventoToCreate.NomeEvento}");
                 return StatusCode(500, ModelState);
             }
@@ -161,7 +161,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_eventoRepository.UpdateEvento(listaAutoriId, tipoVittimaId, localitaId, gravitaId, esitoId, tipoEventoId, mandanteId, eventoToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating the Evento " +
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento the Evento " +
                                             $"{eventoToUpdate.NomeEvento}");
                 return StatusCode(500, ModelState);
             }
@@ -188,7 +188,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_eventoRepository.DeleteEvento(eventoToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting Evento {eventoToDelete.NomeEvento}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione Evento {eventoToDelete.NomeEvento}");
                 return StatusCode(500, ModelState);
             }
 
@@ -200,7 +200,7 @@ namespace InterpolAlertApi.Controllers
         {
             if (evento == null || listaAutoriId.Count() <= 0 )
             {
-                ModelState.AddModelError("", "Missing evento or listaAutori");
+                ModelState.AddModelError("", "Evento mancante o lista Autori");
                 return BadRequest();
             }
 
@@ -212,37 +212,37 @@ namespace InterpolAlertApi.Controllers
 
             if (!_tipoVittimaRepository.TipoVittimaExists(tipoVittimaId))
             {
-                ModelState.AddModelError("", "Tipo Vittima Not Found");
+                ModelState.AddModelError("", "Tipo Vittima non trovato");
                 return StatusCode(404);
             }
 
             if (!_localitaRepository.LocalitaExists(localitaId))
             {
-                ModelState.AddModelError("", "Localita Not Found");
+                ModelState.AddModelError("", "Localita non trovata");
                 return StatusCode(404);
             }
 
             if (!_gravitaRepository.GravitaExists(gravitaId))
             {
-                ModelState.AddModelError("", "Gravita Not Found");
+                ModelState.AddModelError("", "Gravita non trovata");
                 return StatusCode(404);
             }
 
             if (!_esitoRepository.EsitoExists(esitoId))
             {
-                ModelState.AddModelError("", "Esito Not Found");
+                ModelState.AddModelError("", "Esito non trovato");
                 return StatusCode(404);
             }
 
             if (!_tipoEventoRepository.TipoEventoExists(tipoEventoId))
             {
-                ModelState.AddModelError("", "Tipo Evento Not Found");
+                ModelState.AddModelError("", "Tipo Evento non trovato");
                 return StatusCode(404);
             }
 
             if (!_mandanteRepository.MandanteExists(mandanteId))
             {
-                ModelState.AddModelError("", "Mandante Not Found");
+                ModelState.AddModelError("", "Mandante non trovato");
                 return StatusCode(404);
             }
 
@@ -250,14 +250,14 @@ namespace InterpolAlertApi.Controllers
             {
                 if (!_authorRepository.AutoreExists(id))
                 {
-                    ModelState.AddModelError("", "Autore Not Found");
+                    ModelState.AddModelError("", "Autore non trovato");
                     return StatusCode(404);
                 }
             }
 
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Critical Error");
+                ModelState.AddModelError("", "Errore critico");
                 return BadRequest();
             }
 

@@ -200,7 +200,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_fazioneRepository.FazioneExists(autoreToCreate.Fazione.FazioneId))
             {
-                ModelState.AddModelError("", "Fazione doesn't exist!");
+                ModelState.AddModelError("", "Fazione non esiste!");
                 return StatusCode(404, ModelState);
             }
 
@@ -210,7 +210,7 @@ namespace InterpolAlertApi.Controllers
 
             if (autore != null)
             {
-                ModelState.AddModelError("", $"Autore {autoreToCreate.NomeAutore} already exists");
+                ModelState.AddModelError("", $"Autore {autoreToCreate.NomeAutore} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -219,7 +219,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_autoriRepository.CreateAutore(autoreToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving the author " +
+                ModelState.AddModelError("", $"Qualcosa è andato storto salvando l'autore " +
                                             $"{autoreToCreate.NomeAutore}");
                 return StatusCode(500, ModelState);
             }
@@ -242,10 +242,10 @@ namespace InterpolAlertApi.Controllers
                 return BadRequest(ModelState);
 
             if (!_autoriRepository.AutoreExists(autoreId))
-                ModelState.AddModelError("", "Autore doesn't exist!");
+                ModelState.AddModelError("", "L'autore non esiste!");
 
             if (!_fazioneRepository.FazioneExists(autoreToUpdate.Fazione.FazioneId))
-                ModelState.AddModelError("", "Fazione doesn't exist!");
+                ModelState.AddModelError("", "La fazione non esiste!");
 
             if (!ModelState.IsValid)
                 return StatusCode(404, ModelState);
@@ -257,7 +257,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_autoriRepository.UpdateAutore(autoreToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating the author " +
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante l'aggiornamento dell'autore " +
                                             $"{autoreToUpdate.NomeAutore}");
                 return StatusCode(500, ModelState);
             }
@@ -282,7 +282,7 @@ namespace InterpolAlertApi.Controllers
             if (_autoriRepository.GetAllEventiFromAnAutore(autoreId).Count() > 0)
             {
                 ModelState.AddModelError("", $"L'Autore {autoreToDelete.NomeAutore} " +
-                                              "cannot be deleted because it is associated with at least one Event");
+                                              "non può essere eliminato perché è associato ad almeno un evento");
                 return StatusCode(409, ModelState);
             }
 
@@ -291,7 +291,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_autoriRepository.DeleteAutore(autoreToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting " +
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione " +
                                             $"{autoreToDelete.NomeAutore}");
                 return StatusCode(500, ModelState);
             }
