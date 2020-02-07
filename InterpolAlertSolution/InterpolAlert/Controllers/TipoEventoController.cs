@@ -158,7 +158,9 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "TipoEvento");
+            var tipoEventoListDto = _tipoEventoFeRepository.GetTipiEventi();
+
+            return View("Index", tipoEventoListDto);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using InterpolAlert.ModelsForView;
 using InterpolAlert.Services;
+using InterpolAlertApi.Dtos;
 using InterpolAlertApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -207,7 +208,7 @@ namespace InterpolAlert.Controllers
                 {
                     TempData["SuccessMessage"] = $"Mandante è stato eliminato con successo.";
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Mandante");
                 }
 
                 if ((int)result.StatusCode == 409)
@@ -221,7 +222,30 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "Mandante");
+            var mandanti = _mandanteFeRepository.GetMandanti();
+
+            var mandantefazione = new List<MandanteViewModel>();
+            foreach (var mandante in mandanti)
+            {
+                var fazione = _mandanteFeRepository.GetFazioneOfAMandante(mandante.MandanteId);
+                if (fazione == null)
+                {
+                    ModelState.AddModelError("", "Some kind of error getting fazione of an Mandante");
+                    ViewBag.Message += $"There was a problem retrieving fazione from the " +
+                                    $"database or no fazione for mandate with id {mandante.MandanteId} exists";
+                    //fazione = new FazioneDto();
+                }
+
+                mandantefazione.Add(new MandanteViewModel
+                {
+                    MandanteId = mandante.MandanteId,
+                    NomeMandante = mandante.NomeMandante,
+                    Fazione = fazione
+                });
+            }
+
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            return View("Index", mandantefazione);
         }
     }
 }

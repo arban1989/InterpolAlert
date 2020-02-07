@@ -229,7 +229,39 @@ namespace InterpolAlert.Controllers
                 }
             }
 
-            return View("Index", "Autore");
+            var autori = _autoreFeRepository.GetAutori();
+
+            if (autori.Count() <= 0)
+            {
+                ViewBag.Message = "There was a problem retrieving autori from the database or no autore exists";
+            }
+
+            var autorefazione = new List<AutoreViewModel>();
+
+
+            foreach (var autore in autori)
+            {
+                var fazione = _autoreFeRepository.GetFazioneOfAnAutore(autore.AutoreId);
+                if (fazione == null)
+                {
+                    ModelState.AddModelError("", "Some kind of error getting fazione of an Autore");
+                    ViewBag.Message += $"There was a problem retrieving fazione from the " +
+                                    $"database or no fazione for aurore with id {autore.AutoreId} exists";
+                    //fazione = new FazioneDto();
+                }
+
+                autorefazione.Add(new AutoreViewModel
+                {
+                    AutoreId = autore.AutoreId,
+                    NomeAutore = autore.NomeAutore,
+                    NoteVarie = autore.NoteVarie,
+                    Pericolosita = autore.Pericolosita,
+                    Fazione = fazione
+                });
+            }
+
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            return View("Index", autorefazione);
         }
     }
 }
