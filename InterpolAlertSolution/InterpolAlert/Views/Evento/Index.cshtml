@@ -1,0 +1,92 @@
+﻿@model IEnumerable<InterpolAlert.ModelsForView.EventiForListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+
+<h1>Lista Eventi</h1>
+
+<p>
+    <a asp-action="Create">Crea nuovo evento</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeEvento)
+            </th>
+            <th>
+                Localita
+            </th>
+            <th>
+                Autori
+            </th>
+            <th>
+                TipoEvento
+            </th>
+            <th>
+                Gravita
+            </th>
+            <th>
+                Esito
+            </th>
+            <th>
+                Mandante
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataOraInizio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataOraFine)
+            </th>
+            <th>
+                Azioni
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Localita.NomeLocalita)
+                </td>
+                <td>
+                    @{
+                        foreach (var autore in item.Autori)
+                        {
+                            <span>@autore.NomeAutore</span><br />
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoEvento.NomeTipoEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gravita.NomeGravita)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Esito.NomeEsito)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mandante.NomeMandante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataOraInizio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataOraFine)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-controller="Evento" asp-action="Details" asp-route-eventoId="@item.EventoId">Dettaglio</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

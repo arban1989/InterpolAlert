@@ -126,7 +126,7 @@ namespace InterpolAlert.Controllers
         }
 
         // GET: Autore/Edit/5
-        public ActionResult Edit(int autoreId)
+        public ActionResult Edit(int FazioneId, int autoreId)
         {
             var autoreDto = _autoreFeRepository.GetAutore(autoreId);
             var fazioneDto = _autoreFeRepository.GetFazioneOfAnAutore(autoreId);

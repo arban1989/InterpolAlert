@@ -21,9 +21,21 @@ namespace InterpolAlert.Controllers
         }
 
         // GET: EventoSemplice
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int searchGravita)
         {
+            ViewData["StringFilter"] = searchString;
+            ViewData["IntFilter"] = searchGravita;
             var evententisemplici = _eventoSempliceFeRepository.GetEventiSemplici();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                evententisemplici = evententisemplici.Where(ev => ev.EventoSempliceNome.ToLower().Contains(searchString.ToLower())
+                                       || ev.EventoSempliceNote.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+            if (searchGravita != 0)
+            {
+                evententisemplici = evententisemplici.Where(ev => ev.EventoSempliceGravita == searchGravita).ToList();
+            }
+            //return View(listaUtenti);
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(evententisemplici);
         }

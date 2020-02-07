@@ -1,14 +1,14 @@
-﻿using System;
+﻿using InterpolAlertApi.Dtos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InterpolAlertApi.Models
+namespace InterpolAlert.ModelsForView
 {
-    public class Evento
+    public class EventoViewModel
     {
-        [Key]
         public int EventoId { get; set; }
         [Required]
         public string NomeEvento { get; set; }
@@ -29,15 +29,13 @@ namespace InterpolAlertApi.Models
         public bool FFSpeciali { get; set; }
         public bool Polizia { get; set; }
         public bool VigiliDelFuoco { get; set; }
-        public virtual Esito Esito { get; set; }
-        public virtual TipoVittima TipoVittima { get; set; }
-        public virtual Localita Localita { get; set; }
-        public virtual Gravita Gravita { get; set; }
-        public virtual TipoEvento TipoEvento { get; set; }
-        public virtual Mandante Mandante { get; set; }
-        public virtual ICollection<AutoriEventi> AutoriEventi { get; set; }
-
-
+        public IEnumerable<AutoreDto> Autori { get; set; }
+        public LocalitaDto Localita { get; set; }
+        public TipoEventoDto TipoEvento { get; set; }
+        public TipoVittimaDto TipoVittima { get; set; }
+        public GravitaDto Gravita { get; set; }
+        public EsitoDto Esito { get; set; }
+        public MandanteDto Mandante { get; set; }
 
     }
 }
