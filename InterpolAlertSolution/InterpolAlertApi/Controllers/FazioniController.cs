@@ -190,7 +190,7 @@ namespace InterpolAlertApi.Controllers
 
             if (fazione != null)
             {
-                ModelState.AddModelError("", $"Fazione {fazioneToCreate.NomeFazione} already exists");
+                ModelState.AddModelError("", $"Fazione {fazioneToCreate.NomeFazione} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -201,7 +201,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_fazioneRepository.CreateFazione(fazioneToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving {fazioneToCreate.NomeFazione}");
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio {fazioneToCreate.NomeFazione}");
                 return StatusCode(500, ModelState);
             }
 
@@ -232,7 +232,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_fazioneRepository.IsDuplicateFazione(fazioneId, fazioneToUpdate.NomeFazione))
             {
-                ModelState.AddModelError("", $"Fazione {fazioneToUpdate.NomeFazione} already exists");
+                ModelState.AddModelError("", $"Fazione {fazioneToUpdate.NomeFazione} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -243,7 +243,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_fazioneRepository.UpdateFazione(fazioneToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating {fazioneToUpdate.NomeFazione}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento {fazioneToUpdate.NomeFazione}");
                 return StatusCode(500, ModelState);
             }
 
@@ -268,13 +268,13 @@ namespace InterpolAlertApi.Controllers
 
             if (_fazioneRepository.GetAutoriFromAFazione(fazioneId).Count() > 0)
             {
-                ModelState.AddModelError("", $"Mandante {fazioneToDelete.NomeFazione}" + " cannot be deletet because it is used at least from an autore");
+                ModelState.AddModelError("", $"Mandante {fazioneToDelete.NomeFazione}" + "non può essere eliminato perché è utilizzato almeno da un autore");
                 return StatusCode(409, ModelState);
             }
 
             if (_fazioneRepository.GetMandantiFromAFazione(fazioneId).Count() > 0)
             {
-                ModelState.AddModelError("", $"Mandante {fazioneToDelete.NomeFazione}" + " cannot be deletet because it is used at least from a Mandante");
+                ModelState.AddModelError("", $"Mandante {fazioneToDelete.NomeFazione}" + " non può essere eliminato perché è utilizzato almeno da un Mandante");
                 return StatusCode(409, ModelState);
             }
 
@@ -285,7 +285,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_fazioneRepository.DeleteFazione(fazioneToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting {fazioneToDelete.NomeFazione}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione {fazioneToDelete.NomeFazione}");
                 return StatusCode(500, ModelState);
             }
 

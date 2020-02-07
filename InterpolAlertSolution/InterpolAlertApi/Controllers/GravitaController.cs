@@ -162,7 +162,7 @@ namespace InterpolAlertApi.Controllers
 
             if (gravita != null)
             {
-                ModelState.AddModelError("", $"Gravita {gravitaToCreate.NomeGravita} already exists");
+                ModelState.AddModelError("", $"Gravita {gravitaToCreate.NomeGravita} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -173,7 +173,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_gravitaRepository.CreateGravita(gravitaToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving {gravitaToCreate.NomeGravita}");
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio {gravitaToCreate.NomeGravita}");
                 return StatusCode(500, ModelState);
             }
 
@@ -203,7 +203,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_gravitaRepository.IsDuplicateGravita(gravitaId, gravitaToUpdate.NomeGravita))
             {
-                ModelState.AddModelError("", $"Gravita {gravitaToUpdate.NomeGravita} already exists");
+                ModelState.AddModelError("", $"Gravita {gravitaToUpdate.NomeGravita} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -214,7 +214,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_gravitaRepository.UpdateGravita(gravitaToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating {gravitaToUpdate.NomeGravita}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento {gravitaToUpdate.NomeGravita}");
                 return StatusCode(500, ModelState);
             }
 
@@ -238,7 +238,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_gravitaRepository.GetEventiFromAGravita(gravitaId).Count() > 0)
             {
-                ModelState.AddModelError("", $"Esito {gravitaToDelete.NomeGravita}" + " cannot be deletet becouse it is used at least at one event");
+                ModelState.AddModelError("", $"Esito {gravitaToDelete.NomeGravita}" + " non può essere eliminato perché viene utilizzato almeno in un evento");
                 return StatusCode(409, ModelState);
             }
 
@@ -249,7 +249,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_gravitaRepository.DeleteGravita(gravitaToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting {gravitaToDelete.NomeGravita}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione {gravitaToDelete.NomeGravita}");
                 return StatusCode(500, ModelState);
             }
 

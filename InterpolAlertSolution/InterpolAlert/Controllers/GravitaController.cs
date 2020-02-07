@@ -62,19 +62,19 @@ namespace InterpolAlert.Controllers
                     newGravitaTask.Wait();
 
                     var newGravita = newGravitaTask.Result;
-                    TempData["SuccessMessage"] = $"La gravita {newGravita.NomeGravita} was successfully created. ";
+                    TempData["SuccessMessage"] = $"La gravita {newGravita.NomeGravita} è stata creata con successo. ";
 
                     return RedirectToAction("Index", "Gravita");
                 }
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", $"Gravita {gravita.NomeGravita} Already Exists!");
+                    ModelState.AddModelError("", $"Gravita {gravita.NomeGravita} esiste già!");
                 }
 
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Gravita not created!");
+                    ModelState.AddModelError("", "Sono sorti alcuni problemi. Gravita non è stata creata!");
                 }
             }
             return View();

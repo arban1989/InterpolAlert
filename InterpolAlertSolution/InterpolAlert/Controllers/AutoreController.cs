@@ -30,7 +30,7 @@ namespace InterpolAlert.Controllers
 
             if (autori.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving autori from the database or no autore exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero degli autori dal database o non esiste alcun autore";
             }
 
             var autorefazione = new List<AutoreViewModel>();
@@ -41,9 +41,9 @@ namespace InterpolAlert.Controllers
                 var fazione = _autoreFeRepository.GetFazioneOfAnAutore(autore.AutoreId);
                 if (fazione == null)
                 {
-                    ModelState.AddModelError("", "Some kind of error getting fazione of an Autore");
-                    ViewBag.Message += $"There was a problem retrieving fazione from the " +
-                                    $"database or no fazione for aurore with id {autore.AutoreId} exists";
+                    ModelState.AddModelError("", "Si è verificato qualche problema per recuperare la fazione o l'autore");
+                    ViewBag.Message += $"Si è verificato un problema durante il recupero della fazione da " +
+                                    $"database o nessuna fazione per autore con ID { autore.AutoreId} esiste";
                     //fazione = new FazioneDto();
                 }
 
@@ -84,7 +84,7 @@ namespace InterpolAlert.Controllers
 
                 if (fazioneDto == null || autoremodel == null)
                 {
-                    ModelState.AddModelError("", "Invalid Fazione or Autore. Cannot create Autore!");
+                    ModelState.AddModelError("", "Fazione o Autore sono invalidi. Autore non è stato creato!");
                     return View(autoremodel);
                 }
 
@@ -115,11 +115,11 @@ namespace InterpolAlert.Controllers
 
                     var newAutore = newAutoreTask.Result;
                     TempData["SuccessMessage"] = $"Autore {newAutore.NomeAutore}" +
-                                                $"was successfully created.";
+                                                $"è stato creato con successo.";
                     return RedirectToAction("Index", "Autore");
                 }
 
-                ModelState.AddModelError("", "Autore not created");
+                ModelState.AddModelError("", "Autore non è stato creato");
             }
 
             return View(autoremodel);
@@ -134,7 +134,7 @@ namespace InterpolAlert.Controllers
             Autore autore = null;
             if (fazioneDto == null || autoreDto == null)
             {
-                ModelState.AddModelError("", "Invalid Fazione or Autore. Cannot update Autore!");
+                ModelState.AddModelError("", "Fazione o Autore sono invalidi. Autore non è stato aggiornato!");
                 autore = new Autore();
             }
             else
@@ -164,7 +164,7 @@ namespace InterpolAlert.Controllers
 
             if (fazioneDto == null || autoreToEdit == null)
             {
-                ModelState.AddModelError("", "Invalid Fazione, or Autore. Cannot update Autore!");
+                ModelState.AddModelError("", "Fazione o Autore sono invalidi. Autore non è stato aggiornato!");
             }
             else
             {
@@ -187,7 +187,7 @@ namespace InterpolAlert.Controllers
                         return RedirectToAction("Index", "Autore");
                     }
 
-                    ModelState.AddModelError("", "Unexpected Error. Autore Not Updated");
+                    ModelState.AddModelError("", "Errore inaspettato. Autore non aggiornato");
                 }
             }
 
@@ -213,19 +213,19 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Autore was successfully deleted.";
+                    TempData["SuccessMessage"] = $"Autore è stato eliminato con successo.";
 
                     return RedirectToAction("Index");
                 }
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"Autore cannot be deleted because " +
-                                                $"it is used by at least one event");
+                    ModelState.AddModelError("", $"Autore non è stato eliminato perchè" +
+                                                $"è utilizzato per un'evento");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Autore not deleted!");
+                    ModelState.AddModelError("", "Sono sorti dei problemi. Autore non è stato eliminato!");
                 }
             }
 

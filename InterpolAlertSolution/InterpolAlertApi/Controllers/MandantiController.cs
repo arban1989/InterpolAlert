@@ -192,7 +192,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_fazioneRepository.FazioneExists(mandanteToCreate.Fazione.FazioneId))
             {
-                ModelState.AddModelError("", "Fazione doesn't exist!");
+                ModelState.AddModelError("", "La fazione non esiste!");
                 return StatusCode(404, ModelState);
             }
 
@@ -202,7 +202,7 @@ namespace InterpolAlertApi.Controllers
 
             if (mandante != null)
             {
-                ModelState.AddModelError("", $"Mandante {mandanteToCreate.NomeMandante} already exists");
+                ModelState.AddModelError("", $"Mandante {mandanteToCreate.NomeMandante} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -213,7 +213,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_mandanteRepository.CreateMandante(mandanteToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving {mandanteToCreate.NomeMandante}");
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio {mandanteToCreate.NomeMandante}");
                 return StatusCode(500, ModelState);
             }
 
@@ -243,7 +243,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_mandanteRepository.IsDuplicateMandante(mandanteId, mandanteToUpdate.NomeMandante))
             {
-                ModelState.AddModelError("", $"Mandante {mandanteToUpdate.NomeMandante} already exists");
+                ModelState.AddModelError("", $"Mandante {mandanteToUpdate.NomeMandante} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -254,7 +254,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_mandanteRepository.UpdateMandante(mandanteToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating {mandanteToUpdate.NomeMandante}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento {mandanteToUpdate.NomeMandante}");
                 return StatusCode(500, ModelState);
             }
 
@@ -278,7 +278,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_mandanteRepository.GetEventiFromAMandante(mandanteId).Count() > 0)
             {
-                ModelState.AddModelError("", $"Mandante {mandanteToDelete.NomeMandante}" + " cannot be deletet becouse it is used at least at one event");
+                ModelState.AddModelError("", $"Mandante {mandanteToDelete.NomeMandante}" + " non può essere eliminato perché viene utilizzato almeno in un evento");
                 return StatusCode(409, ModelState);
             }
 
@@ -289,7 +289,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_mandanteRepository.DeleteMandante(mandanteToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting {mandanteToDelete.NomeMandante}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione {mandanteToDelete.NomeMandante}");
                 return StatusCode(500, ModelState);
             }
 

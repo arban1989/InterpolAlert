@@ -92,7 +92,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_eventoSempliceRepository.CreateEventoSemplice(SimpleEventToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving {SimpleEventToCreate.EventoSempliceNome}");
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio {SimpleEventToCreate.EventoSempliceNome}");
                 return StatusCode(500, ModelState);
             }
 
@@ -126,7 +126,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_eventoSempliceRepository.UpdateEventoSemplice(SimpleEventToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating {SimpleEventToUpdate.EventoSempliceNome}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento {SimpleEventToUpdate.EventoSempliceNome}");
                 return StatusCode(500, ModelState);
             }
             return NoContent();
@@ -150,7 +150,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_eventoSempliceRepository.DeleteEventoSemplice(simpleventToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting {simpleventToDelete.EventoSempliceNome}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione {simpleventToDelete.EventoSempliceNome}");
                 return StatusCode(500, ModelState);
             }
 

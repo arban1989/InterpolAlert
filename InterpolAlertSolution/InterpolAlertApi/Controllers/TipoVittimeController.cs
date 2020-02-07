@@ -160,7 +160,7 @@ namespace InterpolAlertApi.Controllers
 
             if (tipoVittima != null)
             {
-                ModelState.AddModelError("", $"TipoVittima {tipoVittimaToCreate.NomeTipoVittima} already exists");
+                ModelState.AddModelError("", $"TipoVittima {tipoVittimaToCreate.NomeTipoVittima} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -171,7 +171,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_tipoVittimaRepository.CreateTipoVittima(tipoVittimaToCreate))
             {
-                ModelState.AddModelError("", $"Something went wrong saving {tipoVittimaToCreate.NomeTipoVittima}");
+                ModelState.AddModelError("", $"Qualcosa è andato storto durante il salvataggio {tipoVittimaToCreate.NomeTipoVittima}");
                 return StatusCode(500, ModelState);
             }
 
@@ -202,7 +202,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_tipoVittimaRepository.IsDuplicateTipoVittima(tipoVittimaId, tipoVittimaToUpdate.NomeTipoVittima))
             {
-                ModelState.AddModelError("", $"TipoVitttima {tipoVittimaToUpdate.NomeTipoVittima} already exists");
+                ModelState.AddModelError("", $"TipoVitttima {tipoVittimaToUpdate.NomeTipoVittima} esiste già");
                 return StatusCode(422, ModelState);
             }
 
@@ -213,7 +213,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_tipoVittimaRepository.UpdateTipoVittima(tipoVittimaToUpdate))
             {
-                ModelState.AddModelError("", $"Something went wrong updating {tipoVittimaToUpdate.NomeTipoVittima}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'aggiornamento {tipoVittimaToUpdate.NomeTipoVittima}");
                 return StatusCode(500, ModelState);
             }
 
@@ -237,7 +237,7 @@ namespace InterpolAlertApi.Controllers
 
             if (_tipoVittimaRepository.GetEventiFromATipoVittima(tipoVittimaId).Count() > 0)
             {
-                ModelState.AddModelError("", $"TipoVittima {tipoVittimaToDelete.NomeTipoVittima}" + " cannot be deletet becouse it is used at least at one event");
+                ModelState.AddModelError("", $"TipoVittima {tipoVittimaToDelete.NomeTipoVittima}" + " non può essere eliminato perché viene utilizzato almeno in un evento");
                 return StatusCode(409, ModelState);
             }
 
@@ -248,7 +248,7 @@ namespace InterpolAlertApi.Controllers
 
             if (!_tipoVittimaRepository.DeleteTipoVittima(tipoVittimaToDelete))
             {
-                ModelState.AddModelError("", $"Something went wrong deleting {tipoVittimaToDelete.NomeTipoVittima}");
+                ModelState.AddModelError("", $"Si è verificato un errore durante l'eliminazione {tipoVittimaToDelete.NomeTipoVittima}");
                 return StatusCode(500, ModelState);
             }
 

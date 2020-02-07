@@ -27,7 +27,7 @@ namespace InterpolAlert.Controllers
             var esiti = _esitoFeRepository.GetEsiti();
             if (esiti.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving  the esiti from" + "the database or no esiti exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero dell'esiti" + "il database o esiti non esiste";
             }
             return View(esiti);
         }
@@ -62,19 +62,19 @@ namespace InterpolAlert.Controllers
                     newEsitoTask.Wait();
 
                     var newEsito = newEsitoTask.Result;
-                    TempData["SuccessMessage"] = $"L'esito {esito.NomeEsito} was successfully created. ";
+                    TempData["SuccessMessage"] = $"L'esito {esito.NomeEsito} è stato creato con successo. ";
 
                     return RedirectToAction("Index", "Esito");
                 }
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", $"Esito {esito.NomeEsito} Already Exists!");
+                    ModelState.AddModelError("", $"Esito {esito.NomeEsito} esiste già!");
                 }
 
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Gravita not created!");
+                    ModelState.AddModelError("", "Sono sorti dei problemi. Esito non è stato eliminato!");
                 }
             }
             return View();
@@ -87,7 +87,7 @@ namespace InterpolAlert.Controllers
 
             if (esitoToUpdate == null)
             {
-                ModelState.AddModelError("", "Error getting Esito");
+                ModelState.AddModelError("", "Errore durante il recupero di Esito");
                 esitoToUpdate = new EsitoDto();
             }
 
@@ -107,18 +107,18 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Esito was successfully updated.";
+                    TempData["SuccessMessage"] = $"Esito è stato aggiornato con successo.";
 
                     return RedirectToAction("Index", "Esito");
                 }
 
                 if ((int)result.StatusCode == 422)
                 {
-                    ModelState.AddModelError("", "Esito Already Exists!");
+                    ModelState.AddModelError("", "Esito esiste già!");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Esito not updated!");
+                    ModelState.AddModelError("", "Sono sorti dei problemi. Autore non è stato aggiornato!");
                 }
             }
 
@@ -144,19 +144,19 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Esito was successfully deleted.";
+                    TempData["SuccessMessage"] = $"Esito è stato eliminato con successo.";
 
                     return RedirectToAction("Index", "Esito");
                 }
 
                 if ((int)result.StatusCode == 409)
                 {
-                    ModelState.AddModelError("", $"Esito cannot be deleted because " +
-                                                $"it is used by at least one Evento");
+                    ModelState.AddModelError("", $"Esito non è stato eliminato perchè " +
+                                                $"è usato da almeno un Evento");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Esito not deleted!");
+                    ModelState.AddModelError("", " è storto qualche tipo di errore. Esito non cancellato!");
                 }
             }
 
