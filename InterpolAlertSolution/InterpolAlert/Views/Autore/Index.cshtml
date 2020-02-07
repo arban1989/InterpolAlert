@@ -49,7 +49,7 @@
                     <form asp-action="Delete" asp-route-autoreId="@item.AutoreId" method="post">
                         <a class="btn btn-sm btn-primary" asp-controller="Autore" asp-action="Edit" asp-route-FazioneId="@item.Fazione.FazioneId" asp-route-autoreId="@item.AutoreId">Edit</a>
                         <button class="btn btn-sm btn-danger" type="submit"
-                                new { onclick="return confirm('Are you sure you wish to delete this?');">
+                                new { onclick="return confirm('Sei sicuro di voler eliminare @item.NomeAutore?');">
                             Delete
                         </button>
                     </form>

@@ -28,7 +28,6 @@ namespace InterpolAlert.Controllers
             if (tipoVittime.Count()<= 0)
             {
                 ViewBag.Message = "Si è verificato un problema durante il recupero del tipo di vittime dal database o non esiste alcun tipo di vittima";
-                ViewBag.Message = "Si è verificato un problema durante il recupero del tipo di vittime dal database o non esiste alcun tipo di vittima";
             }
             return View(tipoVittime);
         }
