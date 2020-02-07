@@ -107,7 +107,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Gravita was successfully updated.";
+                    TempData["SuccessMessage"] = $"Gravita è stato aggiornato con successo.";
 
                     return RedirectToAction("Index", "Gravita");
                 }
@@ -118,7 +118,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
                 }
             }
 
@@ -145,7 +145,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Gravita was successfully deleted.";
+                    TempData["SuccessMessage"] = $"Gravita è stato eliminato con successo.";
 
                     return RedirectToAction("Index", "Gravita");
                 }
@@ -157,7 +157,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Gravita not deleted!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Gravita non è stato cancellato!");
                 }
             }
 

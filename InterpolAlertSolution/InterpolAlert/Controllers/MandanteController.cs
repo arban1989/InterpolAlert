@@ -38,7 +38,7 @@ namespace InterpolAlert.Controllers
                 var fazione = _mandanteFeRepository.GetFazioneOfAMandante(mandante.MandanteId);
                 if (fazione == null)
                 {
-                    ModelState.AddModelError("", "Some kind of error getting fazione of an Mandante");
+                    ModelState.AddModelError("", "Qualche tipo di errore nell'ottenerefazione of an Mandante");
                     ViewBag.Message += $"There was a problem retrieving fazione from the " +
                                     $"database or no fazione for mandate with id {mandante.MandanteId} exists";
                     //fazione = new FazioneDto();
@@ -108,7 +108,7 @@ namespace InterpolAlert.Controllers
 
                     var newMandante = newMandanteTask.Result;
                     TempData["SuccessMessage"] = $"Mandante {newMandante.NomeMandante}" +
-                                                $"was successfully created.";
+                                                $"è stato creato con successo.";
                     return RedirectToAction("Index", "Mandante");
                 }
 
@@ -205,7 +205,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Mandante was successfully deleted.";
+                    TempData["SuccessMessage"] = $"Mandante è stato eliminato con successo.";
 
                     return RedirectToAction("Index");
                 }
@@ -217,7 +217,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Mandante not deleted!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Mandante non è stato cancellato!");
                 }
             }
 

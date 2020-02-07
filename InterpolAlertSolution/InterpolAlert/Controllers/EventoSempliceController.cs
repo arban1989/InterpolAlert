@@ -70,14 +70,14 @@ namespace InterpolAlert.Controllers
                     newEventoSempliceTask.Wait();
 
                     var newEventoSemplice = newEventoSempliceTask.Result;
-                    TempData["SuccessMessage"] = $"L'evento {newEventoSemplice.EventoSempliceNome} was successfully created.";
+                    TempData["SuccessMessage"] = $"L'evento {newEventoSemplice.EventoSempliceNome} è stato creato con successo.";
 
                     return RedirectToAction("Index", "EventoSemplice");
                 }
 
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Evento not created!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Evento non creato!");
                 }
             }
 

@@ -61,7 +61,7 @@ namespace InterpolAlert.Controllers
                     newTipoVittimaTask.Wait();
 
                     var newTipoVittime = newTipoVittimaTask.Result;
-                    TempData["SuccessMessage"] = $"Il tipo Vittima {newTipoVittime.NomeTipoVittima} was successfully created. ";
+                    TempData["SuccessMessage"] = $"Il tipo Vittima {newTipoVittime.NomeTipoVittima} è stato creato con successo. ";
 
                     return RedirectToAction("Index", "TipoVittima");
                 }
@@ -73,7 +73,7 @@ namespace InterpolAlert.Controllers
 
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. TipoVittima not created!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. TipoVittima non creato!");
                 }
             }
             return View();
@@ -106,7 +106,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"TipoVittima was successfully updated.";
+                    TempData["SuccessMessage"] = $"TipoVittima è stato aggiornato con successo.";
 
                     return RedirectToAction("Index", "TipoVittima");
                 }
@@ -117,7 +117,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
                 }
             }
 
@@ -143,7 +143,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"TipoVittima was successfully deleted.";
+                    TempData["SuccessMessage"] = $"TipoVittima è stato eliminato con successo.";
 
                     return RedirectToAction("Index", "TipoVittima");
                 }
@@ -155,7 +155,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. TipoEvento not deleted!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. TipoEvento non è stato cancellato!");
                 }
             }
 

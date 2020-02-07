@@ -44,7 +44,7 @@ namespace InterpolAlert.Controllers
 
             if (eventi.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving eventi from the database or no evento exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero degli eventi dal database o non esiste alcun evento";
             }
 
             var eventoViewModel = new List<EventiForListViewModel>();
@@ -53,27 +53,27 @@ namespace InterpolAlert.Controllers
             {
                 var autori = _autoreFeRepository.GetAutoriFromAnEvent(evento.EventoId).ToList();
                 if (autori.Count() <= 0)
-                    ModelState.AddModelError("", "Some kind of error getting autori");
+                    ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere autori");
 
                 var esito = _esitoFeRepository.GetEsitoOfAnEvent(evento.EventoId);
                 if (esito == null)
-                    ModelState.AddModelError("", "Some kind of error getting Esito del evento");
+                    ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Esito del evento");
 
                 var localita = _localitaFeRepository.GetLocalitaOfAnEvent(evento.EventoId);
                 if (localita == null)
-                    ModelState.AddModelError("", "Some kind of error getting Localita del evento");
+                    ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Localita del evento");
 
                 var gravita = _gravitaFeRepository.GetGravitaOfAnEvent(evento.EventoId);
                 if (gravita == null)
-                    ModelState.AddModelError("", "Some kind of error getting Gravita del evento");
+                    ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Gravita del evento");
 
                 var tipoEvento = _tipoEventoFeRepository.GetTipoEventoOfAnEvent(evento.EventoId);
                 if (tipoEvento == null)
-                    ModelState.AddModelError("", "Some kind of error getting TipoEvento del evento");
+                    ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere TipoEvento del evento");
 
                 var mandante = _mandanteFeRepository.GetMandanteOfAnEvent(evento.EventoId);
                 if (mandante == null)
-                    ModelState.AddModelError("", "Some kind of error getting Mandante del evento");
+                    ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Mandante del evento");
 
 
                 eventoViewModel.Add(new EventiForListViewModel
@@ -101,36 +101,36 @@ namespace InterpolAlert.Controllers
             var evento = _eventoFeRepository.GetEvento(eventoId);
             if (evento == null)
             {
-                ViewBag.Message = "There was a problem retrieving this Evento from the database or no evento exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero di questo Evento dal database o non esiste alcun evento";
             }
 
             var autori = _autoreFeRepository.GetAutoriFromAnEvent(evento.EventoId).ToList();
             if (autori.Count() <= 0)
-                ModelState.AddModelError("", "Some kind of error getting autori");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere autori");
 
             var esito = _esitoFeRepository.GetEsitoOfAnEvent(evento.EventoId);
             if (esito == null)
-                ModelState.AddModelError("", "Some kind of error getting Esito del evento");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Esito del evento");
 
             var tipoVittima = _tipoVittimaFeRepository.GetTipoVittimaOfAnEvent(evento.EventoId);
             if (tipoVittima == null)
-                ModelState.AddModelError("", "Some kind of error getting Tipo vittima del evento");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Tipo vittima del evento");
 
             var localita = _localitaFeRepository.GetLocalitaOfAnEvent(evento.EventoId);
             if (localita == null)
-                ModelState.AddModelError("", "Some kind of error getting Localita del evento");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Localita del evento");
 
             var gravita = _gravitaFeRepository.GetGravitaOfAnEvent(evento.EventoId);
             if (gravita == null)
-                ModelState.AddModelError("", "Some kind of error getting Gravita del evento");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Gravita del evento");
 
             var tipoEvento = _tipoEventoFeRepository.GetTipoEventoOfAnEvent(evento.EventoId);
             if (tipoEvento == null)
-                ModelState.AddModelError("", "Some kind of error getting TipoEvento del evento");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere TipoEvento del evento");
 
             var mandante = _mandanteFeRepository.GetMandanteOfAnEvent(evento.EventoId);
             if (mandante == null)
-                ModelState.AddModelError("", "Some kind of error getting Mandante del evento");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere Mandante del evento");
 
             var eventoFullViewModel = new EventoViewModel
             {
@@ -165,7 +165,7 @@ namespace InterpolAlert.Controllers
 
             if (autori.Count() <= 0)
             {
-                ModelState.AddModelError("", "Some kind of error getting autori");
+                ModelState.AddModelError("", "Qualche tipo di errore nell'ottenere autori");
             }
 
             var listaAutori = new ListaAutori(autori.ToList());
@@ -213,13 +213,13 @@ namespace InterpolAlert.Controllers
 
                     var newEvento = readTaskNewEvento.Result;
 
-                    TempData["SuccessMessage"] = $"Evento {evento.NomeEvento} was successfully created.";
+                    TempData["SuccessMessage"] = $"Evento {evento.NomeEvento} è stato creato con successo.";
                     return RedirectToAction("Index", "Evento");
                 }
 
                 else
                 {
-                    ModelState.AddModelError("", "Error! Evento not created!");
+                    ModelState.AddModelError("", "Errore! Evento non creato!");
                 }
             }
 
@@ -277,13 +277,13 @@ namespace InterpolAlert.Controllers
 
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Evento {evento.NomeEvento} was successfully updated.";
+                    TempData["SuccessMessage"] = $"Evento {evento.NomeEvento} è stato aggiornato con successo.";
                     return RedirectToAction("Index", "Evento");
                 }
 
                 else
                 {
-                    ModelState.AddModelError("", "Error! Evento not created!");
+                    ModelState.AddModelError("", "Errore! Evento non creato!");
                 }
             }
 
@@ -316,12 +316,12 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"L'evento {NomeEvento} was successfully deleted.";
+                    TempData["SuccessMessage"] = $"L'evento {NomeEvento} è stato eliminato con successo.";
 
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError("", "Some kind of error. Evento not deleted!");
+                ModelState.AddModelError("", "Qualche tipo di errore. Evento non è stato cancellato!");
             }
 
             var eventoDto = _eventoFeRepository.GetEvento(eventoId);

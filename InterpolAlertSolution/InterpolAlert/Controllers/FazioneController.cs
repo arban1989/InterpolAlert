@@ -27,7 +27,7 @@ namespace InterpolAlert.Controllers
             var fazioni = _fazioneFeRepository.GetFazioni();
             if (fazioni.Count() <= 0)
             {
-                ViewBag.Message = "There was a problem retrieving  the Fazioni from" + "the database or no Fazione exists";
+                ViewBag.Message = "Si è verificato un problema durante il recupero delle Fazioni" + "il database o nessuna Fazione esiste";
             }
             return View(fazioni);
         }
@@ -62,7 +62,7 @@ namespace InterpolAlert.Controllers
                     newFazioneTask.Wait();
 
                     var newFazione = newFazioneTask.Result;
-                    TempData["SuccessMessage"] = $"Fazione {newFazione.NomeFazione} was successfully created. ";
+                    TempData["SuccessMessage"] = $"Fazione {newFazione.NomeFazione} è stato creato con successo. ";
 
                     return RedirectToAction("Index", "Fazione");
                 }
@@ -74,7 +74,7 @@ namespace InterpolAlert.Controllers
 
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Fazione not created!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Fazione non creato!");
                 }
             }
             return View();
@@ -107,7 +107,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Fazione was successfully updated.";
+                    TempData["SuccessMessage"] = $"Fazione è stato aggiornato con successo.";
 
                     return RedirectToAction("Index", "Fazione");
                 }
@@ -118,7 +118,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Fazione not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Fazione not updated!");
                 }
             }
 
@@ -145,7 +145,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Fazione was successfully deleted.";
+                    TempData["SuccessMessage"] = $"Fazione è stato eliminato con successo.";
 
                     return RedirectToAction("Index", "Fazione");
                 }
@@ -157,7 +157,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Fazione not deleted!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Fazione non è stato cancellato!");
                 }
             }
 

@@ -78,7 +78,7 @@ namespace InterpolAlert.Controllers
                     newLocalitaTask.Wait();
 
                     var newLocalita = newLocalitaTask.Result;
-                    TempData["SuccessMessage"] = $"Localita {newLocalita.NomeLocalita} was successfully created.";
+                    TempData["SuccessMessage"] = $"Localita {newLocalita.NomeLocalita} è stato creato con successo.";
 
                     return RedirectToAction("Index", "Localita");
                 }
@@ -89,7 +89,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Country not created!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Country non creato!");
                 }
             }
 
@@ -141,7 +141,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Localita was successfully updated.";
+                    TempData["SuccessMessage"] = $"Localita è stato aggiornato con successo.";
 
                     return RedirectToAction("Index", "Localita");
                 }
@@ -152,7 +152,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
                 }
             }
 
@@ -178,7 +178,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"Localita was successfully deleted.";
+                    TempData["SuccessMessage"] = $"Localita è stato eliminato con successo.";
 
                     return RedirectToAction("Index", "Localita");
                 }
@@ -190,7 +190,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Localita not deleted!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita non è stato cancellato!");
                 }
             }
 

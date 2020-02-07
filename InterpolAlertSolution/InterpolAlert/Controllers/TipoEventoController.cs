@@ -60,7 +60,7 @@ namespace InterpolAlert.Controllers
                     newTipoEventoTask.Wait();
 
                     var newTipoEvento = newTipoEventoTask.Result;
-                    TempData["SuccessMessage"] = $"Il tipo Evento {newTipoEvento.NomeTipoEvento} was successfully created. ";
+                    TempData["SuccessMessage"] = $"Il tipo Evento {newTipoEvento.NomeTipoEvento} è stato creato con successo. ";
 
                     return RedirectToAction("Index", "TipoEvento");
                 }
@@ -71,7 +71,7 @@ namespace InterpolAlert.Controllers
 
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. TipoEvento not created!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. TipoEvento non creato!");
                 }
             }
             return View();
@@ -104,7 +104,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"TipoEvento was successfully updated.";
+                    TempData["SuccessMessage"] = $"TipoEvento è stato aggiornato con successo.";
 
                     return RedirectToAction("Index", "TipoEvento");
                 }
@@ -115,7 +115,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. Localita not updated!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. Localita not updated!");
                 }
             }
 
@@ -142,7 +142,7 @@ namespace InterpolAlert.Controllers
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = $"TipoEvento was successfully deleted.";
+                    TempData["SuccessMessage"] = $"TipoEvento è stato eliminato con successo.";
 
                     return RedirectToAction("Index", "TipoEvento");
                 }
@@ -154,7 +154,7 @@ namespace InterpolAlert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Some kind of error. TipoEvento not deleted!");
+                    ModelState.AddModelError("", "Qualche tipo di errore. TipoEvento non è stato cancellato!");
                 }
             }
 
