@@ -59,10 +59,10 @@
                 </td>
                 <td>
                     <form asp-action="Delete" asp-route-localitaId="@item.LocalitaId" method="post">
-                        <a class="btn btn-sm btn-primary" asp-controller="Localita" asp-action="Edit" asp-route-localitaId="@item.LocalitaId">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="Localita" asp-action="Edit" asp-route-localitaId="@item.LocalitaId">Modifica</a>
                         <button class="btn btn-sm btn-danger" type="submit"
                                 new { onclick="return confirm('Sei sicuro di voler eliminare questo?');">
-                            Delete
+                            Elimina
                         </button>
                     </form>
                 </td>

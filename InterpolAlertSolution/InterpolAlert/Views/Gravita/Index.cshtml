@@ -35,10 +35,10 @@
                 </td>
                 <td>
                     <form asp-action="Delete" asp-route-gravitaId="@item.GravitaId" method="post">
-                        <a class="btn btn-sm btn-primary" asp-controller="Gravita" asp-action="Edit" asp-route-gravitaId="@item.GravitaId">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="Gravita" asp-action="Edit" asp-route-gravitaId="@item.GravitaId">Modifica Gravità</a>
                         <button class="btn btn-sm btn-danger" type="submit"
                                 new { onclick="return confirm('Sei sicuro di voler eliminare questo?');">
-                            Delete
+                            Elimina
                         </button>
                     </form>
                 </td>

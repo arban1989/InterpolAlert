@@ -36,10 +36,10 @@
                 <td>
                     @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
                     <form asp-action="Delete" asp-route-tipoEventoId="@item.TipoEventoId" method="post">
-                        <a class="btn btn-sm btn-primary" asp-controller="TipoEvento" asp-action="Edit" asp-route-tipoEventoId="@item.TipoEventoId">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="TipoEvento" asp-action="Edit" asp-route-tipoEventoId="@item.TipoEventoId">Modifica Tipo Evento</a>
                         <button class="btn btn-sm btn-danger" type="submit"
                                 new { onclick="return confirm('Sei sicuro di voler eliminare @item.NomeTipoEvento?');">
-                            Delete
+                            Elimina
                         </button>
                     </form>
                 </td>

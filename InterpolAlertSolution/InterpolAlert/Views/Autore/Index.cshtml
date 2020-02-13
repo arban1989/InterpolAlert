@@ -47,10 +47,10 @@
                 </td>
                 <td>
                     <form asp-action="Delete" asp-route-autoreId="@item.AutoreId" method="post">
-                        <a class="btn btn-sm btn-primary" asp-controller="Autore" asp-action="Edit" asp-route-FazioneId="@item.Fazione.FazioneId" asp-route-autoreId="@item.AutoreId">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="Autore" asp-action="Edit" asp-route-FazioneId="@item.Fazione.FazioneId" asp-route-autoreId="@item.AutoreId">Modifica</a>
                         <button class="btn btn-sm btn-danger" type="submit"
                                 new { onclick="return confirm('Sei sicuro di voler eliminare @item.NomeAutore?');">
-                            Delete
+                            Elimina
                         </button>
                     </form>
                 </td>
