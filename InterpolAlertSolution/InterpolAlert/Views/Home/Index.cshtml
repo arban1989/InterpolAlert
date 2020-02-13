@@ -7,7 +7,7 @@
     /* Always set the map height explicitly to define the size of the div
         * element that contains the map. */
     #map {
-        height: 500px;
+        height: 600px;
         width: 100%;
     }
 
@@ -16,11 +16,53 @@
         color: #007bff;
         text-decoration: none;
     }
+
+
+
+    .legend {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 3000;
+        background: #fff;
+        background: rgba(255, 255, 255, 0.8);
+        /*left: 185px;
+        bottom: 100px;*/
+        padding: 20px;
+        border: 1px solid;
+    }
+
+        .legend h4 {
+            margin: 0 0 10px;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .legend ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .legend li {
+            vertical-align:middle;
+            height: 100%;       
+
+        }
+
+        .legend span {
+            display: inline-block;
+            vertical-align: middle;
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+        }
     /* Optional: Makes the sample page fill the window. */
 </style>
 
-<div class="container">
-    <div class="row mb-2">
+<div class="">
+    <div class="row mb-1">
         <div class="col-12 text-center pt-3">
             <h1>Ultimi Eventi Segnalati Da Interpol</h1>
             <p>Cliccare sopra il marker per mostrare piu' informazioni</p>
@@ -49,7 +91,7 @@
                             @ev.NoteVarie
                         </a>
                     }
-                   
+
                 </marquee>
             </div>
         </div>
@@ -98,7 +140,7 @@
                     '</div>' +
                     '<h1 id="firstHeading" class="firstHeading">' + sourcearray[key].nomeEvento + '</h1>' +
                     '<div id="bodyContent">' +
-                    
+
                     '<p>' + sourcearray[key].noteVarie +'</p>' +
                     '<p><a href="https://localhost:44339/Evento/Details?eventoId=' + sourcearray[key].eventoId + '">' +
                     'Info più dettagliate</a> ' +
@@ -130,6 +172,16 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD14h45qSV_KeLvD6yVJhRqWmafEl3mNw0&callback&callback=initMap">
     </script>
+</div>
+
+<div class="legend">
+    <h4>Legend</h4>
+    <ul>
+        <li><span style="background-image:url('http://maps.google.com/mapfiles/kml/pal3/icon39.png')"></span>Gravissimo</li>
+        <li><span style="background-image:url('http://maps.google.com/mapfiles/kml/pal3/icon38.png')"></span>Molto Grave</li>
+        <li><span style="background-image:url('http://maps.google.com/mapfiles/kml/pal3/icon37.png')"></span>Grave</li>
+        <li><span style="background-image:url('http://maps.google.com/mapfiles/kml/pal3/icon41.png')"></span>Meno Grave</li>
+    </ul>
 </div>
 
 @*<div class="list-group">
