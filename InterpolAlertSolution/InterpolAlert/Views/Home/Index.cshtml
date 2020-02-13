@@ -1,9 +1,186 @@
-﻿@{
+﻿@model IEnumerable<InterpolAlert.ModelsForView.EventiForListViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+
+    .btn-link {
+        font-weight: 700;
+        color: #007bff;
+        text-decoration: none;
+    }
+    /* Optional: Makes the sample page fill the window. */
+</style>
+
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-12 text-center pt-3">
+            <h1>Ultimi Eventi Segnalati Da Interpol</h1>
+            <p>Cliccare sopra il marker per mostrare piu' informazioni</p>
+        </div>
+    </div>
+
+    <!--start code-->
+    <div class="row py-2">
+        <!--Breaking box-->
+        <div class="col-1 col-md-3 col-lg-2 py-1 pr-md-0 mb-md-1">
+            <div class="d-inline-block d-md-block bg-primary text-white text-center breaking-caret py-1 px-2">
+                <span class="fas fa-bolt" title="Breaking News"></span>
+                <span class="d-none d-md-inline-block">Ultimi Eventi</span>
+            </div>
+        </div>
+        <!--Breaking content-->
+        <div class="col-11 col-md-9 col-lg-10 pl-1 pl-md-2">
+            <div class="breaking-box pt-2 pb-1">
+                <!--marque-->
+                <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseleave="this.start();">
+                    @foreach (var ev in Model)
+                    {
+                        var badgeEv = (ev.Gravita.NomeGravita == "Gravissimo") ? "badge-danger" : (ev.Gravita.NomeGravita == "Molto Grave") ? "badge-warning" : (ev.Gravita.NomeGravita == "Grave") ? "badge-dark" : "badge-info";
+                        <a class="h6 font-weight-light" asp-controller="Evento" asp-action="Details" asp-route-eventoId="@ev.EventoId">
+                            <span class="position-relative mx-2 badge @badgeEv rounded-0">@ev.Localita.NomeLocalita:</span>
+                            @ev.NoteVarie
+                        </a>
+                    }
+                   
+                </marquee>
+            </div>
+        </div>
+    </div>
+    <!--end code-->
 </div>
 
+<div class="row">
+    <div id="map" class="mb-4"></div>
+
+    <script>
+        var map;
+        sourcearray = @Html.Raw(Json.Serialize(@Model));
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 46.0693016, lng: 13.2371502 },
+                zoom: 9
+            });
+
+            var iconVeryDanger = 'http://maps.google.com/mapfiles/kml/pal3/icon39.png';
+            var iconWarning = 'http://maps.google.com/mapfiles/kml/pal3/icon37.png';
+            var iconDanger = 'http://maps.google.com/mapfiles/kml/pal3/icon38.png';
+            var iconNonDanger = 'http://maps.google.com/mapfiles/kml/pal3/icon41.png'
+
+            var marker = [];
+
+            var infowindow = [];
+
+            var contentString = [];
+
+            $.each(sourcearray, function (key, value) {
+
+                var icona = sourcearray[key].gravita.nomeGravita == 'Gravissimo' ? iconVeryDanger
+                    : sourcearray[key].gravita.nomeGravita == 'Molto Grave' ? iconDanger
+                        : sourcearray[key].gravita.nomeGravita == 'Grave' ? iconWarning
+                            : iconNonDanger;
+
+                 marker[key] = new google.maps.Marker({
+                position: { lat: sourcearray[key].marker.latitudine, lng: sourcearray[key].marker.longitudine },
+                     map: map,
+                     icon: icona
+                 });
+                contentString[key] =
+                '<div id="content">' +
+                 '<div id="siteNotice">' +
+                    '</div>' +
+                    '<h1 id="firstHeading" class="firstHeading">' + sourcearray[key].nomeEvento + '</h1>' +
+                    '<div id="bodyContent">' +
+                    
+                    '<p>' + sourcearray[key].noteVarie +'</p>' +
+                    '<p><a href="https://localhost:44339/Evento/Details?eventoId=' + sourcearray[key].eventoId + '">' +
+                    'Info più dettagliate</a> ' +
+                 '</div>' +
+                    '</div>';
+                infowindow[key] = new google.maps.InfoWindow({
+                content: contentString[key]
+                });
+
+                var markerValue = marker[key];
+
+                google.maps.event.addListener(marker[key], 'click', (function (markerValue, key) {
+                    return function () {
+                        infowindow[key].open(map, marker[key]);
+                    }
+                })(marker[key], key));
+
+                google.maps.event.addListener(marker[key], 'rightclick', (function (markerValue, key) {
+
+                    return function () {
+                        infowindow[key].close();
+                    }
+                })(marker[key], key));
+            });
+
+        }
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD14h45qSV_KeLvD6yVJhRqWmafEl3mNw0&callback&callback=initMap">
+    </script>
+</div>
+
+@*<div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active">
+            Ultimi Eventi registrati
+        </a>
+        @foreach (var ev in Model)
+        {
+            <a href="#" class="list-group-item list-group-item-action"> <span><b>@ev.Localita.NomeLocalita:</b></span>  @ev.TipoEvento.NomeTipoEvento </a>
+        }
+    </div>*@
+
+@*<div class="container">
+        <h1 class="text-center"> Ultimi Eventi registrati</h1>
+        <div class="accordion" id="accordionExample">
+            @foreach (var ev in Model)
+            {
+                var showEv = (ev.EventoId == 1) ? "show" : "";
+                //var collapseEv = (ev.EventoId == 1) ? "" : "collapsed";
+                <div class="card">
+                    <div class="card-header" id="@Html.Raw("Title" + ev.EventoId)">
+                        <div class="row">
+                            <div class="col-xs-1 col-sm-2 col-md-1 mr-3">
+                                <span class="">@ev.DataOraInizio.ToShortDateString()</span>
+                            </div>
+                            <div class="col-xs-8 col-sm-7 col-md-8 card-title">
+                                <h2>
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="@Html.Raw("#One" + ev.EventoId)" aria-expanded="true" aria-controls="@Html.Raw("One" + ev.EventoId)">
+                                        <span style="font-size:medium;">@ev.TipoEvento.NomeTipoEvento</span>
+                                    </button>
+                                </h2>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="@Html.Raw("One" + ev.EventoId)" class="collapse @showEv" aria-labelledby="@Html.Raw("Title" + ev.EventoId)" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xs-1 col-sm-2 col-md-1 mr-3">
+                                    <i class="fa fa-tachometer fa-4x "></i>
+                                </div>
+                                <div class="col-xs-8 col-sm-7 col-md-8 card-title">
+                                    <h5>Car System Alerts</h5>
+                                    <p>Check the battery and alternator conditions</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>*@
