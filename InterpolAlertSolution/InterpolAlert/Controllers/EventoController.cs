@@ -142,6 +142,7 @@ namespace InterpolAlert.Controllers
                 NrVittime = evento.NrVittime,
                 NrFeriti = evento.NrFeriti,
                 NoteVarie = evento.NoteVarie,
+                Mediatore = evento.Mediatore,
                 FFSpeciali = evento.FFSpeciali,
                 Polizia = evento.Polizia,
                 VigiliDelFuoco = evento.VigiliDelFuoco,
@@ -193,6 +194,7 @@ namespace InterpolAlert.Controllers
                     NrVittime = eventoToCreate.Evento.NrVittime,
                     NrFeriti = eventoToCreate.Evento.NrFeriti,
                     NoteVarie = eventoToCreate.Evento.NoteVarie,
+                    Mediatore = eventoToCreate.Evento.Mediatore,
                     FFSpeciali = eventoToCreate.Evento.FFSpeciali,
                     Polizia = eventoToCreate.Evento.Polizia,
                     VigiliDelFuoco = eventoToCreate.Evento.VigiliDelFuoco
@@ -262,6 +264,7 @@ namespace InterpolAlert.Controllers
                     NrVittime = eventoToUpdate.Evento.NrVittime,
                     NrFeriti = eventoToUpdate.Evento.NrFeriti,
                     NoteVarie = eventoToUpdate.Evento.NoteVarie,
+                    Mediatore = eventoToUpdate.Evento.Mediatore,
                     FFSpeciali = eventoToUpdate.Evento.FFSpeciali,
                     Polizia = eventoToUpdate.Evento.Polizia,
                     VigiliDelFuoco = eventoToUpdate.Evento.VigiliDelFuoco

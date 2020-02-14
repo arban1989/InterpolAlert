@@ -4,140 +4,284 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Dettaglio Evento selezionato</h1>
+<style>
+    .table-EventoInformation td:first-child {
+        font-weight: bold;
+    }
 
-<div>
-    <hr />
-    <dl class="row">
-        @*<dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventoId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventoId)
-        </dd>*@
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeEvento)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NomeEvento)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataOraInizio)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataOraInizio)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataOraFine)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataOraFine)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NrVittime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NrVittime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NrDecessi)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NrDecessi)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NrFeriti)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NrFeriti)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NoteVarie)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NoteVarie)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Mediatore)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Mediatore)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FFSpeciali)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FFSpeciali)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Polizia)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Polizia)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.VigiliDelFuoco)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.VigiliDelFuoco)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Autori)
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var autore in Model.Autori)
-            {
-                <span>@autore.NomeAutore</span> <br />
-            }
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Localita)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Localita.NomeLocalita)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoEvento)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TipoEvento.NomeTipoEvento)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoVittima)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TipoVittima.NomeTipoVittima)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Gravita)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Gravita.NomeGravita)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Esito)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Esito.NomeEsito)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Mandante)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Mandante.NomeMandante)
-        </dd>
-    </dl>
-</div>
-<div class="form-group text-left">
-    <a class="btn btn-sm btn-primary" asp-controller="Evento" asp-action="Edit"
-       asp-route-LocalitaId="@Model.Localita.LocalitaId" asp-route-eventoId="@Model.EventoId"
-       asp-route-EsitoId="@Model.Esito.EsitoId" asp-route-GravitaId="@Model.Gravita.GravitaId"
-       asp-route-TipoEventoId="@Model.TipoEvento.TipoEventoId" asp-route-TipoVittimaId="@Model.TipoVittima.TipoVittimaId"
-       asp-route-MandanteId="@Model.Mandante.MandanteId">Modifica Evento</a>
-    <a class="btn btn-sm btn-danger" asp-controller="Evento" asp-action="Delete"
-       asp-route-eventoId="@Model.EventoId">Elimina Evento</a>
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+</style>
 
+<div class="container mb-1">
+    <div class="row mb-5">
+        <div class="col-12 text-center pt-3">
+            <h1 class="text-center">Dettaglio Evento</h1>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-8">
+            <table class="table table-EventoInformation">
+                <tbody>
+                    <tr>
+                        <td>Nome Evento:</td>
+                        <td>@Model.NomeEvento</td>
+                    </tr>
+                    <tr>
+                        <td>Data Ora Inizio:</td>
+                        <td>@Model.DataOraInizio</td>
+                    </tr>
+                    <tr>
+                        <td>Data Ora Fine:</td>
+                        <td>@Model.DataOraFine</td>
+                    </tr>
+
+                    <tr>
+                        <td>Note Varie:</td>
+                        <td>@Model.NoteVarie</td>
+                    </tr>
+                    <tr>
+                        <td>Numero Vittime:</td>
+                        <td>@Model.NrVittime</td>
+                    </tr>
+                    <tr>
+                        <td>Numero Decessi:</td>
+                        <td>@Model.NrDecessi</td>
+                    </tr>
+                    <tr>
+                        <td>Note Feriti:</td>
+                        <td>@Model.NrFeriti</td>
+                    </tr>
+                    <tr>
+                        <td>Autori:</td>
+                        <td>
+                            @foreach (var autore in Model.Autori)
+                            {
+                                <span>@autore.NomeAutore</span> <br />
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Localita:</td>
+                        <td>@Model.Localita.NomeLocalita</td>
+                    </tr>
+                    <tr>
+                        <td>Tipo Evento:</td>
+                        <td>@Model.TipoEvento.NomeTipoEvento</td>
+                    </tr>
+                    <tr>
+                        <td>Tipo Vittima:</td>
+                        <td>@Model.TipoVittima.NomeTipoVittima</td>
+                    </tr>
+                    <tr>
+                        <td>Esito:</td>
+                        <td>@Model.Esito.NomeEsito</td>
+                    </tr>
+                    <tr>
+                        <td>Gravita:</td>
+                        <td>@Model.Gravita.NomeGravita</td>
+                    </tr>
+                    <tr>
+                        <td>Mandante:</td>
+                        <td>@Model.Mandante.NomeMandante</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.Mediatore)</td>
+                        <td>@Html.CheckBoxFor(model => model.Mediatore)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.VigiliDelFuoco)</td>
+                        <td>@Html.CheckBoxFor(model => model.VigiliDelFuoco)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.FFSpeciali)</td>
+                        <td>@Html.CheckBoxFor(model => model.FFSpeciali)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.Polizia)</td>
+                        <td>@Html.CheckBoxFor(model => model.Polizia)</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <div id="map" class="mb-5"></div>
+            <div class="form-group text-center">
+                <a class="btn btn-sm btn-primary" asp-controller="Evento" asp-action="Edit"
+                   asp-route-LocalitaId="@Model.Localita.LocalitaId" asp-route-eventoId="@Model.EventoId"
+                   asp-route-EsitoId="@Model.Esito.EsitoId" asp-route-GravitaId="@Model.Gravita.GravitaId"
+                   asp-route-TipoEventoId="@Model.TipoEvento.TipoEventoId" asp-route-TipoVittimaId="@Model.TipoVittima.TipoVittimaId"
+                   asp-route-MandanteId="@Model.Mandante.MandanteId">Modifica Evento</a>
+                <a class="btn btn-sm btn-danger" asp-controller="Evento" asp-action="Delete"
+                   asp-route-eventoId="@Model.EventoId">Elimina Evento</a>
+
+            </div>
+            @*<div>
+                    <a asp-action="Index">Back to List</a>
+                </div>*@
+        </div>
+        <script>
+        var map;
+            datiEvento = @Html.Raw(Json.Serialize(@Model.Localita));
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: datiEvento.latitudine, lng: datiEvento.longitudine },
+                zoom: 9
+            });
+
+
+            marker = new google.maps.Marker({
+                position: { lat: datiEvento.latitudine, lng: datiEvento.longitudine },
+                     map: map
+                 });
+        }
+        </script>
+
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD14h45qSV_KeLvD6yVJhRqWmafEl3mNw0&callback&callback=initMap">
+        </script>
+    </div>
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@*<h1>Dettaglio Evento selezionato</h1>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.EventoId)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.EventoId)
+                </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NomeEvento)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NomeEvento)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DataOraInizio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DataOraInizio)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DataOraFine)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DataOraFine)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NrVittime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NrVittime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NrDecessi)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NrDecessi)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NrFeriti)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NrFeriti)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NoteVarie)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NoteVarie)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Mediatore)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mediatore)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FFSpeciali)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FFSpeciali)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Polizia)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Polizia)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.VigiliDelFuoco)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.VigiliDelFuoco)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Autori)
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var autore in Model.Autori)
+                {
+                    <span>@autore.NomeAutore</span> <br />
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Localita)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Localita.NomeLocalita)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TipoEvento)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TipoEvento.NomeTipoEvento)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TipoVittima)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TipoVittima.NomeTipoVittima)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Gravita)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Gravita.NomeGravita)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Esito)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Esito.NomeEsito)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Mandante)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mandante.NomeMandante)
+            </dd>
+        </dl>
+    </div>
+    <div class="form-group text-left">
+        <a class="btn btn-sm btn-primary" asp-controller="Evento" asp-action="Edit"
+           asp-route-LocalitaId="@Model.Localita.LocalitaId" asp-route-eventoId="@Model.EventoId"
+           asp-route-EsitoId="@Model.Esito.EsitoId" asp-route-GravitaId="@Model.Gravita.GravitaId"
+           asp-route-TipoEventoId="@Model.TipoEvento.TipoEventoId" asp-route-TipoVittimaId="@Model.TipoVittima.TipoVittimaId"
+           asp-route-MandanteId="@Model.Mandante.MandanteId">Modifica Evento</a>
+        <a class="btn btn-sm btn-danger" asp-controller="Evento" asp-action="Delete"
+           asp-route-eventoId="@Model.EventoId">Elimina Evento</a>
+
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
